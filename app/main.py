@@ -1,12 +1,12 @@
-from fastapi import FastAPI, HTTPException, Path
+from fastapi import FastAPI, Path
+from app.config import settings
+# from app.config import APP_NAME, APP_VERSION
 
-from app.config import APP_NAME, APP_VERSION
-
-import app.routers.services
-import app.routers.system
-import app.services.services
-import app.data.services
-import app.schemas.services
+# import app.routers.services
+# import app.routers.system
+# import app.services.services
+# import app.data.services
+# import app.schemas.services
 
 from app.routers.services import router as services_router
 from app.routers.system import router as system_router
@@ -26,12 +26,10 @@ tags_metadata = [
 ]
 
 app = FastAPI(
-    title=APP_NAME,
-    version=APP_VERSION,
-    description=(
-        "Учебное серверное приложение для изучения "
-        "разработки программного обеспечения облачных систем."
-    ),
+    title=settings.app_name,
+    version=settings.app_version,
+    description=settings.app_description,
+    debug=settings.debug,
     openapi_tags=tags_metadata
 )
 

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
+from app.config import settings
 
-from app.config import APP_NAME, APP_VERSION
 from app.services.services import count_services
 
 
@@ -9,15 +9,16 @@ router = APIRouter(
 )
 
 
-@router.get(
-	"/status",
-	summary="Проверить состояние приложения"
-)
-def read_status():
-	return {
-		"status": "ok"
-	}
-
+@router.get("/status")
+def status():
+    return {
+        "status": "ok",
+        "application": settings.app_name,
+        "version": settings.app_version,
+        "environment": settings.app_env,
+        "debug": settings.debug,
+        "api_prefix": settings.api_prefix
+    }
 
 @router.get(
 	"/about",
@@ -25,8 +26,8 @@ def read_status():
 )
 def read_about():
 	return {
-		"name": APP_NAME,
-		"version": APP_VERSION
+		"name": settings.app_name,
+		"version": settings.app_version
 	}
 
 
