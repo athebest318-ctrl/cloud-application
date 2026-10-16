@@ -1,6 +1,12 @@
 .venv/
 __pycache__/
-*.pyc
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 .env
-.vscode/
-Cloudflare App.zip
+*.log
+storage/
+reports/_rendered/
+reports/_assets/
+*.sqlite3

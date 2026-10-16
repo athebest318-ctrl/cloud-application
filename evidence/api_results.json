@@ -1,0 +1,449 @@
+[
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "application": "Cloud Application",
+      "version": "1.0",
+      "status": "running",
+      "message": "Laboratory works 1-19 completed"
+    }
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/status",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "status": "ok",
+      "service": "Cloud Application",
+      "environment": "development",
+      "host": "127.0.0.1",
+      "port": 8000,
+      "api_prefix": "/api"
+    }
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/about",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "name": "Cloud Application",
+      "type": "server application",
+      "language": "Python",
+      "framework": "FastAPI"
+    }
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/course",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "discipline": "Управление работами и разработка программного обеспечения облачных систем",
+      "laboratory": 2,
+      "project": "Cloud Application"
+    }
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/services",
+    "status": 200,
+    "content_type": "application/json",
+    "body": [
+      {
+        "id": 1,
+        "name": "Web Service",
+        "type": "application",
+        "status": "running",
+        "description": null,
+        "endpoint_url": null
+      },
+      {
+        "id": 2,
+        "name": "Database Service",
+        "type": "database",
+        "status": "running",
+        "description": null,
+        "endpoint_url": null
+      },
+      {
+        "id": 3,
+        "name": "Monitoring Service",
+        "type": "monitoring",
+        "status": "maintenance",
+        "description": null,
+        "endpoint_url": null
+      }
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/docs",
+    "status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "body": "1016 bytes"
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/services?status=running",
+    "status": 200,
+    "content_type": "application/json",
+    "body": [
+      {
+        "id": 1,
+        "name": "Web Service",
+        "type": "application",
+        "status": "running",
+        "description": null,
+        "endpoint_url": null
+      },
+      {
+        "id": 2,
+        "name": "Database Service",
+        "type": "database",
+        "status": "running",
+        "description": null,
+        "endpoint_url": null
+      }
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/services?status=unknown",
+    "status": 422,
+    "content_type": "application/json",
+    "body": {
+      "detail": [
+        {
+          "type": "enum",
+          "loc": [
+            "query",
+            "status"
+          ],
+          "msg": "Input should be 'running', 'maintenance' or 'stopped'",
+          "input": "unknown",
+          "ctx": {
+            "expected": "'running', 'maintenance' or 'stopped'"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/services",
+    "status": 201,
+    "content_type": "application/json",
+    "body": {
+      "id": 4,
+      "name": "Monitoring API",
+      "type": "monitoring",
+      "status": "running",
+      "description": "Integration check for laboratory work 15",
+      "endpoint_url": null
+    }
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/services/4",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "id": 4,
+      "name": "Monitoring API",
+      "type": "monitoring",
+      "status": "running",
+      "description": "Integration check for laboratory work 15",
+      "endpoint_url": null
+    }
+  },
+  {
+    "method": "PUT",
+    "url": "http://127.0.0.1:8000/services/4",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "id": 4,
+      "name": "Monitoring API",
+      "type": "monitoring",
+      "status": "maintenance",
+      "description": "Integration check for laboratory work 15",
+      "endpoint_url": null
+    }
+  },
+  {
+    "method": "DELETE",
+    "url": "http://127.0.0.1:8000/services/4",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "message": "Service deleted",
+      "id": 4
+    }
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/services/4",
+    "status": 404,
+    "content_type": "application/json",
+    "body": {
+      "detail": "Service not found"
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/objects",
+    "status": 201,
+    "content_type": "application/json",
+    "body": {
+      "id": 1,
+      "original_name": "README.md",
+      "content_type": "application/octet-stream",
+      "size_bytes": 2487,
+      "created_at": "2026-10-16T15:36:59.400502+05:00",
+      "download_url": "/objects/1/download"
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/objects",
+    "status": 201,
+    "content_type": "application/json",
+    "body": {
+      "id": 2,
+      "original_name": "LR 8.docx",
+      "content_type": "application/octet-stream",
+      "size_bytes": 479922,
+      "created_at": "2026-10-16T15:36:59.453162+05:00",
+      "download_url": "/objects/2/download"
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/objects",
+    "status": 201,
+    "content_type": "application/json",
+    "body": {
+      "id": 3,
+      "original_name": "app.zip",
+      "content_type": "application/octet-stream",
+      "size_bytes": 5956,
+      "created_at": "2026-10-16T15:36:59.490885+05:00",
+      "download_url": "/objects/3/download"
+    }
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/objects",
+    "status": 200,
+    "content_type": "application/json",
+    "body": [
+      {
+        "id": 1,
+        "original_name": "README.md",
+        "content_type": "application/octet-stream",
+        "size_bytes": 2487,
+        "created_at": "2026-10-16T15:36:59.400502+05:00",
+        "download_url": "/objects/1/download"
+      },
+      {
+        "id": 2,
+        "original_name": "LR 8.docx",
+        "content_type": "application/octet-stream",
+        "size_bytes": 479922,
+        "created_at": "2026-10-16T15:36:59.453162+05:00",
+        "download_url": "/objects/2/download"
+      },
+      {
+        "id": 3,
+        "original_name": "app.zip",
+        "content_type": "application/octet-stream",
+        "size_bytes": 5956,
+        "created_at": "2026-10-16T15:36:59.490885+05:00",
+        "download_url": "/objects/3/download"
+      }
+    ]
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/objects/1/download",
+    "status": 200,
+    "content_type": "application/octet-stream",
+    "body": "2487 bytes"
+  },
+  {
+    "method": "DELETE",
+    "url": "http://127.0.0.1:8000/objects/3",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "message": "Object deleted",
+      "id": 3
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/objects",
+    "status": 413,
+    "content_type": "application/json",
+    "body": {
+      "detail": "File exceeds 5242880 bytes"
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/auth/register",
+    "status": 201,
+    "content_type": "application/json",
+    "body": {
+      "id": 1,
+      "username": "student01",
+      "created_at": "2026-10-16T15:36:59.695468+05:00"
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/auth/login",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "access_token": "5bebc6f7...788d",
+      "token_type": "session"
+    }
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/auth/session/5bebc6f7670f4da3ba26cea05ebb788d",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "authenticated": true,
+      "user_id": 1,
+      "username": "student01"
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/auth/register",
+    "status": 201,
+    "content_type": "application/json",
+    "body": {
+      "id": 2,
+      "username": "student02",
+      "created_at": "2026-10-16T15:36:59.767425+05:00"
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/auth/login",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "access_token": "038de046...6ffc",
+      "token_type": "session"
+    }
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/auth/session/038de046ca9e48bd919faddf16a06ffc",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "authenticated": true,
+      "user_id": 2,
+      "username": "student02"
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/auth/register",
+    "status": 201,
+    "content_type": "application/json",
+    "body": {
+      "id": 3,
+      "username": "student03",
+      "created_at": "2026-10-16T15:36:59.793354+05:00"
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/auth/login",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "access_token": "3ec294b0...ccb2",
+      "token_type": "session"
+    }
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/auth/session/3ec294b0f351477baff431c63605ccb2",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "authenticated": true,
+      "user_id": 3,
+      "username": "student03"
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/auth/login",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "access_token": "0514cfdd...2248",
+      "token_type": "session"
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/auth/login",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "access_token": "2536f935...5d3a",
+      "token_type": "session"
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/auth/login",
+    "status": 401,
+    "content_type": "application/json",
+    "body": {
+      "detail": "Invalid username or password"
+    }
+  },
+  {
+    "method": "POST",
+    "url": "http://127.0.0.1:8000/auth/login",
+    "status": 401,
+    "content_type": "application/json",
+    "body": {
+      "detail": "Invalid username or password"
+    }
+  },
+  {
+    "method": "DELETE",
+    "url": "http://127.0.0.1:8000/auth/session/3ec294b0f351477baff431c63605ccb2",
+    "status": 200,
+    "content_type": "application/json",
+    "body": {
+      "message": "Session closed"
+    }
+  },
+  {
+    "method": "GET",
+    "url": "http://127.0.0.1:8000/auth/session/3ec294b0f351477baff431c63605ccb2",
+    "status": 401,
+    "content_type": "application/json",
+    "body": {
+      "detail": "Invalid session"
+    }
+  }
+]
