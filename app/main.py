@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from app.config import APP_NAME, APP_VERSION
+from app.routers.access import router as access_router
 from app.routers.auth import router as auth_router
 from app.routers.objects import router as objects_router
 from app.routers.services import router as services_router
@@ -21,6 +22,10 @@ tags_metadata = [
         "description": "Регистрация, вход и управление учебными сеансами.",
     },
     {
+        "name": "Access Model",
+        "description": "Роли пользователей и эффективные разрешения.",
+    },
+    {
         "name": "System",
         "description": "Системные маршруты приложения.",
     },
@@ -39,6 +44,7 @@ app = FastAPI(
 app.include_router(services_router)
 app.include_router(objects_router)
 app.include_router(auth_router)
+app.include_router(access_router)
 app.include_router(system_router)
 
 
@@ -48,5 +54,5 @@ def root():
         "application": APP_NAME,
         "version": APP_VERSION,
         "status": "running",
-        "message": "Laboratory works 1-19 completed",
+        "message": "Laboratory works 1-20 completed",
     }

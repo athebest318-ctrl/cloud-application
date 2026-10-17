@@ -22,6 +22,9 @@ def test_openapi_contains_final_routes() -> None:
         "/objects",
         "/auth/register",
         "/auth/login",
+        "/access/roles",
+        "/access/users/{user_id}",
+        "/access/users/{user_id}/role",
         "/status",
     }
     assert expected.issubset(schema["paths"])
