@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     app_version: str = "1.0"
     app_env: Literal["development", "testing", "production"] = "development"
     app_host: str = "127.0.0.1"
-    app_port: int = 8000
+    app_port: int = 8010
     api_prefix: str = "/api"
     database_url: str = (
         "postgresql+psycopg://cloud_app:change_me@localhost:5432/"

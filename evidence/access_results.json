@@ -1,0 +1,217 @@
+{
+  "http_checks": [
+    {
+      "check": "roles",
+      "status": 200,
+      "body": [
+        {
+          "id": 1,
+          "name": "viewer",
+          "description": "Просмотр данных",
+          "permissions": [
+            "objects.read",
+            "services.read"
+          ]
+        },
+        {
+          "id": 2,
+          "name": "operator",
+          "description": "Работа с сервисами и объектами",
+          "permissions": [
+            "objects.read",
+            "objects.write",
+            "services.read",
+            "services.write"
+          ]
+        },
+        {
+          "id": 3,
+          "name": "administrator",
+          "description": "Полное управление приложением",
+          "permissions": [
+            "objects.read",
+            "objects.write",
+            "roles.manage",
+            "services.read",
+            "services.write",
+            "users.manage"
+          ]
+        },
+        {
+          "id": 4,
+          "name": "content_manager",
+          "description": "Управление файлами и объектами",
+          "permissions": [
+            "objects.read",
+            "objects.write",
+            "services.read"
+          ]
+        }
+      ]
+    },
+    {
+      "check": "student01",
+      "role": "viewer",
+      "assignment_status": 200,
+      "access": {
+        "user_id": 1,
+        "username": "student01",
+        "role": "viewer",
+        "permissions": [
+          "objects.read",
+          "services.read"
+        ]
+      },
+      "login_status": 200
+    },
+    {
+      "check": "student02",
+      "role": "operator",
+      "assignment_status": 200,
+      "access": {
+        "user_id": 2,
+        "username": "student02",
+        "role": "operator",
+        "permissions": [
+          "objects.read",
+          "objects.write",
+          "services.read",
+          "services.write"
+        ]
+      },
+      "login_status": 200
+    },
+    {
+      "check": "student03",
+      "role": "administrator",
+      "assignment_status": 200,
+      "access": {
+        "user_id": 3,
+        "username": "student03",
+        "role": "administrator",
+        "permissions": [
+          "objects.read",
+          "objects.write",
+          "roles.manage",
+          "services.read",
+          "services.write",
+          "users.manage"
+        ]
+      },
+      "login_status": 200
+    },
+    {
+      "check": "student04",
+      "role": "content_manager",
+      "assignment_status": 200,
+      "access": {
+        "user_id": 4,
+        "username": "student04",
+        "role": "content_manager",
+        "permissions": [
+          "objects.read",
+          "objects.write",
+          "services.read"
+        ]
+      },
+      "login_status": 200
+    },
+    {
+      "check": "unknown role",
+      "status": 404,
+      "body": {
+        "detail": "Role not found"
+      }
+    },
+    {
+      "check": "unprotected endpoint",
+      "status": 201,
+      "result": "POST /services remains available before laboratory 21"
+    }
+  ],
+  "database": {
+    "alembic_revision": "007_access",
+    "roles": [
+      {
+        "name": "viewer",
+        "permissions": [
+          "objects.read",
+          "services.read"
+        ]
+      },
+      {
+        "name": "operator",
+        "permissions": [
+          "objects.read",
+          "objects.write",
+          "services.read",
+          "services.write"
+        ]
+      },
+      {
+        "name": "administrator",
+        "permissions": [
+          "objects.read",
+          "objects.write",
+          "roles.manage",
+          "services.read",
+          "services.write",
+          "users.manage"
+        ]
+      },
+      {
+        "name": "content_manager",
+        "permissions": [
+          "objects.read",
+          "objects.write",
+          "services.read"
+        ]
+      }
+    ],
+    "users": [
+      {
+        "user_id": 1,
+        "username": "student01",
+        "role": "viewer",
+        "permissions": [
+          "objects.read",
+          "services.read"
+        ]
+      },
+      {
+        "user_id": 2,
+        "username": "student02",
+        "role": "operator",
+        "permissions": [
+          "objects.read",
+          "objects.write",
+          "services.read",
+          "services.write"
+        ]
+      },
+      {
+        "user_id": 3,
+        "username": "student03",
+        "role": "administrator",
+        "permissions": [
+          "objects.read",
+          "objects.write",
+          "roles.manage",
+          "services.read",
+          "services.write",
+          "users.manage"
+        ]
+      },
+      {
+        "user_id": 4,
+        "username": "student04",
+        "role": "content_manager",
+        "permissions": [
+          "objects.read",
+          "objects.write",
+          "services.read"
+        ]
+      }
+    ]
+  }
+}

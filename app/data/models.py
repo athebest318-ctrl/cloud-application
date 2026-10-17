@@ -3,16 +3,34 @@ from datetime import datetime
 from sqlalchemy import (
     BigInteger,
     CheckConstraint,
+    Column,
     DateTime,
     ForeignKey,
     Integer,
     String,
+    Table,
     UniqueConstraint,
     func,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.data.database import Base
+
+
+role_permissions = Table(
+    "role_permissions",
+    Base.metadata,
+    Column(
+        "role_id",
+        ForeignKey("roles.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
+    Column(
+        "permission_id",
+        ForeignKey("permissions.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
+)
 
 
 class ServiceType(Base):
@@ -99,6 +117,37 @@ class StoredObject(Base):
     )
 
 
+class Permission(Base):
+    __tablename__ = "permissions"
+    __table_args__ = (
+        UniqueConstraint("code", name="uq_permissions_code"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    code: Mapped[str] = mapped_column(String(100), nullable=False)
+    description: Mapped[str] = mapped_column(String(255), nullable=False)
+    roles: Mapped[list["Role"]] = relationship(
+        secondary=role_permissions,
+        back_populates="permissions",
+    )
+
+
+class Role(Base):
+    __tablename__ = "roles"
+    __table_args__ = (
+        UniqueConstraint("name", name="uq_roles_name"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(50), nullable=False)
+    description: Mapped[str] = mapped_column(String(255), nullable=False)
+    permissions: Mapped[list[Permission]] = relationship(
+        secondary=role_permissions,
+        back_populates="roles",
+    )
+    users: Mapped[list["User"]] = relationship(back_populates="role")
+
+
 class User(Base):
     __tablename__ = "users"
     __table_args__ = (
@@ -108,6 +157,10 @@ class User(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     username: Mapped[str] = mapped_column(String(50), nullable=False)
     password: Mapped[str] = mapped_column(String(255), nullable=False)
+    role_id: Mapped[int | None] = mapped_column(
+        ForeignKey("roles.id"),
+        nullable=True,
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now(),
@@ -117,6 +170,7 @@ class User(Base):
         back_populates="user",
         cascade="all, delete-orphan",
     )
+    role: Mapped[Role | None] = relationship(back_populates="users")
 
 
 class AuthSession(Base):

@@ -1,11 +1,17 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
 import httpx
 import psycopg
+
+
+PROJECT_PATH = Path(__file__).resolve().parents[1]
+if str(PROJECT_PATH) not in sys.path:
+    sys.path.insert(0, str(PROJECT_PATH))
 
 from app.config import PROJECT_ROOT, settings
 
