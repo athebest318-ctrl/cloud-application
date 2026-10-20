@@ -22,9 +22,12 @@ def test_openapi_contains_final_routes() -> None:
         "/objects",
         "/auth/register",
         "/auth/login",
+        "/auth/me",
         "/access/roles",
+        "/access/summary",
         "/access/users/{user_id}",
         "/access/users/{user_id}/role",
         "/status",
     }
     assert expected.issubset(schema["paths"])
+    assert "HTTPBearer" in schema["components"]["securitySchemes"]

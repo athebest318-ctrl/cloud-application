@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, Path, Query
 from sqlalchemy.orm import Session
 
 from app.data.database import get_db
+from app.data.models import User
+from app.security import require_permission
 from app.schemas.services import ServiceCreate, ServiceResponse, ServiceStatus
 from app.services.services import (
     create_service,
@@ -28,6 +30,7 @@ def read_services(
         description="Фильтр по состоянию сервиса",
     ),
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_permission("services.read")),
 ):
     return [service_to_dict(item) for item in get_all_services(db, status)]
 
@@ -42,6 +45,7 @@ def read_services(
 def read_service(
     service_id: int = Path(..., description="Идентификатор сервиса", gt=0),
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_permission("services.read")),
 ):
     service = get_service_by_id(db, service_id)
     if service is None:
@@ -59,6 +63,7 @@ def read_service(
 def create_service_endpoint(
     service: ServiceCreate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_permission("services.write")),
 ):
     try:
         return service_to_dict(create_service(db, service))
@@ -77,6 +82,7 @@ def update_service_endpoint(
     service_id: int,
     service: ServiceCreate,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_permission("services.write")),
 ):
     try:
         updated = update_service(db, service_id, service)
@@ -95,6 +101,7 @@ def update_service_endpoint(
 def delete_service_endpoint(
     service_id: int,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_permission("services.write")),
 ):
     if not delete_service(db, service_id):
         raise HTTPException(status_code=404, detail="Service not found")

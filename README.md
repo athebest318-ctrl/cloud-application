@@ -2,9 +2,9 @@
 
 Учебный проект по дисциплине «Управление работами и разработка программного
 обеспечения облачных систем». Проект объединяет результаты лабораторных работ
-1-20: FastAPI, REST API, OpenAPI, модульную архитектуру, Git-процесс,
+1-21: FastAPI, REST API, OpenAPI, модульную архитектуру, Git-процесс,
 конфигурацию окружения, PostgreSQL, SQLAlchemy, Alembic, валидацию,
-объектное хранилище, учебную аутентификацию и ролевую модель доступа.
+объектное хранилище, учебную аутентификацию и программную авторизацию.
 
 ## Возможности
 
@@ -13,7 +13,9 @@
 - миграции схемы через Alembic;
 - загрузка, скачивание и удаление файлов из локального объектного хранилища;
 - регистрация, вход, проверка и завершение сеансов;
-- роли пользователей и эффективные разрешения через `/access`;
+- Bearer-аутентификация и маршрут текущего пользователя `/auth/me`;
+- защита API через роли и permissions с ответами `401` и `403`;
+- роли пользователей и административные операции через `/access`;
 - Swagger UI, ReDoc и схема OpenAPI;
 - автоматические тесты и скрипт комплексной проверки.
 
@@ -131,7 +133,9 @@ Get-NetTCPConnection -LocalPort 8000 -ErrorAction SilentlyContinue
 .\.venv\Scripts\python.exe -m alembic current
 ```
 
-Ожидаемая ревизия после ЛР №20: `007_access (head)`.
+Ожидаемая ревизия после ЛР №21: `007_access (head)`. Для ЛР №21 новая
+миграция не требуется, потому что меняется программная проверка доступа, а не
+структура таблиц.
 
 ## API
 
@@ -142,11 +146,17 @@ Get-NetTCPConnection -LocalPort 8000 -ErrorAction SilentlyContinue
 - `GET /objects/{object_id}/download` - скачивание объекта;
 - `DELETE /objects/{object_id}` - удаление объекта;
 - `POST /auth/register`, `/auth/login` - регистрация и вход;
+- `GET /auth/me` - текущий пользователь по Bearer-токену;
 - `GET /auth/session/{token}` - проверка сеанса;
 - `DELETE /auth/session/{token}` - завершение сеанса;
 - `GET /access/roles` - роли и их разрешения;
 - `GET /access/users/{user_id}` - роль и разрешения пользователя;
 - `PUT /access/users/{user_id}/role` - назначение роли.
+- `GET /access/summary` - сводка, защищённая проверкой нескольких permissions.
+
+Операции `/services`, `/objects` и `/access` требуют заголовок
+`Authorization: Bearer TOKEN`. Чтение и изменение защищены отдельными
+permissions; подробный сценарий показа находится в [DEMO_GUIDE.md](DEMO_GUIDE.md).
 
 ## Структура проекта
 
@@ -174,6 +184,7 @@ Get-NetTCPConnection -LocalPort 8000 -ErrorAction SilentlyContinue
 .\.venv\Scripts\python.exe -m alembic check
 .\.venv\Scripts\python.exe -m scripts.init_access
 .\.venv\Scripts\python.exe -m scripts.verify_access --base-url http://127.0.0.1:8010
+.\.venv\Scripts\python.exe -m scripts.verify_authorization --base-url http://127.0.0.1:8010
 ```
 
 ## Работа с проектом
@@ -186,5 +197,6 @@ Get-NetTCPConnection -LocalPort 8000 -ErrorAction SilentlyContinue
 > без промышленного хеширования. Такой механизм нельзя использовать в реальном
 > приложении.
 
-ЛР №20 хранит роли и разрешения, но пока не блокирует HTTP-маршруты. Проверка
-разрешений для каждого запроса относится к следующей лабораторной работе.
+ЛР №21 применяет роли и разрешения к каждому защищённому HTTP-запросу.
+Регистрация и вход остаются открытыми, а завершение сеанса немедленно отзывает
+доступ по соответствующему токену.

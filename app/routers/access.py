@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.data.database import get_db
+from app.data.models import User
+from app.security import require_any_permission, require_permission
 from app.schemas.access import RoleAssign, RoleResponse, UserAccessResponse
 from app.services.access import assign_role, get_roles, get_user_access
 
@@ -14,7 +16,10 @@ router = APIRouter(prefix="/access", tags=["Access Model"])
     response_model=list[RoleResponse],
     summary="Получить роли и разрешения",
 )
-def read_roles(db: Session = Depends(get_db)):
+def read_roles(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_permission("roles.manage")),
+):
     roles = get_roles(db)
     return [
         {
@@ -34,7 +39,11 @@ def read_roles(db: Session = Depends(get_db)):
     response_model=UserAccessResponse,
     summary="Получить роль пользователя",
 )
-def read_user_access(user_id: int, db: Session = Depends(get_db)):
+def read_user_access(
+    user_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_permission("users.manage")),
+):
     result = get_user_access(db, user_id)
     if result is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -50,6 +59,7 @@ def update_user_role(
     user_id: int,
     role_data: RoleAssign,
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_permission("roles.manage")),
 ):
     user, error = assign_role(db, user_id, role_data.role_name)
     if error == "user":
@@ -57,3 +67,19 @@ def update_user_role(
     if error == "role":
         raise HTTPException(status_code=404, detail="Role not found")
     return get_user_access(db, user.id)
+
+
+@router.get("/summary", summary="Получить сводку модели доступа")
+def read_access_summary(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(
+        require_any_permission("users.manage", "roles.manage")
+    ),
+):
+    return {
+        "roles": len(get_roles(db)),
+        "requested_by": current_user.username,
+        "permissions": sorted(
+            permission.code for permission in current_user.role.permissions
+        ),
+    }

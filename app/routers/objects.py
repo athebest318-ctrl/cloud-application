@@ -6,6 +6,8 @@ from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from app.data.database import get_db
+from app.data.models import User
+from app.security import require_permission
 from app.schemas.objects import StoredObjectResponse
 from app.services.objects import (
     FileTooLargeError,
@@ -32,6 +34,7 @@ async def upload_object(
         File(description="Файл для сохранения в объектном хранилище"),
     ],
     db: Session = Depends(get_db),
+    current_user: User = Depends(require_permission("objects.write")),
 ):
     try:
         obj = await save_object(db, file)
@@ -41,7 +44,10 @@ async def upload_object(
 
 
 @router.get("", response_model=list[StoredObjectResponse], summary="Получить список объектов")
-def read_objects(db: Session = Depends(get_db)):
+def read_objects(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_permission("objects.read")),
+):
     return [object_to_dict(obj) for obj in get_objects(db)]
 
 
@@ -50,7 +56,11 @@ def read_objects(db: Session = Depends(get_db)):
     response_model=StoredObjectResponse,
     summary="Получить сведения об объекте",
 )
-def read_object(object_id: int, db: Session = Depends(get_db)):
+def read_object(
+    object_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_permission("objects.read")),
+):
     obj = get_object(db, object_id)
     if obj is None:
         raise HTTPException(status_code=404, detail="Object not found")
@@ -58,7 +68,11 @@ def read_object(object_id: int, db: Session = Depends(get_db)):
 
 
 @router.get("/{object_id}/download", summary="Скачать объект")
-def download_object(object_id: int, db: Session = Depends(get_db)):
+def download_object(
+    object_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_permission("objects.read")),
+):
     obj = get_object(db, object_id)
     if obj is None:
         raise HTTPException(status_code=404, detail="Object not found")
@@ -73,7 +87,11 @@ def download_object(object_id: int, db: Session = Depends(get_db)):
 
 
 @router.delete("/{object_id}", summary="Удалить объект")
-def remove_object(object_id: int, db: Session = Depends(get_db)):
+def remove_object(
+    object_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_permission("objects.write")),
+):
     obj = get_object(db, object_id)
     if obj is None:
         raise HTTPException(status_code=404, detail="Object not found")
