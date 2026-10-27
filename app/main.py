@@ -54,5 +54,5 @@ def root():
         "application": APP_NAME,
         "version": APP_VERSION,
         "status": "running",
-        "message": "Laboratory works 1-21 completed",
+        "message": "Laboratory works 1-25 completed",
     }

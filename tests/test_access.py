@@ -56,7 +56,7 @@ def test_registered_user_receives_viewer_role(db: Session) -> None:
 
 
 def test_existing_user_gets_default_role_and_can_be_promoted(db: Session) -> None:
-    user = User(username="student01", password="cloud12345")
+    user = User(username="student01", password_hash="existing-hash")
     db.add(user)
     db.commit()
     db.refresh(user)

@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.data.database import get_db
 from app.data.models import User
-from app.security import require_any_permission, require_permission
+from app.security.authorization import require_any_permission, require_permission
 from app.schemas.access import RoleAssign, RoleResponse, UserAccessResponse
 from app.services.access import assign_role, get_roles, get_user_access
 

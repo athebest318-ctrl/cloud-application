@@ -15,6 +15,7 @@ from app.data.models import ServiceType, User
 from app.schemas.auth import UserRegister
 from app.services.access import assign_role, initialize_access_model
 from app.services.auth import register_user
+from app.security.passwords import verify_password
 
 
 PASSWORD = "cloud12345"
@@ -41,8 +42,8 @@ def prepare_database() -> None:
                     UserRegister(username=username, password=PASSWORD),
                 )
             assert user is not None
-            user.password = PASSWORD
-            db.commit()
+            if not verify_password(PASSWORD, user.password_hash):
+                raise RuntimeError(f"Demo user {username} has a different password")
             assign_role(db, user.id, role_name)
 
 

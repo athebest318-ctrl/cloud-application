@@ -17,7 +17,7 @@ from app.services.auth import (
     logout_user,
     register_user,
 )
-from app.security import get_current_user
+from app.security.authorization import get_current_user
 
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])

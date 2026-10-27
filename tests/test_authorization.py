@@ -87,6 +87,15 @@ def test_missing_and_invalid_tokens_return_401(client: TestClient) -> None:
     assert invalid.status_code == 401
 
 
+def test_registration_never_exposes_password_hash(client: TestClient) -> None:
+    response = client.post(
+        "/auth/register", json={"username": "test_student", "password": "cloud12345"}
+    )
+    assert response.status_code == 201
+    assert "password" not in response.json()
+    assert "password_hash" not in response.json()
+
+
 def test_viewer_can_read_but_cannot_write_or_administer(client: TestClient) -> None:
     token = login(client, "student01")
 

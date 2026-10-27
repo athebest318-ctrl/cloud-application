@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from sqlalchemy.orm import Session
 
 from app.config import APP_NAME, settings
@@ -7,6 +7,12 @@ from app.services.services import count_services
 
 
 router = APIRouter(tags=["System"])
+
+
+@router.get("/connection", summary="Информация о соединении")
+def connection_info(request: Request):
+    return {"scheme": request.url.scheme, "host": request.url.hostname,
+            "secure": request.url.scheme == "https"}
 
 
 @router.get("/status", summary="Проверить состояние приложения")
