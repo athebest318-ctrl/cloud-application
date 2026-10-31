@@ -1,9 +1,6 @@
 @echo off
 setlocal
 
-set "PORT=%~1"
-if "%PORT%"=="" set "PORT=8010"
-
 if not exist ".venv\Scripts\python.exe" (
     echo Virtual environment not found.
     echo Run: python -m venv .venv
@@ -17,8 +14,10 @@ if not exist ".env" (
     exit /b 1
 )
 
-echo Starting Cloud Application at http://127.0.0.1:%PORT%
-echo Swagger UI: http://127.0.0.1:%PORT%/docs
-".venv\Scripts\python.exe" -m uvicorn app.main:app --host 127.0.0.1 --port %PORT% --reload
+if "%~1"=="" (
+    ".venv\Scripts\python.exe" run.py
+) else (
+    ".venv\Scripts\python.exe" run.py --port %~1
+)
 
 endlocal

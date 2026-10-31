@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.data.database import get_db
+from app.data.models import User
 from app.schemas.auth import (
     LoginRequest,
     LoginResponse,
@@ -16,6 +17,7 @@ from app.services.auth import (
     logout_user,
     register_user,
 )
+from app.security.authorization import get_current_user
 
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -40,6 +42,15 @@ def login(login_data: LoginRequest, db: Session = Depends(get_db)):
     if session is None:
         raise HTTPException(status_code=401, detail="Invalid username or password")
     return {"access_token": session.token, "token_type": "session"}
+
+
+@router.get("/me", summary="Получить текущего пользователя")
+def read_current_user(current_user: User = Depends(get_current_user)):
+    return {
+        "id": current_user.id,
+        "username": current_user.username,
+        "role": current_user.role.name if current_user.role else None,
+    }
 
 
 @router.get(

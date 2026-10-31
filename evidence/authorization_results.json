@@ -1,0 +1,187 @@
+{
+  "base_url": "http://127.0.0.1:8012",
+  "checks": 30,
+  "passed": 30,
+  "results": [
+    {
+      "check": "No token",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "check": "Incorrect token",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    },
+    {
+      "check": "Login student01",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Current user student01",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Login student02",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Current user student02",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Login student03",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Current user student03",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Login student04",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Current user student04",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Viewer reads services",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Viewer cannot create service",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "check": "Viewer cannot list roles",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "check": "Operator creates service",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "check": "Operator cannot list roles",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "check": "Administrator lists roles",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Administrator reads user access",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Administrator reads access summary",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Content manager reads services",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Content manager cannot create service",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "check": "Content manager uploads object",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "check": "Content manager cannot assign role",
+      "expected": 403,
+      "actual": 403,
+      "passed": true
+    },
+    {
+      "check": "Administrator promotes viewer",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Same token works after promotion",
+      "expected": 201,
+      "actual": 201,
+      "passed": true
+    },
+    {
+      "check": "Administrator restores viewer role",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Content manager deletes object",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Operator deletes service",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Operator deletes promoted service",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Close viewer session",
+      "expected": 200,
+      "actual": 200,
+      "passed": true
+    },
+    {
+      "check": "Revoked token",
+      "expected": 401,
+      "actual": 401,
+      "passed": true
+    }
+  ]
+}
