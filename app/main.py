@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, Path
 
-from app.config import APP_NAME, APP_VERSION
+from app.config import settings
 
 import app.routers.services
 import app.routers.system
@@ -26,12 +26,10 @@ tags_metadata = [
 ]
 
 app = FastAPI(
-    title=APP_NAME,
-    version=APP_VERSION,
-    description=(
-        "Учебное серверное приложение для изучения "
-        "разработки программного обеспечения облачных систем."
-    ),
+    title=settings.app_name,
+    version=settings.app_version,
+    description=settings.app_description,
+    debug=settings.debug,
     openapi_tags=tags_metadata
 )
 
