@@ -1,6 +1,29 @@
 # Cloud Application
 
-Учебное REST API для управления облачными сервисами и файлами. Данные хранятся в PostgreSQL, права доступа определяются ролями, пароли хранятся как Argon2-хеши. Реализованы задания ЛР 1–26.
+Учебное REST API для управления облачными сервисами и файлами. Данные хранятся в PostgreSQL, права доступа определяются ролями, пароли хранятся как Argon2-хеши. В проекте реализованы учебные задания по ЛР 1–29; наличие кода не заменяет проверки и отчёты по каждой работе.
+
+## Docker Compose и уведомления ЛР 29
+
+На этом компьютере готовая папка проекта уже содержит локальные `.env` и `secrets/`. Запустите Docker Desktop, затем в PowerShell из этой папки:
+
+```powershell
+docker build -t cloud-application:0.2 .
+docker compose up -d
+docker compose ps
+```
+
+Откройте http://127.0.0.1:8080/docs. Если команда `docker` не найдена, откройте новое окно PowerShell либо выполните `$env:PATH = "$env:LOCALAPPDATA\Programs\DockerDesktop\resources\bin;$env:PATH"`. PostgreSQL и файлы объектов находятся в отдельных Docker volumes. `docker compose down` останавливает систему и сохраняет данные; не добавляйте `-v`, если данные нужны. База контейнера отдельная от локальной базы pgAdmin.
+
+Для новой копии проекта перед запуском создайте настройки и секреты: `Copy-Item .env.example .env`, `New-Item -ItemType Directory -Force secrets`, затем `python -c "import secrets; from pathlib import Path; p=Path('secrets'); (p/'lab_db_password').write_text(secrets.token_urlsafe(24)); (p/'auth_secret').write_text(secrets.token_urlsafe(32))"`. Сохраните эти секреты: пароль PostgreSQL используется при первом создании volume и не меняется автоматически при изменении файла. Не публикуйте `.env` и `secrets/`.
+
+### Как показать уведомления
+
+1. В Swagger раскройте `POST /auth/login`, нажмите **Try it out**, введите логин и пароль пользователя с ролью operator или administrator и нажмите **Execute**. В текущей учебной базе подготовлены `lab29_operator` и `lab29_viewer` с паролем `CloudLab29!` (только учебная база на этом компьютере). Для новой базы пользователи не создаются автоматически.
+2. Скопируйте `access_token`, нажмите **Authorize**, вставьте токен и подтвердите.
+3. В разделе **Integration** откройте `POST /integration/notifications`, **Try it out**, введите `{"recipient":"student01@cloud.local","message":"Service started"}` и нажмите **Execute**. Успех — ответ 200 и `status: accepted`.
+4. Выйдите из авторизации и повторите вход как `lab29_viewer`: тот же запрос вернёт 403, так как у viewer нет права `services.write`.
+
+Основное приложение вызывает `http://notification:9000/notifications` внутри сети Compose. Сервис уведомлений не публикует порт 9000, хранит записи только в памяти и не отправляет реальные письма. При пересоздании контейнера записи пропадают. По заданию ЛР 29 отсутствие сервиса пока не обрабатывается; это тема ЛР 30. Для диагностики: `docker compose logs --tail 30 app notification`. Проверка DNS: `docker compose exec app python -c "import socket; print(socket.gethostbyname('notification'))"`.
 
 ## Сборка образа Docker
 
