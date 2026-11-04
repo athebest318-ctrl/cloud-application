@@ -33,7 +33,7 @@ def test_integration_checks_permission_and_forwards_json(monkeypatch):
             assert notifications == []
             user.role.permissions = [SimpleNamespace(code='services.write')]
             result = client.post('/integration/notifications', json=payload)
-            assert result.status_code == 200
+            assert result.status_code == 201
             assert result.json() == {'id': 1, **payload, 'status': 'accepted'}
             assert notifications[0].message == 'hello'
     finally:

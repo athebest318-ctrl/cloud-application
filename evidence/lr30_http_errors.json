@@ -1,0 +1,1 @@
+[{"code": 503, "error": "HTTPStatusError", "body": {"detail": "Test service error"}}, {"code": 400, "error": "HTTPStatusError", "body": {"detail": "Test service error"}}]

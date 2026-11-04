@@ -31,7 +31,7 @@ services:
 
 
   migrate:
-    image: cloud-application:0.2
+    image: cloud-application:0.3
 
     env_file:
       - .env
@@ -72,7 +72,7 @@ services:
 
 
   app:
-    image: cloud-application:0.2
+    image: cloud-application:0.3
 
     env_file:
       - .env
@@ -87,6 +87,9 @@ services:
       DB_NAME: cloud_application
       DB_USER: postgres
       NOTIFICATION_SERVICE_URL: http://notification:9000
+      NOTIFICATION_TIMEOUT_SECONDS: ${NOTIFICATION_TIMEOUT_SECONDS:-2.0}
+      NOTIFICATION_MAX_ATTEMPTS: ${NOTIFICATION_MAX_ATTEMPTS:-3}
+      NOTIFICATION_RETRY_DELAY_SECONDS: ${NOTIFICATION_RETRY_DELAY_SECONDS:-0.5}
 
     ports:
       - "127.0.0.1:8080:8000"
@@ -112,7 +115,7 @@ services:
 
 
   notification:
-    image: cloud-application:0.2
+    image: cloud-application:0.3
     command: ["python", "-m", "uvicorn", "app.notification_service.main:app", "--host", "0.0.0.0", "--port", "9000"]
     networks:
       - cloud-network

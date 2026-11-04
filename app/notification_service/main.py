@@ -42,3 +42,9 @@ def get_notification(notification_id: int):
         if item.id == notification_id:
             return item
     raise HTTPException(status_code=404, detail="Notification not found")
+
+@app.get("/test/error/{status_code}", summary="Сформировать тестовую ошибку")
+def test_error(status_code: int):
+    if not 400 <= status_code <= 599:
+        raise HTTPException(status_code=422, detail="Use an HTTP error status from 400 to 599")
+    raise HTTPException(status_code=status_code, detail="Test service error")

@@ -2,7 +2,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
-from pydantic import SecretStr
+from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy import URL
 
@@ -35,6 +35,9 @@ class Settings(BaseSettings):
     ssl_certfile: str = "certs/localhost.pem"
     ssl_keyfile: str = "certs/localhost-key.pem"
     notification_service_url: str = "http://127.0.0.1:9000"
+    notification_timeout_seconds: float = Field(default=2.0, gt=0)
+    notification_max_attempts: int = Field(default=3, ge=1)
+    notification_retry_delay_seconds: float = Field(default=0.5, ge=0)
     storage_path: str = "storage/objects"
     max_upload_size: int = 5 * 1024 * 1024
 

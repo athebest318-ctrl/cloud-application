@@ -1,0 +1,78 @@
+[
+  {
+    "scenario": "A_running",
+    "code": 201,
+    "seconds": 0.069,
+    "body": {
+      "recipient": "stable@cloud.local",
+      "message": "Network error handling enabled",
+      "id": 1,
+      "status": "accepted"
+    }
+  },
+  {
+    "scenario": "B_stopped",
+    "code": 503,
+    "seconds": 7.551,
+    "body": {
+      "detail": "Notification service is unavailable"
+    }
+  },
+  {
+    "scenario": "D_after_start",
+    "code": 201,
+    "seconds": 0.026,
+    "body": {
+      "recipient": "stable@cloud.local",
+      "message": "Network error handling enabled",
+      "id": 1,
+      "status": "accepted"
+    }
+  },
+  {
+    "scenario": "C_paused",
+    "code": 504,
+    "seconds": 2.025,
+    "body": {
+      "detail": "Notification service response timeout"
+    }
+  },
+  {
+    "scenario": "D_after_unpause",
+    "code": 201,
+    "seconds": 0.022,
+    "body": {
+      "recipient": "stable@cloud.local",
+      "message": "Network error handling enabled",
+      "id": 3,
+      "status": "accepted"
+    }
+  },
+  {
+    "scenario": "timeout_1_second",
+    "code": 504,
+    "seconds": 1.112,
+    "body": {
+      "detail": "Notification service response timeout"
+    }
+  },
+  {
+    "scenario": "attempts_2_delay_025",
+    "code": 503,
+    "seconds": 4.42,
+    "body": {
+      "detail": "Notification service is unavailable"
+    }
+  },
+  {
+    "scenario": "final_restored",
+    "code": 201,
+    "seconds": 0.097,
+    "body": {
+      "recipient": "stable@cloud.local",
+      "message": "Network error handling enabled",
+      "id": 1,
+      "status": "accepted"
+    }
+  }
+]
