@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 
@@ -14,7 +16,11 @@ class ServiceCreate(BaseModel):
         examples=["monitoring"]
     )
 
-    status: str = Field(
+    status: Literal[
+        "running",
+        "maintenance",
+        "stopped"
+    ] = Field(
         ...,
         description="Текущее состояние сервиса",
         examples=["running"]
