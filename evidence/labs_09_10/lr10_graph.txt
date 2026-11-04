@@ -1,0 +1,13 @@
+*   a6518a1 Merge docs/status-description
+|\  
+| * c513ab4 Document supported service statuses
+|/  
+* f628f74 Mark TASK-01 as completed
+*   74d4eda Merge feature/status-validation
+|\  
+| * 014654a TASK-01 Restrict service status values
+|/  
+* d5e2563 Describe project directory structure
+* 187bda9 Update project documentation
+* 277116f Add project README
+* 32cc0be Initial version of Cloud Application

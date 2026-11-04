@@ -1,0 +1,397 @@
+[
+  {
+    "openapi_status": 200,
+    "status_schema": {
+      "type": "string",
+      "title": "Status",
+      "description": "Текущее состояние сервиса",
+      "examples": [
+        "running"
+      ]
+    },
+    "responses": [
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "running"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 3,
+          "name": "Test Service",
+          "type": "test",
+          "status": "running"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "maintenance"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 4,
+          "name": "Test Service",
+          "type": "test",
+          "status": "maintenance"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "stopped"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 5,
+          "name": "Test Service",
+          "type": "test",
+          "status": "stopped"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "unknown"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 6,
+          "name": "Test Service",
+          "type": "test",
+          "status": "unknown"
+        }
+      }
+    ],
+    "stage": "main_before"
+  },
+  {
+    "openapi_status": 200,
+    "status_schema": {
+      "type": "string",
+      "enum": [
+        "running",
+        "maintenance",
+        "stopped"
+      ],
+      "title": "Status",
+      "description": "Текущее состояние сервиса",
+      "examples": [
+        "running"
+      ]
+    },
+    "responses": [
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "running"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 3,
+          "name": "Test Service",
+          "type": "test",
+          "status": "running"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "maintenance"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 4,
+          "name": "Test Service",
+          "type": "test",
+          "status": "maintenance"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "stopped"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 5,
+          "name": "Test Service",
+          "type": "test",
+          "status": "stopped"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "unknown"
+        },
+        "status_code": 422,
+        "body": {
+          "detail": [
+            {
+              "type": "literal_error",
+              "loc": [
+                "body",
+                "status"
+              ],
+              "msg": "Input should be 'running', 'maintenance' or 'stopped'",
+              "input": "unknown",
+              "ctx": {
+                "expected": "'running', 'maintenance' or 'stopped'"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "stage": "feature"
+  },
+  {
+    "openapi_status": 200,
+    "status_schema": {
+      "type": "string",
+      "title": "Status",
+      "description": "Текущее состояние сервиса",
+      "examples": [
+        "running"
+      ]
+    },
+    "responses": [
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "running"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 3,
+          "name": "Test Service",
+          "type": "test",
+          "status": "running"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "maintenance"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 4,
+          "name": "Test Service",
+          "type": "test",
+          "status": "maintenance"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "stopped"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 5,
+          "name": "Test Service",
+          "type": "test",
+          "status": "stopped"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "unknown"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 6,
+          "name": "Test Service",
+          "type": "test",
+          "status": "unknown"
+        }
+      }
+    ],
+    "stage": "main_before_merge"
+  },
+  {
+    "openapi_status": 200,
+    "status_schema": {
+      "type": "string",
+      "enum": [
+        "running",
+        "maintenance",
+        "stopped"
+      ],
+      "title": "Status",
+      "description": "Текущее состояние сервиса",
+      "examples": [
+        "running"
+      ]
+    },
+    "responses": [
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "running"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 3,
+          "name": "Test Service",
+          "type": "test",
+          "status": "running"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "maintenance"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 4,
+          "name": "Test Service",
+          "type": "test",
+          "status": "maintenance"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "stopped"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 5,
+          "name": "Test Service",
+          "type": "test",
+          "status": "stopped"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "unknown"
+        },
+        "status_code": 422,
+        "body": {
+          "detail": [
+            {
+              "type": "literal_error",
+              "loc": [
+                "body",
+                "status"
+              ],
+              "msg": "Input should be 'running', 'maintenance' or 'stopped'",
+              "input": "unknown",
+              "ctx": {
+                "expected": "'running', 'maintenance' or 'stopped'"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "stage": "main_after_merge"
+  },
+  {
+    "openapi_status": 200,
+    "status_schema": {
+      "type": "string",
+      "enum": [
+        "running",
+        "maintenance",
+        "stopped"
+      ],
+      "title": "Status",
+      "description": "Текущее состояние сервиса",
+      "examples": [
+        "running"
+      ]
+    },
+    "responses": [
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "running"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 3,
+          "name": "Test Service",
+          "type": "test",
+          "status": "running"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "maintenance"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 4,
+          "name": "Test Service",
+          "type": "test",
+          "status": "maintenance"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "stopped"
+        },
+        "status_code": 201,
+        "body": {
+          "id": 5,
+          "name": "Test Service",
+          "type": "test",
+          "status": "stopped"
+        }
+      },
+      {
+        "request": {
+          "name": "Test Service",
+          "type": "test",
+          "status": "unknown"
+        },
+        "status_code": 422,
+        "body": {
+          "detail": [
+            {
+              "type": "literal_error",
+              "loc": [
+                "body",
+                "status"
+              ],
+              "msg": "Input should be 'running', 'maintenance' or 'stopped'",
+              "input": "unknown",
+              "ctx": {
+                "expected": "'running', 'maintenance' or 'stopped'"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "stage": "final_main"
+  }
+]

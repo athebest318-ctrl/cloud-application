@@ -1,0 +1,187 @@
+[
+  {
+    "command": "git --version",
+    "exit_code": 0,
+    "output": "git version 2.56.0.windows.1\n"
+  },
+  {
+    "command": "git init -b main",
+    "exit_code": 0,
+    "output": "Initialized empty Git repository in C:/Users/gamed/Documents/Codex/2026-11-04/cloud-application-lr30/work/CloudApplication_LR09_10/.git/\n"
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\n\nNo commits yet\n\nUntracked files:\n  (use \"git add <file>...\" to include in what will be committed)\n\t.env\n\t.venv/\n\t.vscode/\n\tActivate.ps1\n\tPROJECT_TASKS.md\n\t__pycache__/\n\tapp/\n\tlab01\n\trequirements.txt\n\nnothing added to commit but untracked files present (use \"git add\" to track)\n"
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\n\nNo commits yet\n\nUntracked files:\n  (use \"git add <file>...\" to include in what will be committed)\n\t.gitignore\n\tActivate.ps1\n\tPROJECT_TASKS.md\n\tapp/\n\tlab01\n\trequirements.txt\n\nnothing added to commit but untracked files present (use \"git add\" to track)\n"
+  },
+  {
+    "command": "git check-ignore -v .venv/ignored.txt __pycache__/ignored.pyc .env .vscode/settings.json",
+    "exit_code": 0,
+    "output": ".gitignore:1:.venv/\t.venv/ignored.txt\n.gitignore:2:__pycache__/\t__pycache__/ignored.pyc\n.gitignore:4:.env\t.env\n.gitignore:5:.vscode/\t.vscode/settings.json\n"
+  },
+  {
+    "command": "git add .",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\n\nNo commits yet\n\nChanges to be committed:\n  (use \"git rm --cached <file>...\" to unstage)\n\tnew file:   .gitignore\n\tnew file:   Activate.ps1\n\tnew file:   PROJECT_TASKS.md\n\tnew file:   app/__init__.py\n\tnew file:   app/config.py\n\tnew file:   app/data/__init__.py\n\tnew file:   app/data/services.py\n\tnew file:   app/main.py\n\tnew file:   app/routers/__init__.py\n\tnew file:   app/routers/services.py\n\tnew file:   app/routers/system.py\n\tnew file:   app/schemas/__init__.py\n\tnew file:   app/schemas/services.py\n\tnew file:   app/services/__init__.py\n\tnew file:   app/services/services.py\n\tnew file:   lab01\n\tnew file:   requirements.txt\n\n"
+  },
+  {
+    "command": "git diff --staged --stat",
+    "exit_code": 0,
+    "output": " .gitignore               |   5 +++\n Activate.ps1             |  39 ++++++++++++++++\n PROJECT_TASKS.md         |   7 +++\n app/__init__.py          |   0\n app/config.py            |   2 +\n app/data/__init__.py     |   0\n app/data/services.py     |  14 ++++++\n app/main.py              |  40 +++++++++++++++++\n app/routers/__init__.py  |   0\n app/routers/services.py  | 115 +++++++++++++++++++++++++++++++++++++++++++++++\n app/routers/system.py    |  40 +++++++++++++++++\n app/schemas/__init__.py  |   0\n app/schemas/services.py  |  21 +++++++++\n app/services/__init__.py |   0\n app/services/services.py |  57 +++++++++++++++++++++++\n lab01                    |   0\n requirements.txt         |  18 ++++++++\n 17 files changed, 358 insertions(+)\n"
+  },
+  {
+    "command": "git commit -m Initial version of Cloud Application",
+    "exit_code": 0,
+    "output": "[main (root-commit) 32cc0be] Initial version of Cloud Application\n 17 files changed, 358 insertions(+)\n create mode 100644 .gitignore\n create mode 100644 Activate.ps1\n create mode 100644 PROJECT_TASKS.md\n create mode 100644 app/__init__.py\n create mode 100644 app/config.py\n create mode 100644 app/data/__init__.py\n create mode 100644 app/data/services.py\n create mode 100644 app/main.py\n create mode 100644 app/routers/__init__.py\n create mode 100644 app/routers/services.py\n create mode 100644 app/routers/system.py\n create mode 100644 app/schemas/__init__.py\n create mode 100644 app/schemas/services.py\n create mode 100644 app/services/__init__.py\n create mode 100644 app/services/services.py\n create mode 100644 lab01\n create mode 100644 requirements.txt\n"
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\nnothing to commit, working tree clean\n"
+  },
+  {
+    "command": "git log -1",
+    "exit_code": 0,
+    "output": "commit 32cc0becf2459f87d36e310f6ea5cd7693297acc\nAuthor: Codex <codex@users.noreply.github.com>\nDate:   Wed Nov 4 15:37:12 2026 +0500\n\n    Initial version of Cloud Application\n"
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\nUntracked files:\n  (use \"git add <file>...\" to include in what will be committed)\n\tREADME.md\n\nnothing added to commit but untracked files present (use \"git add\" to track)\n"
+  },
+  {
+    "command": "git add README.md",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\nChanges to be committed:\n  (use \"git restore --staged <file>...\" to unstage)\n\tnew file:   README.md\n\n"
+  },
+  {
+    "command": "git diff --staged",
+    "exit_code": 0,
+    "output": "diff --git a/README.md b/README.md\nnew file mode 100644\nindex 0000000..fc2a6b9\n--- /dev/null\n+++ b/README.md\n@@ -0,0 +1,15 @@\n+# Cloud Application\n+\n+Учебный проект по дисциплине «Управление работами и разработка программного обеспечения облачных систем».\n+\n+## Возможности\n+\n+- серверное приложение FastAPI;\n+- REST API для управления сервисами;\n+- CRUD-операции;\n+- автоматическая документация OpenAPI;\n+- модульная организация проекта.\n+\n+## Запуск\n+\n+python -m uvicorn app.main:app --reload\n"
+  },
+  {
+    "command": "git commit -m Add project README",
+    "exit_code": 0,
+    "output": "[main 277116f] Add project README\n 1 file changed, 15 insertions(+)\n create mode 100644 README.md\n"
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n  (use \"git restore <file>...\" to discard changes in working directory)\n\tmodified:   README.md\n\nno changes added to commit (use \"git add\" and/or \"git commit -a\")\n"
+  },
+  {
+    "command": "git diff",
+    "exit_code": 0,
+    "output": "diff --git a/README.md b/README.md\nindex fc2a6b9..e2dc78c 100644\n--- a/README.md\n+++ b/README.md\n@@ -13,3 +13,10 @@\n ## Запуск\n \n python -m uvicorn app.main:app --reload\n+\n+## Основные адреса\n+\n+- `/` — основная информация;\n+- `/status` — состояние приложения;\n+- `/services` — управление сервисами;\n+- `/docs` — интерактивная документация API.\n"
+  },
+  {
+    "command": "git add README.md",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\nChanges to be committed:\n  (use \"git restore --staged <file>...\" to unstage)\n\tmodified:   README.md\n\n"
+  },
+  {
+    "command": "git diff",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": "git diff --staged",
+    "exit_code": 0,
+    "output": "diff --git a/README.md b/README.md\nindex fc2a6b9..e2dc78c 100644\n--- a/README.md\n+++ b/README.md\n@@ -13,3 +13,10 @@\n ## Запуск\n \n python -m uvicorn app.main:app --reload\n+\n+## Основные адреса\n+\n+- `/` — основная информация;\n+- `/status` — состояние приложения;\n+- `/services` — управление сервисами;\n+- `/docs` — интерактивная документация API.\n"
+  },
+  {
+    "command": "git commit -m Update project documentation",
+    "exit_code": 0,
+    "output": "[main 187bda9] Update project documentation\n 1 file changed, 7 insertions(+)\n"
+  },
+  {
+    "command": "git show --stat HEAD",
+    "exit_code": 0,
+    "output": "commit 187bda94261e3a0c6f3b941fed13a16c9b39daae\nAuthor: Codex <codex@users.noreply.github.com>\nDate:   Wed Nov 4 15:37:13 2026 +0500\n\n    Update project documentation\n\n README.md | 7 +++++++\n 1 file changed, 7 insertions(+)\n"
+  },
+  {
+    "command": "git show HEAD",
+    "exit_code": 0,
+    "output": "commit 187bda94261e3a0c6f3b941fed13a16c9b39daae\nAuthor: Codex <codex@users.noreply.github.com>\nDate:   Wed Nov 4 15:37:13 2026 +0500\n\n    Update project documentation\n\ndiff --git a/README.md b/README.md\nindex fc2a6b9..e2dc78c 100644\n--- a/README.md\n+++ b/README.md\n@@ -13,3 +13,10 @@\n ## Запуск\n \n python -m uvicorn app.main:app --reload\n+\n+## Основные адреса\n+\n+- `/` — основная информация;\n+- `/status` — состояние приложения;\n+- `/services` — управление сервисами;\n+- `/docs` — интерактивная документация API.\n"
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n  (use \"git restore <file>...\" to discard changes in working directory)\n\tmodified:   README.md\n\nno changes added to commit (use \"git add\" and/or \"git commit -a\")\n"
+  },
+  {
+    "command": "git diff",
+    "exit_code": 0,
+    "output": "diff --git a/README.md b/README.md\nindex e2dc78c..8378438 100644\n--- a/README.md\n+++ b/README.md\n@@ -20,3 +20,10 @@ python -m uvicorn app.main:app --reload\n - `/status` — состояние приложения;\n - `/services` — управление сервисами;\n - `/docs` — интерактивная документация API.\n+\n+## Структура проекта\n+\n+- `app/routers` — обработка HTTP-запросов и формирование ответов.\n+- `app/schemas` — описание и проверка входных данных API.\n+- `app/services` — операции с сервисами и логика приложения.\n+- `app/data` — хранение учебного списка сервисов.\n"
+  },
+  {
+    "command": "git add README.md",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\nChanges to be committed:\n  (use \"git restore --staged <file>...\" to unstage)\n\tmodified:   README.md\n\n"
+  },
+  {
+    "command": "git diff --staged",
+    "exit_code": 0,
+    "output": "diff --git a/README.md b/README.md\nindex e2dc78c..8378438 100644\n--- a/README.md\n+++ b/README.md\n@@ -20,3 +20,10 @@ python -m uvicorn app.main:app --reload\n - `/status` — состояние приложения;\n - `/services` — управление сервисами;\n - `/docs` — интерактивная документация API.\n+\n+## Структура проекта\n+\n+- `app/routers` — обработка HTTP-запросов и формирование ответов.\n+- `app/schemas` — описание и проверка входных данных API.\n+- `app/services` — операции с сервисами и логика приложения.\n+- `app/data` — хранение учебного списка сервисов.\n"
+  },
+  {
+    "command": "git commit -m Describe project directory structure",
+    "exit_code": 0,
+    "output": "[main d5e2563] Describe project directory structure\n 1 file changed, 7 insertions(+)\n"
+  },
+  {
+    "command": "git show --stat HEAD",
+    "exit_code": 0,
+    "output": "commit d5e2563f7bc031982c60601ff2c19f9178575b6d\nAuthor: Codex <codex@users.noreply.github.com>\nDate:   Wed Nov 4 15:37:13 2026 +0500\n\n    Describe project directory structure\n\n README.md | 7 +++++++\n 1 file changed, 7 insertions(+)\n"
+  },
+  {
+    "command": "git show HEAD",
+    "exit_code": 0,
+    "output": "commit d5e2563f7bc031982c60601ff2c19f9178575b6d\nAuthor: Codex <codex@users.noreply.github.com>\nDate:   Wed Nov 4 15:37:13 2026 +0500\n\n    Describe project directory structure\n\ndiff --git a/README.md b/README.md\nindex e2dc78c..8378438 100644\n--- a/README.md\n+++ b/README.md\n@@ -20,3 +20,10 @@ python -m uvicorn app.main:app --reload\n - `/status` — состояние приложения;\n - `/services` — управление сервисами;\n - `/docs` — интерактивная документация API.\n+\n+## Структура проекта\n+\n+- `app/routers` — обработка HTTP-запросов и формирование ответов.\n+- `app/schemas` — описание и проверка входных данных API.\n+- `app/services` — операции с сервисами и логика приложения.\n+- `app/data` — хранение учебного списка сервисов.\n"
+  },
+  {
+    "command": "git log --oneline",
+    "exit_code": 0,
+    "output": "d5e2563 Describe project directory structure\n187bda9 Update project documentation\n277116f Add project README\n32cc0be Initial version of Cloud Application\n"
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\nnothing to commit, working tree clean\n"
+  },
+  {
+    "command": "git ls-files .venv",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": "git branch --show-current",
+    "exit_code": 0,
+    "output": "main\n"
+  }
+]

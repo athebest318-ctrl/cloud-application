@@ -1,0 +1,366 @@
+$ git --version
+git version 2.56.0.windows.1
+
+$ git init -b main
+Initialized empty Git repository in C:/Users/gamed/Documents/Codex/2026-11-04/cloud-application-lr30/work/CloudApplication_LR09_10/.git/
+
+$ git status
+On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.env
+	.venv/
+	.vscode/
+	Activate.ps1
+	PROJECT_TASKS.md
+	__pycache__/
+	app/
+	lab01
+	requirements.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+$ git status
+On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	.gitignore
+	Activate.ps1
+	PROJECT_TASKS.md
+	app/
+	lab01
+	requirements.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+$ git check-ignore -v .venv/ignored.txt __pycache__/ignored.pyc .env .vscode/settings.json
+.gitignore:1:.venv/	.venv/ignored.txt
+.gitignore:2:__pycache__/	__pycache__/ignored.pyc
+.gitignore:4:.env	.env
+.gitignore:5:.vscode/	.vscode/settings.json
+
+$ git add .
+
+$ git status
+On branch main
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+	new file:   .gitignore
+	new file:   Activate.ps1
+	new file:   PROJECT_TASKS.md
+	new file:   app/__init__.py
+	new file:   app/config.py
+	new file:   app/data/__init__.py
+	new file:   app/data/services.py
+	new file:   app/main.py
+	new file:   app/routers/__init__.py
+	new file:   app/routers/services.py
+	new file:   app/routers/system.py
+	new file:   app/schemas/__init__.py
+	new file:   app/schemas/services.py
+	new file:   app/services/__init__.py
+	new file:   app/services/services.py
+	new file:   lab01
+	new file:   requirements.txt
+
+
+$ git diff --staged --stat
+ .gitignore               |   5 +++
+ Activate.ps1             |  39 ++++++++++++++++
+ PROJECT_TASKS.md         |   7 +++
+ app/__init__.py          |   0
+ app/config.py            |   2 +
+ app/data/__init__.py     |   0
+ app/data/services.py     |  14 ++++++
+ app/main.py              |  40 +++++++++++++++++
+ app/routers/__init__.py  |   0
+ app/routers/services.py  | 115 +++++++++++++++++++++++++++++++++++++++++++++++
+ app/routers/system.py    |  40 +++++++++++++++++
+ app/schemas/__init__.py  |   0
+ app/schemas/services.py  |  21 +++++++++
+ app/services/__init__.py |   0
+ app/services/services.py |  57 +++++++++++++++++++++++
+ lab01                    |   0
+ requirements.txt         |  18 ++++++++
+ 17 files changed, 358 insertions(+)
+
+$ git commit -m Initial version of Cloud Application
+[main (root-commit) 32cc0be] Initial version of Cloud Application
+ 17 files changed, 358 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 Activate.ps1
+ create mode 100644 PROJECT_TASKS.md
+ create mode 100644 app/__init__.py
+ create mode 100644 app/config.py
+ create mode 100644 app/data/__init__.py
+ create mode 100644 app/data/services.py
+ create mode 100644 app/main.py
+ create mode 100644 app/routers/__init__.py
+ create mode 100644 app/routers/services.py
+ create mode 100644 app/routers/system.py
+ create mode 100644 app/schemas/__init__.py
+ create mode 100644 app/schemas/services.py
+ create mode 100644 app/services/__init__.py
+ create mode 100644 app/services/services.py
+ create mode 100644 lab01
+ create mode 100644 requirements.txt
+
+$ git status
+On branch main
+nothing to commit, working tree clean
+
+$ git log -1
+commit 32cc0becf2459f87d36e310f6ea5cd7693297acc
+Author: Codex <codex@users.noreply.github.com>
+Date:   Wed Nov 4 15:37:12 2026 +0500
+
+    Initial version of Cloud Application
+
+$ git status
+On branch main
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	README.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+$ git add README.md
+
+$ git status
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   README.md
+
+
+$ git diff --staged
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..fc2a6b9
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1,15 @@
++# Cloud Application
++
++Учебный проект по дисциплине «Управление работами и разработка программного обеспечения облачных систем».
++
++## Возможности
++
++- серверное приложение FastAPI;
++- REST API для управления сервисами;
++- CRUD-операции;
++- автоматическая документация OpenAPI;
++- модульная организация проекта.
++
++## Запуск
++
++python -m uvicorn app.main:app --reload
+
+$ git commit -m Add project README
+[main 277116f] Add project README
+ 1 file changed, 15 insertions(+)
+ create mode 100644 README.md
+
+$ git status
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+$ git diff
+diff --git a/README.md b/README.md
+index fc2a6b9..e2dc78c 100644
+--- a/README.md
++++ b/README.md
+@@ -13,3 +13,10 @@
+ ## Запуск
+ 
+ python -m uvicorn app.main:app --reload
++
++## Основные адреса
++
++- `/` — основная информация;
++- `/status` — состояние приложения;
++- `/services` — управление сервисами;
++- `/docs` — интерактивная документация API.
+
+$ git add README.md
+
+$ git status
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   README.md
+
+
+$ git diff
+
+$ git diff --staged
+diff --git a/README.md b/README.md
+index fc2a6b9..e2dc78c 100644
+--- a/README.md
++++ b/README.md
+@@ -13,3 +13,10 @@
+ ## Запуск
+ 
+ python -m uvicorn app.main:app --reload
++
++## Основные адреса
++
++- `/` — основная информация;
++- `/status` — состояние приложения;
++- `/services` — управление сервисами;
++- `/docs` — интерактивная документация API.
+
+$ git commit -m Update project documentation
+[main 187bda9] Update project documentation
+ 1 file changed, 7 insertions(+)
+
+$ git show --stat HEAD
+commit 187bda94261e3a0c6f3b941fed13a16c9b39daae
+Author: Codex <codex@users.noreply.github.com>
+Date:   Wed Nov 4 15:37:13 2026 +0500
+
+    Update project documentation
+
+ README.md | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+$ git show HEAD
+commit 187bda94261e3a0c6f3b941fed13a16c9b39daae
+Author: Codex <codex@users.noreply.github.com>
+Date:   Wed Nov 4 15:37:13 2026 +0500
+
+    Update project documentation
+
+diff --git a/README.md b/README.md
+index fc2a6b9..e2dc78c 100644
+--- a/README.md
++++ b/README.md
+@@ -13,3 +13,10 @@
+ ## Запуск
+ 
+ python -m uvicorn app.main:app --reload
++
++## Основные адреса
++
++- `/` — основная информация;
++- `/status` — состояние приложения;
++- `/services` — управление сервисами;
++- `/docs` — интерактивная документация API.
+
+$ git status
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+$ git diff
+diff --git a/README.md b/README.md
+index e2dc78c..8378438 100644
+--- a/README.md
++++ b/README.md
+@@ -20,3 +20,10 @@ python -m uvicorn app.main:app --reload
+ - `/status` — состояние приложения;
+ - `/services` — управление сервисами;
+ - `/docs` — интерактивная документация API.
++
++## Структура проекта
++
++- `app/routers` — обработка HTTP-запросов и формирование ответов.
++- `app/schemas` — описание и проверка входных данных API.
++- `app/services` — операции с сервисами и логика приложения.
++- `app/data` — хранение учебного списка сервисов.
+
+$ git add README.md
+
+$ git status
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   README.md
+
+
+$ git diff --staged
+diff --git a/README.md b/README.md
+index e2dc78c..8378438 100644
+--- a/README.md
++++ b/README.md
+@@ -20,3 +20,10 @@ python -m uvicorn app.main:app --reload
+ - `/status` — состояние приложения;
+ - `/services` — управление сервисами;
+ - `/docs` — интерактивная документация API.
++
++## Структура проекта
++
++- `app/routers` — обработка HTTP-запросов и формирование ответов.
++- `app/schemas` — описание и проверка входных данных API.
++- `app/services` — операции с сервисами и логика приложения.
++- `app/data` — хранение учебного списка сервисов.
+
+$ git commit -m Describe project directory structure
+[main d5e2563] Describe project directory structure
+ 1 file changed, 7 insertions(+)
+
+$ git show --stat HEAD
+commit d5e2563f7bc031982c60601ff2c19f9178575b6d
+Author: Codex <codex@users.noreply.github.com>
+Date:   Wed Nov 4 15:37:13 2026 +0500
+
+    Describe project directory structure
+
+ README.md | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+$ git show HEAD
+commit d5e2563f7bc031982c60601ff2c19f9178575b6d
+Author: Codex <codex@users.noreply.github.com>
+Date:   Wed Nov 4 15:37:13 2026 +0500
+
+    Describe project directory structure
+
+diff --git a/README.md b/README.md
+index e2dc78c..8378438 100644
+--- a/README.md
++++ b/README.md
+@@ -20,3 +20,10 @@ python -m uvicorn app.main:app --reload
+ - `/status` — состояние приложения;
+ - `/services` — управление сервисами;
+ - `/docs` — интерактивная документация API.
++
++## Структура проекта
++
++- `app/routers` — обработка HTTP-запросов и формирование ответов.
++- `app/schemas` — описание и проверка входных данных API.
++- `app/services` — операции с сервисами и логика приложения.
++- `app/data` — хранение учебного списка сервисов.
+
+$ git log --oneline
+d5e2563 Describe project directory structure
+187bda9 Update project documentation
+277116f Add project README
+32cc0be Initial version of Cloud Application
+
+$ git status
+On branch main
+nothing to commit, working tree clean
+
+$ git ls-files .venv
+
+$ git branch --show-current
+main

@@ -1,0 +1,4 @@
+32cc0becf2459f87d36e310f6ea5cd7693297acc|Initial version of Cloud Application
+277116f4701880b2ef6d17fbe6663ce621d31ab4|Add project README
+187bda94261e3a0c6f3b941fed13a16c9b39daae|Update project documentation
+d5e2563f7bc031982c60601ff2c19f9178575b6d|Describe project directory structure

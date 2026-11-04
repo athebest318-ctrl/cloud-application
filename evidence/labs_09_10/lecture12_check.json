@@ -1,0 +1,19 @@
+{
+  "orm_table": "services",
+  "columns": [
+    "id",
+    "name",
+    "status",
+    "type_id"
+  ],
+  "foreign_key": "services.type_id -> service_types.id",
+  "relationship": "ServiceType.services <-> Service.service_type",
+  "json": {
+    "name": "Monitoring Service",
+    "status": "running",
+    "type_id": 2,
+    "id": 8
+  },
+  "unknown_rejected": true,
+  "database_connection": false
+}

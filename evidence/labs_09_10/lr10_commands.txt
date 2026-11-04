@@ -1,0 +1,430 @@
+$ git status
+On branch main
+nothing to commit, working tree clean
+
+$ git branch --show-current
+main
+
+$ git branch
+* main
+
+$ git log --oneline
+d5e2563 Describe project directory structure
+187bda9 Update project documentation
+277116f Add project README
+32cc0be Initial version of Cloud Application
+
+$ git switch -c feature/status-validation
+Switched to a new branch 'feature/status-validation'
+
+$ git branch
+* feature/status-validation
+  main
+
+$ git branch --show-current
+feature/status-validation
+
+$ git status
+On branch feature/status-validation
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   app/schemas/services.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+$ git diff
+diff --git a/app/schemas/services.py b/app/schemas/services.py
+index a3a87f3..4210394 100644
+--- a/app/schemas/services.py
++++ b/app/schemas/services.py
+@@ -1,3 +1,5 @@
++from typing import Literal
++
+ from pydantic import BaseModel, Field
+ 
+ 
+@@ -14,7 +16,11 @@ class ServiceCreate(BaseModel):
+         examples=["monitoring"]
+     )
+ 
+-    status: str = Field(
++    status: Literal[
++        "running",
++        "maintenance",
++        "stopped"
++    ] = Field(
+         ...,
+         description="Текущее состояние сервиса",
+         examples=["running"]
+
+$ git add app/schemas/services.py
+
+$ git diff --staged
+diff --git a/app/schemas/services.py b/app/schemas/services.py
+index a3a87f3..4210394 100644
+--- a/app/schemas/services.py
++++ b/app/schemas/services.py
+@@ -1,3 +1,5 @@
++from typing import Literal
++
+ from pydantic import BaseModel, Field
+ 
+ 
+@@ -14,7 +16,11 @@ class ServiceCreate(BaseModel):
+         examples=["monitoring"]
+     )
+ 
+-    status: str = Field(
++    status: Literal[
++        "running",
++        "maintenance",
++        "stopped"
++    ] = Field(
+         ...,
+         description="Текущее состояние сервиса",
+         examples=["running"]
+
+$ git commit -m TASK-01 Restrict service status values
+[feature/status-validation 014654a] TASK-01 Restrict service status values
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+$ git rev-parse HEAD
+014654a055a84529d6de68bb0d37317c5234647b
+
+$ git status
+On branch feature/status-validation
+nothing to commit, working tree clean
+
+$ git log --oneline --graph --all
+* 014654a TASK-01 Restrict service status values
+* d5e2563 Describe project directory structure
+* 187bda9 Update project documentation
+* 277116f Add project README
+* 32cc0be Initial version of Cloud Application
+
+$ git switch main
+Switched to branch 'main'
+
+$ git show HEAD:app/schemas/services.py
+from pydantic import BaseModel, Field
+
+
+class ServiceCreate(BaseModel):
+    name: str = Field(
+        ...,
+        description="Название облачного сервиса",
+        examples=["Monitoring Service"]
+    )
+
+    type: str = Field(
+        ...,
+        description="Тип облачного сервиса",
+        examples=["monitoring"]
+    )
+
+    status: str = Field(
+        ...,
+        description="Текущее состояние сервиса",
+        examples=["running"]
+    )
+
+$ git log --oneline
+d5e2563 Describe project directory structure
+187bda9 Update project documentation
+277116f Add project README
+32cc0be Initial version of Cloud Application
+
+$ git merge-base --is-ancestor 014654a055a84529d6de68bb0d37317c5234647b main
+
+$ git diff main..feature/status-validation -- app/schemas/services.py
+diff --git a/app/schemas/services.py b/app/schemas/services.py
+index a3a87f3..4210394 100644
+--- a/app/schemas/services.py
++++ b/app/schemas/services.py
+@@ -1,3 +1,5 @@
++from typing import Literal
++
+ from pydantic import BaseModel, Field
+ 
+ 
+@@ -14,7 +16,11 @@ class ServiceCreate(BaseModel):
+         examples=["monitoring"]
+     )
+ 
+-    status: str = Field(
++    status: Literal[
++        "running",
++        "maintenance",
++        "stopped"
++    ] = Field(
+         ...,
+         description="Текущее состояние сервиса",
+         examples=["running"]
+
+$ git switch feature/status-validation
+Switched to branch 'feature/status-validation'
+
+$ git show HEAD:app/schemas/services.py
+from typing import Literal
+
+from pydantic import BaseModel, Field
+
+
+class ServiceCreate(BaseModel):
+    name: str = Field(
+        ...,
+        description="Название облачного сервиса",
+        examples=["Monitoring Service"]
+    )
+
+    type: str = Field(
+        ...,
+        description="Тип облачного сервиса",
+        examples=["monitoring"]
+    )
+
+    status: Literal[
+        "running",
+        "maintenance",
+        "stopped"
+    ] = Field(
+        ...,
+        description="Текущее состояние сервиса",
+        examples=["running"]
+    )
+
+$ git switch main
+Switched to branch 'main'
+
+$ git status
+On branch main
+nothing to commit, working tree clean
+
+$ git merge --no-ff feature/status-validation -m Merge feature/status-validation
+Merge made by the 'ort' strategy.
+ app/schemas/services.py | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+$ git log --oneline --graph --all
+*   74d4eda Merge feature/status-validation
+|\  
+| * 014654a TASK-01 Restrict service status values
+|/  
+* d5e2563 Describe project directory structure
+* 187bda9 Update project documentation
+* 277116f Add project README
+* 32cc0be Initial version of Cloud Application
+
+$ git diff
+diff --git a/PROJECT_TASKS.md b/PROJECT_TASKS.md
+index 9d238a5..6f4f74b 100644
+--- a/PROJECT_TASKS.md
++++ b/PROJECT_TASKS.md
+@@ -2,6 +2,6 @@
+ 
+ | ID | Задача | Статус |
+ | --- | --- | --- |
+-| TASK-01 | Ограничить status значениями running, maintenance, stopped | TODO |
++| TASK-01 | Ограничить status значениями running, maintenance, stopped | DONE |
+ 
+ Критерий приёмки TASK-01: API принимает running, maintenance и stopped, отклоняет unknown с HTTP 422; OpenAPI перечисляет допустимые значения.
+
+$ git add PROJECT_TASKS.md
+
+$ git commit -m Mark TASK-01 as completed
+[main f628f74] Mark TASK-01 as completed
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+$ git branch -d feature/status-validation
+Deleted branch feature/status-validation (was 014654a).
+
+$ git branch
+* main
+
+$ git switch -c docs/status-description
+Switched to a new branch 'docs/status-description'
+
+$ git branch
+* docs/status-description
+  main
+
+$ git branch --show-current
+docs/status-description
+
+$ git status
+On branch docs/status-description
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+$ git diff
+diff --git a/README.md b/README.md
+index 8378438..651f119 100644
+--- a/README.md
++++ b/README.md
+@@ -27,3 +27,10 @@ python -m uvicorn app.main:app --reload
+ - `app/schemas` — описание и проверка входных данных API.
+ - `app/services` — операции с сервисами и логика приложения.
+ - `app/data` — хранение учебного списка сервисов.
++
++## Состояния сервисов
++
++Для облачных сервисов поддерживаются следующие состояния:
++- `running` — сервис работает;
++- `maintenance` — сервис находится на обслуживании;
++- `stopped` — сервис остановлен.
+
+$ git add README.md
+
+$ git diff --staged
+diff --git a/README.md b/README.md
+index 8378438..651f119 100644
+--- a/README.md
++++ b/README.md
+@@ -27,3 +27,10 @@ python -m uvicorn app.main:app --reload
+ - `app/schemas` — описание и проверка входных данных API.
+ - `app/services` — операции с сервисами и логика приложения.
+ - `app/data` — хранение учебного списка сервисов.
++
++## Состояния сервисов
++
++Для облачных сервисов поддерживаются следующие состояния:
++- `running` — сервис работает;
++- `maintenance` — сервис находится на обслуживании;
++- `stopped` — сервис остановлен.
+
+$ git commit -m Document supported service statuses
+[docs/status-description c513ab4] Document supported service statuses
+ 1 file changed, 7 insertions(+)
+
+$ git rev-parse HEAD
+c513ab4cf17c114e9e231229057de7a431b7919a
+
+$ git status
+On branch docs/status-description
+nothing to commit, working tree clean
+
+$ git switch main
+Switched to branch 'main'
+
+$ git show HEAD:README.md
+# Cloud Application
+
+Учебный проект по дисциплине «Управление работами и разработка программного обеспечения облачных систем».
+
+## Возможности
+
+- серверное приложение FastAPI;
+- REST API для управления сервисами;
+- CRUD-операции;
+- автоматическая документация OpenAPI;
+- модульная организация проекта.
+
+## Запуск
+
+python -m uvicorn app.main:app --reload
+
+## Основные адреса
+
+- `/` — основная информация;
+- `/status` — состояние приложения;
+- `/services` — управление сервисами;
+- `/docs` — интерактивная документация API.
+
+## Структура проекта
+
+- `app/routers` — обработка HTTP-запросов и формирование ответов.
+- `app/schemas` — описание и проверка входных данных API.
+- `app/services` — операции с сервисами и логика приложения.
+- `app/data` — хранение учебного списка сервисов.
+
+$ git merge-base --is-ancestor c513ab4cf17c114e9e231229057de7a431b7919a main
+
+$ git diff main..docs/status-description -- README.md
+diff --git a/README.md b/README.md
+index 8378438..651f119 100644
+--- a/README.md
++++ b/README.md
+@@ -27,3 +27,10 @@ python -m uvicorn app.main:app --reload
+ - `app/schemas` — описание и проверка входных данных API.
+ - `app/services` — операции с сервисами и логика приложения.
+ - `app/data` — хранение учебного списка сервисов.
++
++## Состояния сервисов
++
++Для облачных сервисов поддерживаются следующие состояния:
++- `running` — сервис работает;
++- `maintenance` — сервис находится на обслуживании;
++- `stopped` — сервис остановлен.
+
+$ git merge --no-ff docs/status-description -m Merge docs/status-description
+Merge made by the 'ort' strategy.
+ README.md | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+$ git show HEAD:README.md
+# Cloud Application
+
+Учебный проект по дисциплине «Управление работами и разработка программного обеспечения облачных систем».
+
+## Возможности
+
+- серверное приложение FastAPI;
+- REST API для управления сервисами;
+- CRUD-операции;
+- автоматическая документация OpenAPI;
+- модульная организация проекта.
+
+## Запуск
+
+python -m uvicorn app.main:app --reload
+
+## Основные адреса
+
+- `/` — основная информация;
+- `/status` — состояние приложения;
+- `/services` — управление сервисами;
+- `/docs` — интерактивная документация API.
+
+## Структура проекта
+
+- `app/routers` — обработка HTTP-запросов и формирование ответов.
+- `app/schemas` — описание и проверка входных данных API.
+- `app/services` — операции с сервисами и логика приложения.
+- `app/data` — хранение учебного списка сервисов.
+
+## Состояния сервисов
+
+Для облачных сервисов поддерживаются следующие состояния:
+- `running` — сервис работает;
+- `maintenance` — сервис находится на обслуживании;
+- `stopped` — сервис остановлен.
+
+$ git branch -d docs/status-description
+Deleted branch docs/status-description (was c513ab4).
+
+$ git branch
+* main
+
+$ git log --oneline --graph --all
+*   a6518a1 Merge docs/status-description
+|\  
+| * c513ab4 Document supported service statuses
+|/  
+* f628f74 Mark TASK-01 as completed
+*   74d4eda Merge feature/status-validation
+|\  
+| * 014654a TASK-01 Restrict service status values
+|/  
+* d5e2563 Describe project directory structure
+* 187bda9 Update project documentation
+* 277116f Add project README
+* 32cc0be Initial version of Cloud Application
+
+$ git status
+On branch main
+nothing to commit, working tree clean

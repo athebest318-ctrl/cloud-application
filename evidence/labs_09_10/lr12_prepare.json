@@ -1,0 +1,52 @@
+[
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\nYour branch is up to date with 'origin/main'.\n\nnothing to commit, working tree clean\n"
+  },
+  {
+    "command": "git branch --show-current",
+    "exit_code": 0,
+    "output": "main\n"
+  },
+  {
+    "command": "git switch -c feature/app-configuration",
+    "exit_code": 0,
+    "output": "Switched to a new branch 'feature/app-configuration'\n"
+  },
+  {
+    "command": "python -m pip freeze > requirements.txt (Docker environment)",
+    "exit_code": 0,
+    "output": "alembic==1.20.0\nannotated-doc==0.0.5\nannotated-types==0.8.0\nanyio==4.15.1\nargon2-cffi==25.1.0\nargon2-cffi-bindings==26.1.0\ncertifi==2026.7.22\ncffi==2.1.1\nclick==8.5.0\ncolorama==0.4.6\nfastapi==0.141.1\nh11==0.16.0\nhttpcore==1.0.9\nhttptools==0.8.0\nhttpx==0.28.1\nidna==3.19\niniconfig==2.3.1\nlxml==6.1.3\nMako==1.4.3\nMarkupSafe==3.0.4\npackaging==26.3\npluggy==1.7.0\npsycopg==3.3.6\npsycopg-binary==3.3.6\npwdlib==0.3.1\npycparser==3.12\npydantic==2.13.5\npydantic-settings==2.16.0\npydantic_core==2.46.5\nPygments==2.21.0\npytest==9.1.1\npython-docx==1.2.0\npython-dotenv==1.2.3\npython-multipart==0.0.32\nPyYAML==6.0.3\nSQLAlchemy==2.1.4\nstarlette==1.6.0\ntyping-inspection==0.4.4\ntyping_extensions==4.16.0\ntzdata==2026.5\nuvicorn==0.53.0\nwatchfiles==1.2.0\nwebsockets==17.1\n"
+  },
+  {
+    "command": "python -m pip show pydantic-settings (Docker environment)",
+    "exit_code": 0,
+    "output": "Name: pydantic-settings\nVersion: 2.16.0\nSummary: Settings management using Pydantic\nHome-page: https://github.com/pydantic/pydantic-settings\nAuthor: \nAuthor-email: Samuel Colvin <s@muelcolvin.com>, Eric Jolibois <em.jolibois@gmail.com>, Hasan Ramezani <hasan.r67@gmail.com>\nLicense-Expression: MIT\nLocation: /usr/local/lib/python3.14/site-packages\nRequires: pydantic, python-dotenv, typing-extensions, typing-inspection\nRequired-by: \n"
+  },
+  {
+    "command": "python -m pip check (Docker environment)",
+    "exit_code": 0,
+    "output": "No broken requirements found.\n"
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch feature/app-configuration\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n  (use \"git restore <file>...\" to discard changes in working directory)\n\tmodified:   app/config.py\n\tmodified:   app/main.py\n\tmodified:   app/routers/system.py\n\tmodified:   requirements.txt\n\nUntracked files:\n  (use \"git add <file>...\" to include in what will be committed)\n\t.env.example\n\trun.py\n\nno changes added to commit (use \"git add\" and/or \"git commit -a\")\n"
+  },
+  {
+    "command": "git check-ignore -v .env",
+    "exit_code": 0,
+    "output": ".gitignore:4:.env\t.env\n"
+  },
+  {
+    "command": "git ls-files .env",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": "git diff",
+    "exit_code": 0,
+    "output": "diff --git a/app/config.py b/app/config.py\nindex 0c88495..91394c7 100644\n--- a/app/config.py\n+++ b/app/config.py\n@@ -1,2 +1,29 @@\n-APP_NAME = \"Cloud Application\"\n-APP_VERSION = \"1.0\"\n+from pathlib import Path\n+from typing import Literal\n+\n+from pydantic import Field\n+from pydantic_settings import BaseSettings, SettingsConfigDict\n+\n+\n+class Settings(BaseSettings):\n+    app_name: str = \"Cloud Application\"\n+    app_version: str = \"1.0\"\n+    app_description: str = (\n+        \"Учебное серверное приложение для изучения \"\n+        \"разработки программного обеспечения облачных систем.\"\n+    )\n+    app_env: Literal[\"development\", \"testing\", \"production\"] = \"development\"\n+    app_host: str = \"127.0.0.1\"\n+    app_port: int = Field(default=8000, ge=1, le=65535)\n+    debug: bool = True\n+    api_prefix: str = \"/api\"\n+\n+    model_config = SettingsConfigDict(\n+        env_file=Path(__file__).resolve().parent.parent / \".env\",\n+        env_file_encoding=\"utf-8\",\n+        case_sensitive=False,\n+        extra=\"ignore\",\n+    )\n+\n+\n+settings = Settings()\ndiff --git a/app/main.py b/app/main.py\nindex 724d8d4..5a271e6 100644\n--- a/app/main.py\n+++ b/app/main.py\n@@ -1,6 +1,6 @@\n from fastapi import FastAPI, HTTPException, Path\n \n-from app.config import APP_NAME, APP_VERSION\n+from app.config import settings\n \n import app.routers.services\n import app.routers.system\n@@ -26,12 +26,10 @@ tags_metadata = [\n ]\n \n app = FastAPI(\n-    title=APP_NAME,\n-    version=APP_VERSION,\n-    description=(\n-        \"Учебное серверное приложение для изучения \"\n-        \"разработки программного обеспечения облачных систем.\"\n-    ),\n+    title=settings.app_name,\n+    version=settings.app_version,\n+    description=settings.app_description,\n+    debug=settings.debug,\n     openapi_tags=tags_metadata\n )\n \ndiff --git a/app/routers/system.py b/app/routers/system.py\nindex b8fad1b..a2f980d 100644\n--- a/app/routers/system.py\n+++ b/app/routers/system.py\n@@ -1,6 +1,6 @@\n from fastapi import APIRouter\n \n-from app.config import APP_NAME, APP_VERSION\n+from app.config import settings\n from app.services.services import count_services\n \n \n@@ -15,7 +15,12 @@ router = APIRouter(\n )\n def read_status():\n \treturn {\n-\t\t\"status\": \"ok\"\n+\t\t\"status\": \"ok\",\n+        \"application\": settings.app_name,\n+        \"version\": settings.app_version,\n+        \"environment\": settings.app_env,\n+        \"debug\": settings.debug,\n+        \"api_prefix\": settings.api_prefix\n \t}\n \n \n@@ -25,8 +30,8 @@ def read_status():\n )\n def read_about():\n \treturn {\n-\t\t\"name\": APP_NAME,\n-\t\t\"version\": APP_VERSION\n+\t\t\"name\": settings.app_name,\n+\t\t\"version\": settings.app_version\n \t}\n \n \ndiff --git a/requirements.txt b/requirements.txt\nindex 68cb64e..f3b8950 100644\n--- a/requirements.txt\n+++ b/requirements.txt\n@@ -1,18 +1,43 @@\n+alembic==1.20.0\n annotated-doc==0.0.5\n annotated-types==0.8.0\n anyio==4.15.1\n+argon2-cffi==25.1.0\n+argon2-cffi-bindings==26.1.0\n+certifi==2026.7.22\n+cffi==2.1.1\n click==8.5.0\n+colorama==0.4.6\n fastapi==0.141.1\n h11==0.16.0\n+httpcore==1.0.9\n httptools==0.8.0\n+httpx==0.28.1\n idna==3.19\n+iniconfig==2.3.1\n+lxml==6.1.3\n+Mako==1.4.3\n+MarkupSafe==3.0.4\n+packaging==26.3\n+pluggy==1.7.0\n+psycopg==3.3.6\n+psycopg-binary==3.3.6\n+pwdlib==0.3.1\n+pycparser==3.12\n pydantic==2.13.5\n+pydantic-settings==2.16.0\n pydantic_core==2.46.5\n+Pygments==2.21.0\n+pytest==9.1.1\n+python-docx==1.2.0\n python-dotenv==1.2.3\n+python-multipart==0.0.32\n PyYAML==6.0.3\n+SQLAlchemy==2.1.4\n starlette==1.6.0\n typing-inspection==0.4.4\n typing_extensions==4.16.0\n+tzdata==2026.5\n uvicorn==0.53.0\n watchfiles==1.2.0\n websockets==17.1\n"
+  }
+]

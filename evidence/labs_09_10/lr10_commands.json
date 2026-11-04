@@ -1,0 +1,257 @@
+[
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\nnothing to commit, working tree clean\n"
+  },
+  {
+    "command": "git branch --show-current",
+    "exit_code": 0,
+    "output": "main\n"
+  },
+  {
+    "command": "git branch",
+    "exit_code": 0,
+    "output": "* main\n"
+  },
+  {
+    "command": "git log --oneline",
+    "exit_code": 0,
+    "output": "d5e2563 Describe project directory structure\n187bda9 Update project documentation\n277116f Add project README\n32cc0be Initial version of Cloud Application\n"
+  },
+  {
+    "command": "git switch -c feature/status-validation",
+    "exit_code": 0,
+    "output": "Switched to a new branch 'feature/status-validation'\n"
+  },
+  {
+    "command": "git branch",
+    "exit_code": 0,
+    "output": "* feature/status-validation\n  main\n"
+  },
+  {
+    "command": "git branch --show-current",
+    "exit_code": 0,
+    "output": "feature/status-validation\n"
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch feature/status-validation\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n  (use \"git restore <file>...\" to discard changes in working directory)\n\tmodified:   app/schemas/services.py\n\nno changes added to commit (use \"git add\" and/or \"git commit -a\")\n"
+  },
+  {
+    "command": "git diff",
+    "exit_code": 0,
+    "output": "diff --git a/app/schemas/services.py b/app/schemas/services.py\nindex a3a87f3..4210394 100644\n--- a/app/schemas/services.py\n+++ b/app/schemas/services.py\n@@ -1,3 +1,5 @@\n+from typing import Literal\n+\n from pydantic import BaseModel, Field\n \n \n@@ -14,7 +16,11 @@ class ServiceCreate(BaseModel):\n         examples=[\"monitoring\"]\n     )\n \n-    status: str = Field(\n+    status: Literal[\n+        \"running\",\n+        \"maintenance\",\n+        \"stopped\"\n+    ] = Field(\n         ...,\n         description=\"Текущее состояние сервиса\",\n         examples=[\"running\"]\n"
+  },
+  {
+    "command": "git add app/schemas/services.py",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": "git diff --staged",
+    "exit_code": 0,
+    "output": "diff --git a/app/schemas/services.py b/app/schemas/services.py\nindex a3a87f3..4210394 100644\n--- a/app/schemas/services.py\n+++ b/app/schemas/services.py\n@@ -1,3 +1,5 @@\n+from typing import Literal\n+\n from pydantic import BaseModel, Field\n \n \n@@ -14,7 +16,11 @@ class ServiceCreate(BaseModel):\n         examples=[\"monitoring\"]\n     )\n \n-    status: str = Field(\n+    status: Literal[\n+        \"running\",\n+        \"maintenance\",\n+        \"stopped\"\n+    ] = Field(\n         ...,\n         description=\"Текущее состояние сервиса\",\n         examples=[\"running\"]\n"
+  },
+  {
+    "command": "git commit -m TASK-01 Restrict service status values",
+    "exit_code": 0,
+    "output": "[feature/status-validation 014654a] TASK-01 Restrict service status values\n 1 file changed, 7 insertions(+), 1 deletion(-)\n"
+  },
+  {
+    "command": "git rev-parse HEAD",
+    "exit_code": 0,
+    "output": "014654a055a84529d6de68bb0d37317c5234647b\n"
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch feature/status-validation\nnothing to commit, working tree clean\n"
+  },
+  {
+    "command": "git log --oneline --graph --all",
+    "exit_code": 0,
+    "output": "* 014654a TASK-01 Restrict service status values\n* d5e2563 Describe project directory structure\n* 187bda9 Update project documentation\n* 277116f Add project README\n* 32cc0be Initial version of Cloud Application\n"
+  },
+  {
+    "command": "git switch main",
+    "exit_code": 0,
+    "output": "Switched to branch 'main'\n"
+  },
+  {
+    "command": "git show HEAD:app/schemas/services.py",
+    "exit_code": 0,
+    "output": "from pydantic import BaseModel, Field\n\n\nclass ServiceCreate(BaseModel):\n    name: str = Field(\n        ...,\n        description=\"Название облачного сервиса\",\n        examples=[\"Monitoring Service\"]\n    )\n\n    type: str = Field(\n        ...,\n        description=\"Тип облачного сервиса\",\n        examples=[\"monitoring\"]\n    )\n\n    status: str = Field(\n        ...,\n        description=\"Текущее состояние сервиса\",\n        examples=[\"running\"]\n    )\n"
+  },
+  {
+    "command": "git log --oneline",
+    "exit_code": 0,
+    "output": "d5e2563 Describe project directory structure\n187bda9 Update project documentation\n277116f Add project README\n32cc0be Initial version of Cloud Application\n"
+  },
+  {
+    "command": "git merge-base --is-ancestor 014654a055a84529d6de68bb0d37317c5234647b main",
+    "exit_code": 1,
+    "output": ""
+  },
+  {
+    "command": "git diff main..feature/status-validation -- app/schemas/services.py",
+    "exit_code": 0,
+    "output": "diff --git a/app/schemas/services.py b/app/schemas/services.py\nindex a3a87f3..4210394 100644\n--- a/app/schemas/services.py\n+++ b/app/schemas/services.py\n@@ -1,3 +1,5 @@\n+from typing import Literal\n+\n from pydantic import BaseModel, Field\n \n \n@@ -14,7 +16,11 @@ class ServiceCreate(BaseModel):\n         examples=[\"monitoring\"]\n     )\n \n-    status: str = Field(\n+    status: Literal[\n+        \"running\",\n+        \"maintenance\",\n+        \"stopped\"\n+    ] = Field(\n         ...,\n         description=\"Текущее состояние сервиса\",\n         examples=[\"running\"]\n"
+  },
+  {
+    "command": "git switch feature/status-validation",
+    "exit_code": 0,
+    "output": "Switched to branch 'feature/status-validation'\n"
+  },
+  {
+    "command": "git show HEAD:app/schemas/services.py",
+    "exit_code": 0,
+    "output": "from typing import Literal\n\nfrom pydantic import BaseModel, Field\n\n\nclass ServiceCreate(BaseModel):\n    name: str = Field(\n        ...,\n        description=\"Название облачного сервиса\",\n        examples=[\"Monitoring Service\"]\n    )\n\n    type: str = Field(\n        ...,\n        description=\"Тип облачного сервиса\",\n        examples=[\"monitoring\"]\n    )\n\n    status: Literal[\n        \"running\",\n        \"maintenance\",\n        \"stopped\"\n    ] = Field(\n        ...,\n        description=\"Текущее состояние сервиса\",\n        examples=[\"running\"]\n    )\n"
+  },
+  {
+    "command": "git switch main",
+    "exit_code": 0,
+    "output": "Switched to branch 'main'\n"
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\nnothing to commit, working tree clean\n"
+  },
+  {
+    "command": "git merge --no-ff feature/status-validation -m Merge feature/status-validation",
+    "exit_code": 0,
+    "output": "Merge made by the 'ort' strategy.\n app/schemas/services.py | 8 +++++++-\n 1 file changed, 7 insertions(+), 1 deletion(-)\n"
+  },
+  {
+    "command": "git log --oneline --graph --all",
+    "exit_code": 0,
+    "output": "*   74d4eda Merge feature/status-validation\n|\\  \n| * 014654a TASK-01 Restrict service status values\n|/  \n* d5e2563 Describe project directory structure\n* 187bda9 Update project documentation\n* 277116f Add project README\n* 32cc0be Initial version of Cloud Application\n"
+  },
+  {
+    "command": "git diff",
+    "exit_code": 0,
+    "output": "diff --git a/PROJECT_TASKS.md b/PROJECT_TASKS.md\nindex 9d238a5..6f4f74b 100644\n--- a/PROJECT_TASKS.md\n+++ b/PROJECT_TASKS.md\n@@ -2,6 +2,6 @@\n \n | ID | Задача | Статус |\n | --- | --- | --- |\n-| TASK-01 | Ограничить status значениями running, maintenance, stopped | TODO |\n+| TASK-01 | Ограничить status значениями running, maintenance, stopped | DONE |\n \n Критерий приёмки TASK-01: API принимает running, maintenance и stopped, отклоняет unknown с HTTP 422; OpenAPI перечисляет допустимые значения.\n"
+  },
+  {
+    "command": "git add PROJECT_TASKS.md",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": "git commit -m Mark TASK-01 as completed",
+    "exit_code": 0,
+    "output": "[main f628f74] Mark TASK-01 as completed\n 1 file changed, 1 insertion(+), 1 deletion(-)\n"
+  },
+  {
+    "command": "git branch -d feature/status-validation",
+    "exit_code": 0,
+    "output": "Deleted branch feature/status-validation (was 014654a).\n"
+  },
+  {
+    "command": "git branch",
+    "exit_code": 0,
+    "output": "* main\n"
+  },
+  {
+    "command": "git switch -c docs/status-description",
+    "exit_code": 0,
+    "output": "Switched to a new branch 'docs/status-description'\n"
+  },
+  {
+    "command": "git branch",
+    "exit_code": 0,
+    "output": "* docs/status-description\n  main\n"
+  },
+  {
+    "command": "git branch --show-current",
+    "exit_code": 0,
+    "output": "docs/status-description\n"
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch docs/status-description\nChanges not staged for commit:\n  (use \"git add <file>...\" to update what will be committed)\n  (use \"git restore <file>...\" to discard changes in working directory)\n\tmodified:   README.md\n\nno changes added to commit (use \"git add\" and/or \"git commit -a\")\n"
+  },
+  {
+    "command": "git diff",
+    "exit_code": 0,
+    "output": "diff --git a/README.md b/README.md\nindex 8378438..651f119 100644\n--- a/README.md\n+++ b/README.md\n@@ -27,3 +27,10 @@ python -m uvicorn app.main:app --reload\n - `app/schemas` — описание и проверка входных данных API.\n - `app/services` — операции с сервисами и логика приложения.\n - `app/data` — хранение учебного списка сервисов.\n+\n+## Состояния сервисов\n+\n+Для облачных сервисов поддерживаются следующие состояния:\n+- `running` — сервис работает;\n+- `maintenance` — сервис находится на обслуживании;\n+- `stopped` — сервис остановлен.\n"
+  },
+  {
+    "command": "git add README.md",
+    "exit_code": 0,
+    "output": ""
+  },
+  {
+    "command": "git diff --staged",
+    "exit_code": 0,
+    "output": "diff --git a/README.md b/README.md\nindex 8378438..651f119 100644\n--- a/README.md\n+++ b/README.md\n@@ -27,3 +27,10 @@ python -m uvicorn app.main:app --reload\n - `app/schemas` — описание и проверка входных данных API.\n - `app/services` — операции с сервисами и логика приложения.\n - `app/data` — хранение учебного списка сервисов.\n+\n+## Состояния сервисов\n+\n+Для облачных сервисов поддерживаются следующие состояния:\n+- `running` — сервис работает;\n+- `maintenance` — сервис находится на обслуживании;\n+- `stopped` — сервис остановлен.\n"
+  },
+  {
+    "command": "git commit -m Document supported service statuses",
+    "exit_code": 0,
+    "output": "[docs/status-description c513ab4] Document supported service statuses\n 1 file changed, 7 insertions(+)\n"
+  },
+  {
+    "command": "git rev-parse HEAD",
+    "exit_code": 0,
+    "output": "c513ab4cf17c114e9e231229057de7a431b7919a\n"
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch docs/status-description\nnothing to commit, working tree clean\n"
+  },
+  {
+    "command": "git switch main",
+    "exit_code": 0,
+    "output": "Switched to branch 'main'\n"
+  },
+  {
+    "command": "git show HEAD:README.md",
+    "exit_code": 0,
+    "output": "# Cloud Application\n\nУчебный проект по дисциплине «Управление работами и разработка программного обеспечения облачных систем».\n\n## Возможности\n\n- серверное приложение FastAPI;\n- REST API для управления сервисами;\n- CRUD-операции;\n- автоматическая документация OpenAPI;\n- модульная организация проекта.\n\n## Запуск\n\npython -m uvicorn app.main:app --reload\n\n## Основные адреса\n\n- `/` — основная информация;\n- `/status` — состояние приложения;\n- `/services` — управление сервисами;\n- `/docs` — интерактивная документация API.\n\n## Структура проекта\n\n- `app/routers` — обработка HTTP-запросов и формирование ответов.\n- `app/schemas` — описание и проверка входных данных API.\n- `app/services` — операции с сервисами и логика приложения.\n- `app/data` — хранение учебного списка сервисов.\n"
+  },
+  {
+    "command": "git merge-base --is-ancestor c513ab4cf17c114e9e231229057de7a431b7919a main",
+    "exit_code": 1,
+    "output": ""
+  },
+  {
+    "command": "git diff main..docs/status-description -- README.md",
+    "exit_code": 0,
+    "output": "diff --git a/README.md b/README.md\nindex 8378438..651f119 100644\n--- a/README.md\n+++ b/README.md\n@@ -27,3 +27,10 @@ python -m uvicorn app.main:app --reload\n - `app/schemas` — описание и проверка входных данных API.\n - `app/services` — операции с сервисами и логика приложения.\n - `app/data` — хранение учебного списка сервисов.\n+\n+## Состояния сервисов\n+\n+Для облачных сервисов поддерживаются следующие состояния:\n+- `running` — сервис работает;\n+- `maintenance` — сервис находится на обслуживании;\n+- `stopped` — сервис остановлен.\n"
+  },
+  {
+    "command": "git merge --no-ff docs/status-description -m Merge docs/status-description",
+    "exit_code": 0,
+    "output": "Merge made by the 'ort' strategy.\n README.md | 7 +++++++\n 1 file changed, 7 insertions(+)\n"
+  },
+  {
+    "command": "git show HEAD:README.md",
+    "exit_code": 0,
+    "output": "# Cloud Application\n\nУчебный проект по дисциплине «Управление работами и разработка программного обеспечения облачных систем».\n\n## Возможности\n\n- серверное приложение FastAPI;\n- REST API для управления сервисами;\n- CRUD-операции;\n- автоматическая документация OpenAPI;\n- модульная организация проекта.\n\n## Запуск\n\npython -m uvicorn app.main:app --reload\n\n## Основные адреса\n\n- `/` — основная информация;\n- `/status` — состояние приложения;\n- `/services` — управление сервисами;\n- `/docs` — интерактивная документация API.\n\n## Структура проекта\n\n- `app/routers` — обработка HTTP-запросов и формирование ответов.\n- `app/schemas` — описание и проверка входных данных API.\n- `app/services` — операции с сервисами и логика приложения.\n- `app/data` — хранение учебного списка сервисов.\n\n## Состояния сервисов\n\nДля облачных сервисов поддерживаются следующие состояния:\n- `running` — сервис работает;\n- `maintenance` — сервис находится на обслуживании;\n- `stopped` — сервис остановлен.\n"
+  },
+  {
+    "command": "git branch -d docs/status-description",
+    "exit_code": 0,
+    "output": "Deleted branch docs/status-description (was c513ab4).\n"
+  },
+  {
+    "command": "git branch",
+    "exit_code": 0,
+    "output": "* main\n"
+  },
+  {
+    "command": "git log --oneline --graph --all",
+    "exit_code": 0,
+    "output": "*   a6518a1 Merge docs/status-description\n|\\  \n| * c513ab4 Document supported service statuses\n|/  \n* f628f74 Mark TASK-01 as completed\n*   74d4eda Merge feature/status-validation\n|\\  \n| * 014654a TASK-01 Restrict service status values\n|/  \n* d5e2563 Describe project directory structure\n* 187bda9 Update project documentation\n* 277116f Add project README\n* 32cc0be Initial version of Cloud Application\n"
+  },
+  {
+    "command": "git status",
+    "exit_code": 0,
+    "output": "On branch main\nnothing to commit, working tree clean\n"
+  }
+]
