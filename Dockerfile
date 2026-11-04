@@ -11,7 +11,8 @@ WORKDIR /app
 COPY requirements.txt ./
 RUN python -m pip install --no-cache-dir -r requirements.txt
 
-RUN useradd --create-home --shell /usr/sbin/nologin appuser
+RUN useradd --create-home --shell /usr/sbin/nologin appuser \
+    && mkdir -p /app/storage && chown appuser:appuser /app/storage
 
 COPY --chown=appuser:appuser app ./app
 COPY --chown=appuser:appuser migrations ./migrations
@@ -22,6 +23,6 @@ USER appuser
 EXPOSE 8000
 
 LABEL org.opencontainers.image.title="Cloud Application" \
-      org.opencontainers.image.version="0.1"
+      org.opencontainers.image.version="0.2"
 
 CMD ["python", "run.py"]
