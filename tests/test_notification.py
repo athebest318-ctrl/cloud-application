@@ -1,9 +1,17 @@
+import asyncio
 from types import SimpleNamespace
 
 import httpx
+import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
+from app.integrations import notification_client
+from app.integrations.notification_client import (
+    NotificationServiceBadResponse,
+    NotificationServiceTimeout,
+    NotificationServiceUnavailable,
+)
 from app.notification_service.main import app as notification_app, notifications
 from app.security.authorization import get_current_user
 
@@ -18,6 +26,8 @@ def test_notification_service_contract():
         assert client.get('/notifications/1').json() == result.json()
         assert client.get('/notifications/2').status_code == 404
         assert client.post('/notifications', json={'recipient': 'x', 'message': ''}).status_code == 422
+        assert client.get('/test/error/503').status_code == 503
+        assert client.get('/test/error/400').status_code == 400
 
 
 def test_integration_checks_permission_and_forwards_json(monkeypatch):
@@ -36,5 +46,70 @@ def test_integration_checks_permission_and_forwards_json(monkeypatch):
             assert result.status_code == 200
             assert result.json() == {'id': 1, **payload, 'status': 'accepted'}
             assert notifications[0].message == 'hello'
+    finally:
+        app.dependency_overrides.clear()
+
+
+def test_connect_errors_retry_with_backoff(monkeypatch):
+    attempts = 0
+    delays = []
+
+    class FakeClient:
+        def __init__(self, **kwargs):
+            pass
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *args):
+            pass
+
+        async def post(self, url, json):
+            nonlocal attempts
+            attempts += 1
+            if attempts < 3:
+                raise httpx.ConnectError("unavailable")
+            return httpx.Response(
+                201,
+                request=httpx.Request("POST", url),
+                json={"id": 1, **json, "status": "accepted"},
+            )
+
+    async def fake_sleep(delay):
+        delays.append(delay)
+
+    monkeypatch.setattr(httpx, "AsyncClient", FakeClient)
+    monkeypatch.setattr(asyncio, "sleep", fake_sleep)
+    result = asyncio.run(notification_client.send_notification("a@b", "hello"))
+
+    assert result["status"] == "accepted"
+    assert attempts == 3
+    assert delays == [0.5, 1.0]
+
+
+@pytest.mark.parametrize(
+    ("error", "expected_status"),
+    [
+        (NotificationServiceUnavailable(), 503),
+        (NotificationServiceTimeout(), 504),
+        (NotificationServiceBadResponse(503), 502),
+    ],
+)
+def test_integration_maps_service_errors(monkeypatch, error, expected_status):
+    async def fail(*args, **kwargs):
+        raise error
+
+    monkeypatch.setattr("app.routers.integration.send_notification", fail)
+    user = SimpleNamespace(
+        role=SimpleNamespace(permissions=[SimpleNamespace(code="services.write")])
+    )
+    app.dependency_overrides[get_current_user] = lambda: user
+    try:
+        with TestClient(app) as client:
+            response = client.post(
+                "/integration/notifications",
+                json={"recipient": "a@b", "message": "hello"},
+            )
+            assert response.status_code == expected_status
     finally:
         app.dependency_overrides.clear()
