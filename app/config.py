@@ -35,6 +35,9 @@ class Settings(BaseSettings):
     ssl_certfile: str = "certs/localhost.pem"
     ssl_keyfile: str = "certs/localhost-key.pem"
     notification_service_url: str = "http://127.0.0.1:9000"
+    notification_timeout_seconds: float = 2.0
+    notification_max_attempts: int = 3
+    notification_retry_delay_seconds: float = 0.5
     storage_path: str = "storage/objects"
     max_upload_size: int = 5 * 1024 * 1024
 

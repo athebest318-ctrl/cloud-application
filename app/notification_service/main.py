@@ -24,6 +24,11 @@ def status():
     return {"service": "notification", "status": "running"}
 
 
+@app.get("/test/error/{status_code}", summary="Сформировать тестовую ошибку")
+def test_error(status_code: int):
+    raise HTTPException(status_code=status_code, detail="Test service error")
+
+
 @app.post("/notifications", response_model=NotificationResponse, status_code=201)
 async def create_notification(notification: NotificationCreate):
     item = NotificationResponse(id=len(notifications) + 1, status="accepted", **notification.model_dump())
