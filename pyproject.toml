@@ -1,0 +1,26 @@
+[tool.ruff]
+line-length = 88
+extend-exclude = [
+    ".venv",
+    "migrations/versions",
+    "storage",
+]
+
+[tool.ruff.lint]
+select = [
+    "E4",
+    "E7",
+    "E9",
+    "F",
+    "I",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/init_access.py" = ["E402"]
+"scripts/verify_access.py" = ["E402"]
+"scripts/verify_project.py" = ["E402"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"

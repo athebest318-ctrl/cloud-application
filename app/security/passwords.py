@@ -1,7 +1,6 @@
 from pwdlib import PasswordHash
 from pwdlib.exceptions import UnknownHashError
 
-
 password_manager = PasswordHash.recommended()
 
 

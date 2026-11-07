@@ -1,11 +1,10 @@
 import argparse
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
 
 import httpx
 from sqlalchemy import select
-
 
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -13,10 +12,9 @@ if __package__ in {None, ""}:
 from app.data.database import SessionLocal
 from app.data.models import ServiceType, User
 from app.schemas.auth import UserRegister
+from app.security.passwords import verify_password
 from app.services.access import assign_role, initialize_access_model
 from app.services.auth import register_user
-from app.security.passwords import verify_password
-
 
 PASSWORD = "cloud12345"
 USERS = {
@@ -30,7 +28,10 @@ USERS = {
 def prepare_database() -> None:
     with SessionLocal() as db:
         initialize_access_model(db)
-        if db.scalar(select(ServiceType).where(ServiceType.name == "monitoring")) is None:
+        if (
+            db.scalar(select(ServiceType).where(ServiceType.name == "monitoring"))
+            is None
+        ):
             db.add(ServiceType(name="monitoring", description="Monitoring services"))
             db.commit()
 
@@ -110,24 +111,48 @@ def main() -> None:
         }
 
         record("Viewer reads services", client.get("/services", headers=viewer), 200)
-        record("Viewer cannot create service", client.post("/services", headers=viewer, json=payload), 403)
-        record("Viewer cannot list roles", client.get("/access/roles", headers=viewer), 403)
+        record(
+            "Viewer cannot create service",
+            client.post("/services", headers=viewer, json=payload),
+            403,
+        )
+        record(
+            "Viewer cannot list roles", client.get("/access/roles", headers=viewer), 403
+        )
 
         created = client.post("/services", headers=operator, json=payload)
         record("Operator creates service", created, 201)
         service_id = created.json()["id"]
-        record("Operator cannot list roles", client.get("/access/roles", headers=operator), 403)
+        record(
+            "Operator cannot list roles",
+            client.get("/access/roles", headers=operator),
+            403,
+        )
 
-        record("Administrator lists roles", client.get("/access/roles", headers=admin), 200)
+        record(
+            "Administrator lists roles", client.get("/access/roles", headers=admin), 200
+        )
         record(
             "Administrator reads user access",
             client.get(f"/access/users/{user_ids['student01']}", headers=admin),
             200,
         )
-        record("Administrator reads access summary", client.get("/access/summary", headers=admin), 200)
+        record(
+            "Administrator reads access summary",
+            client.get("/access/summary", headers=admin),
+            200,
+        )
 
-        record("Content manager reads services", client.get("/services", headers=content_manager), 200)
-        record("Content manager cannot create service", client.post("/services", headers=content_manager, json=payload), 403)
+        record(
+            "Content manager reads services",
+            client.get("/services", headers=content_manager),
+            200,
+        )
+        record(
+            "Content manager cannot create service",
+            client.post("/services", headers=content_manager, json=payload),
+            403,
+        )
         uploaded = client.post(
             "/objects",
             headers=content_manager,
@@ -187,7 +212,9 @@ def main() -> None:
         )
         record("Revoked token", client.get("/auth/me", headers=viewer), 401)
 
-    evidence_path = Path(__file__).resolve().parents[1] / "evidence" / "authorization_results.json"
+    evidence_path = (
+        Path(__file__).resolve().parents[1] / "evidence" / "authorization_results.json"
+    )
     evidence_path.parent.mkdir(parents=True, exist_ok=True)
     evidence_path.write_text(
         json.dumps(

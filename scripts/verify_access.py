@@ -9,7 +9,6 @@ from typing import Any
 import httpx
 from sqlalchemy import select, text
 
-
 PROJECT_PATH = Path(__file__).resolve().parents[1]
 if str(PROJECT_PATH) not in sys.path:
     sys.path.insert(0, str(PROJECT_PATH))
@@ -19,7 +18,6 @@ from app.data.database import SessionLocal
 from app.data.models import User
 from app.services.access import get_roles, get_user_access
 from app.services.auth import get_user_by_username
-
 
 EXPECTED_PERMISSIONS = {
     "viewer": ["objects.read", "services.read"],
@@ -74,9 +72,7 @@ def main() -> None:
     with httpx.Client(base_url=args.base_url, timeout=30.0) as client:
         roles_response = require(client.get("/access/roles"), 200)
         roles = roles_response.json()
-        role_permissions = {
-            role["name"]: role["permissions"] for role in roles
-        }
+        role_permissions = {role["name"]: role["permissions"] for role in roles}
         if role_permissions != EXPECTED_PERMISSIONS:
             raise RuntimeError(f"Unexpected role model: {role_permissions}")
         records.append({"check": "roles", "status": 200, "body": roles})

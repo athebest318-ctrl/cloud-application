@@ -8,7 +8,6 @@ from app.routers.objects import router as objects_router
 from app.routers.services import router as services_router
 from app.routers.system import router as system_router
 
-
 tags_metadata = [
     {
         "name": "Services",

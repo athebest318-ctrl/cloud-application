@@ -8,13 +8,11 @@ from typing import Any
 import httpx
 import psycopg
 
-
 PROJECT_PATH = Path(__file__).resolve().parents[1]
 if str(PROJECT_PATH) not in sys.path:
     sys.path.insert(0, str(PROJECT_PATH))
 
 from app.config import PROJECT_ROOT, settings
-
 
 BASE_URL = f"http://{settings.app_host}:{settings.app_port}"
 EVIDENCE_DIR = PROJECT_ROOT / "evidence"
@@ -98,8 +96,12 @@ def main() -> None:
             response = require(client.get(path), 200)
             records.append(response_record(response))
 
-        records.append(response_record(require(client.get("/services?status=running"), 200)))
-        records.append(response_record(require(client.get("/services?status=unknown"), 422)))
+        records.append(
+            response_record(require(client.get("/services?status=running"), 200))
+        )
+        records.append(
+            response_record(require(client.get("/services?status=unknown"), 422))
+        )
 
         service_payload = {
             "name": "Monitoring API",
@@ -110,13 +112,23 @@ def main() -> None:
         created = require(client.post("/services", json=service_payload), 201)
         records.append(response_record(created))
         service_id = created.json()["id"]
-        records.append(response_record(require(client.get(f"/services/{service_id}"), 200)))
+        records.append(
+            response_record(require(client.get(f"/services/{service_id}"), 200))
+        )
         service_payload["status"] = "maintenance"
         records.append(
-            response_record(require(client.put(f"/services/{service_id}", json=service_payload), 200))
+            response_record(
+                require(
+                    client.put(f"/services/{service_id}", json=service_payload), 200
+                )
+            )
         )
-        records.append(response_record(require(client.delete(f"/services/{service_id}"), 200)))
-        records.append(response_record(require(client.get(f"/services/{service_id}"), 404)))
+        records.append(
+            response_record(require(client.delete(f"/services/{service_id}"), 200))
+        )
+        records.append(
+            response_record(require(client.get(f"/services/{service_id}"), 404))
+        )
 
         sample_paths = [
             PROJECT_ROOT / "README.md",
@@ -129,7 +141,9 @@ def main() -> None:
                 response = require(
                     client.post(
                         "/objects",
-                        files={"file": (sample.name, source, "application/octet-stream")},
+                        files={
+                            "file": (sample.name, source, "application/octet-stream")
+                        },
                     ),
                     201,
                 )
@@ -137,9 +151,13 @@ def main() -> None:
             object_ids.append(response.json()["id"])
         records.append(response_record(require(client.get("/objects"), 200)))
         records.append(
-            response_record(require(client.get(f"/objects/{object_ids[0]}/download"), 200))
+            response_record(
+                require(client.get(f"/objects/{object_ids[0]}/download"), 200)
+            )
         )
-        records.append(response_record(require(client.delete(f"/objects/{object_ids[-1]}"), 200)))
+        records.append(
+            response_record(require(client.delete(f"/objects/{object_ids[-1]}"), 200))
+        )
 
         too_large = b"x" * (settings.max_upload_size + 1)
         records.append(
@@ -147,7 +165,13 @@ def main() -> None:
                 require(
                     client.post(
                         "/objects",
-                        files={"file": ("too-large.bin", too_large, "application/octet-stream")},
+                        files={
+                            "file": (
+                                "too-large.bin",
+                                too_large,
+                                "application/octet-stream",
+                            )
+                        },
                     ),
                     413,
                 )
@@ -163,7 +187,9 @@ def main() -> None:
             records.append(response_record(login))
             tokens[username] = login.json()["access_token"]
             records.append(
-                response_record(require(client.get(f"/auth/session/{tokens[username]}"), 200))
+                response_record(
+                    require(client.get(f"/auth/session/{tokens[username]}"), 200)
+                )
             )
 
         for _ in range(2):
@@ -198,8 +224,16 @@ def main() -> None:
                 )
             )
         )
-        records.append(response_record(require(client.delete(f"/auth/session/{tokens['student03']}"), 200)))
-        records.append(response_record(require(client.get(f"/auth/session/{tokens['student03']}"), 401)))
+        records.append(
+            response_record(
+                require(client.delete(f"/auth/session/{tokens['student03']}"), 200)
+            )
+        )
+        records.append(
+            response_record(
+                require(client.get(f"/auth/session/{tokens['student03']}"), 401)
+            )
+        )
 
     database = database_evidence()
     (EVIDENCE_DIR / "api_results.json").write_text(

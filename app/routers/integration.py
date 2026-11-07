@@ -14,11 +14,15 @@ router = APIRouter(prefix="/integration", tags=["Integration"])
 
 
 @router.post(
-    "/notifications", response_model=NotificationSendResponse, status_code=201,
+    "/notifications",
+    response_model=NotificationSendResponse,
+    status_code=201,
     summary="Передать уведомление внутреннему сервису",
-    responses={502: {"description": "Invalid upstream response"},
-               503: {"description": "Upstream unavailable"},
-               504: {"description": "Upstream timeout"}},
+    responses={
+        502: {"description": "Invalid upstream response"},
+        503: {"description": "Upstream unavailable"},
+        504: {"description": "Upstream timeout"},
+    },
 )
 async def forward_notification(
     notification: NotificationSendRequest,
@@ -27,8 +31,14 @@ async def forward_notification(
     try:
         return await send_notification(notification.recipient, notification.message)
     except NotificationServiceTimeout as exc:
-        raise HTTPException(status_code=504, detail="Notification service response timeout") from exc
+        raise HTTPException(
+            status_code=504, detail="Notification service response timeout"
+        ) from exc
     except NotificationServiceUnavailable as exc:
-        raise HTTPException(status_code=503, detail="Notification service is unavailable") from exc
+        raise HTTPException(
+            status_code=503, detail="Notification service is unavailable"
+        ) from exc
     except NotificationServiceBadResponse as exc:
-        raise HTTPException(status_code=502, detail="Notification service returned an invalid response") from exc
+        raise HTTPException(
+            status_code=502, detail="Notification service returned an invalid response"
+        ) from exc

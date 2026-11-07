@@ -53,7 +53,9 @@ async def send_notification(recipient: str, message: str) -> dict:
 
 async def get_notification(notification_id: int) -> dict:
     url = f"{settings.notification_service_url.rstrip('/')}/notifications/{notification_id}"
-    async with httpx.AsyncClient(timeout=httpx.Timeout(settings.notification_timeout_seconds)) as client:
+    async with httpx.AsyncClient(
+        timeout=httpx.Timeout(settings.notification_timeout_seconds)
+    ) as client:
         response = await client.get(url)
         response.raise_for_status()
     return response.json()

@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 
 from app.data.database import get_db
 from app.data.models import User
-from app.security.authorization import require_permission
 from app.schemas.services import ServiceCreate, ServiceResponse, ServiceStatus
+from app.security.authorization import require_permission
 from app.services.services import (
     create_service,
     delete_service,
@@ -13,7 +13,6 @@ from app.services.services import (
     service_to_dict,
     update_service,
 )
-
 
 router = APIRouter(prefix="/services", tags=["Services"])
 

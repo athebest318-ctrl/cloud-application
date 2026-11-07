@@ -26,7 +26,9 @@ def status():
 
 @app.post("/notifications", response_model=NotificationResponse, status_code=201)
 async def create_notification(notification: NotificationCreate):
-    item = NotificationResponse(id=len(notifications) + 1, status="accepted", **notification.model_dump())
+    item = NotificationResponse(
+        id=len(notifications) + 1, status="accepted", **notification.model_dump()
+    )
     notifications.append(item)
     return item
 
@@ -43,8 +45,11 @@ def get_notification(notification_id: int):
             return item
     raise HTTPException(status_code=404, detail="Notification not found")
 
+
 @app.get("/test/error/{status_code}", summary="Сформировать тестовую ошибку")
 def test_error(status_code: int):
     if not 400 <= status_code <= 599:
-        raise HTTPException(status_code=422, detail="Use an HTTP error status from 400 to 599")
+        raise HTTPException(
+            status_code=422, detail="Use an HTTP error status from 400 to 599"
+        )
     raise HTTPException(status_code=status_code, detail="Test service error")

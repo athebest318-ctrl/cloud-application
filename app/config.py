@@ -6,7 +6,6 @@ from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy import URL
 
-
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -44,9 +43,12 @@ class Settings(BaseSettings):
     @property
     def database_url(self) -> str:
         return URL.create(
-            "postgresql+psycopg", username=self.db_user,
-            password=self.lab_db_password.get_secret_value(), host=self.db_host,
-            port=self.db_port, database=self.db_name,
+            "postgresql+psycopg",
+            username=self.db_user,
+            password=self.lab_db_password.get_secret_value(),
+            host=self.db_host,
+            port=self.db_port,
+            database=self.db_name,
         ).render_as_string(hide_password=False)
 
     @property

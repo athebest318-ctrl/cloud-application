@@ -8,7 +8,6 @@ from app.data.database import get_db
 from app.data.models import User
 from app.services.auth import get_auth_session
 
-
 bearer_scheme = HTTPBearer(auto_error=False)
 
 
