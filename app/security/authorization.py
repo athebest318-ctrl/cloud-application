@@ -1,3 +1,4 @@
+import logging
 from collections.abc import Callable
 
 from fastapi import Depends, HTTPException
@@ -7,6 +8,8 @@ from sqlalchemy.orm import Session
 from app.data.database import get_db
 from app.data.models import User
 from app.services.auth import get_auth_session
+
+logger = logging.getLogger(__name__)
 
 
 bearer_scheme = HTTPBearer(auto_error=False)
@@ -46,10 +49,28 @@ def require_permission(permission_code: str) -> Callable[..., User]:
         current_user: User = Depends(get_current_user),
     ) -> User:
         if permission_code not in user_permission_codes(current_user):
+            logger.warning(
+                "Permission denied",
+                extra={
+                    "service": "cloud-application",
+                    "event": "permission_denied",
+                    "user_id": getattr(current_user, "id", None),
+                    "permission": permission_code,
+                },
+            )
             raise HTTPException(
                 status_code=403,
                 detail=f"Insufficient permissions: {permission_code}",
             )
+        logger.debug(
+            "Permission granted",
+            extra={
+                "service": "cloud-application",
+                "event": "permission_granted",
+                "user_id": getattr(current_user, "id", None),
+                "permission": permission_code,
+            },
+        )
         return current_user
 
     return permission_dependency
@@ -68,6 +89,15 @@ def require_any_permission(*permission_codes: str) -> Callable[..., User]:
                 status_code=403,
                 detail=f"Insufficient permissions: one of {required}",
             )
+        logger.debug(
+            "Permission granted",
+            extra={
+                "service": "cloud-application",
+                "event": "permission_granted",
+                "user_id": getattr(current_user, "id", None),
+                "permission": ", ".join(permission_codes),
+            },
+        )
         return current_user
 
     return permission_dependency

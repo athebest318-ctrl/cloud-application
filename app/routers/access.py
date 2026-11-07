@@ -3,10 +3,9 @@ from sqlalchemy.orm import Session
 
 from app.data.database import get_db
 from app.data.models import User
-from app.security.authorization import require_any_permission, require_permission
 from app.schemas.access import RoleAssign, RoleResponse, UserAccessResponse
+from app.security.authorization import require_any_permission, require_permission
 from app.services.access import assign_role, get_roles, get_user_access
-
 
 router = APIRouter(prefix="/access", tags=["Access Model"])
 
@@ -26,9 +25,7 @@ def read_roles(
             "id": role.id,
             "name": role.name,
             "description": role.description,
-            "permissions": sorted(
-                permission.code for permission in role.permissions
-            ),
+            "permissions": sorted(permission.code for permission in role.permissions),
         }
         for role in roles
     ]

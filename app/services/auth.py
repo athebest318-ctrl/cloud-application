@@ -1,3 +1,4 @@
+import logging
 from uuid import uuid4
 
 from sqlalchemy import delete, select
@@ -6,6 +7,8 @@ from sqlalchemy.orm import Session, selectinload
 from app.data.models import AuthSession, Role, User
 from app.schemas.auth import LoginRequest, UserRegister
 from app.security.passwords import hash_password, verify_password
+
+logger = logging.getLogger(__name__)
 
 
 def get_user_by_username(db: Session, username: str) -> User | None:
@@ -30,11 +33,28 @@ def register_user(db: Session, user_data: UserRegister) -> User | None:
 def authenticate_user(db: Session, login_data: LoginRequest) -> AuthSession | None:
     user = get_user_by_username(db, login_data.username)
     if user is None or not verify_password(login_data.password, user.password_hash):
+        logger.warning(
+            "Authentication failed",
+            extra={
+                "service": "cloud-application",
+                "event": "authentication_failed",
+                "username": login_data.username,
+            },
+        )
         return None
     session = AuthSession(token=uuid4().hex, user_id=user.id)
     db.add(session)
     db.commit()
     db.refresh(session)
+    logger.info(
+        "Authentication succeeded",
+        extra={
+            "service": "cloud-application",
+            "event": "authentication_succeeded",
+            "user_id": user.id,
+            "username": user.username,
+        },
+    )
     return session
 
 

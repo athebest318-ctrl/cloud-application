@@ -13,7 +13,11 @@ from app.security.authorization import require_permission
 router = APIRouter(prefix="/integration", tags=["Integration"])
 
 
-@router.post("/notifications", response_model=NotificationSendResponse, summary="Передать уведомление внутреннему сервису")
+@router.post(
+    "/notifications",
+    response_model=NotificationSendResponse,
+    summary="Передать уведомление внутреннему сервису",
+)
 async def forward_notification(
     notification: NotificationSendRequest,
     current_user: User = Depends(require_permission("services.write")),
