@@ -5,14 +5,16 @@ from app.config import APP_NAME, settings
 from app.data.database import get_db
 from app.services.services import count_services
 
-
 router = APIRouter(tags=["System"])
 
 
 @router.get("/connection", summary="Информация о соединении")
 def connection_info(request: Request):
-    return {"scheme": request.url.scheme, "host": request.url.hostname,
-            "secure": request.url.scheme == "https"}
+    return {
+        "scheme": request.url.scheme,
+        "host": request.url.hostname,
+        "secure": request.url.scheme == "https",
+    }
 
 
 @router.get("/status", summary="Проверить состояние приложения")
@@ -41,8 +43,7 @@ def read_about():
 def read_course():
     return {
         "discipline": (
-            "Управление работами и разработка программного "
-            "обеспечения облачных систем"
+            "Управление работами и разработка программного обеспечения облачных систем"
         ),
         "laboratory": 2,
         "project": APP_NAME,

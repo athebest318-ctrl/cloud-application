@@ -1,9 +1,17 @@
+import logging
+import os
 from typing import Literal
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
+from app.logging_config import configure_logging
+from app.middleware.request_logging import register_request_logging
+
+configure_logging(os.getenv("LOG_LEVEL", "INFO"))
+logger = logging.getLogger(__name__)
 app = FastAPI(title="Notification Service", version="1.0.0")
+register_request_logging(app, "notification-service")
 
 
 class NotificationCreate(BaseModel):
@@ -31,8 +39,19 @@ def test_error(status_code: int):
 
 @app.post("/notifications", response_model=NotificationResponse, status_code=201)
 async def create_notification(notification: NotificationCreate):
-    item = NotificationResponse(id=len(notifications) + 1, status="accepted", **notification.model_dump())
+    item = NotificationResponse(
+        id=len(notifications) + 1, status="accepted", **notification.model_dump()
+    )
     notifications.append(item)
+    logger.info(
+        "Notification accepted",
+        extra={
+            "service": "notification-service",
+            "event": "notification_created",
+            "notification_id": item.id,
+            "status_code": 201,
+        },
+    )
     return item
 
 

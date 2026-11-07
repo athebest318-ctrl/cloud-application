@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session, selectinload
 
 from app.data.models import Permission, Role, User
 
-
 PERMISSIONS = {
     "services.read": "Просмотр сервисов",
     "services.write": "Создание, изменение и удаление сервисов",
@@ -86,9 +85,7 @@ def assign_default_roles(db: Session) -> int:
 def get_roles(db: Session) -> list[Role]:
     return list(
         db.scalars(
-            select(Role)
-            .options(selectinload(Role.permissions))
-            .order_by(Role.id)
+            select(Role).options(selectinload(Role.permissions)).order_by(Role.id)
         ).all()
     )
 

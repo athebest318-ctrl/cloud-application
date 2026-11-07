@@ -23,5 +23,6 @@ if __name__ == "__main__":
         host=settings.app_host,
         port=args.port or (settings.https_port if settings.https_enabled else settings.app_port),
         reload=settings.app_env == "development",
+        access_log=False,
         **ssl_options,
     )

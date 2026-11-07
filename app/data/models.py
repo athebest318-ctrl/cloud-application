@@ -16,7 +16,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.data.database import Base
 
-
 role_permissions = Table(
     "role_permissions",
     Base.metadata,
@@ -43,9 +42,7 @@ class ServiceType(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(50), nullable=False)
     description: Mapped[str | None] = mapped_column(String(255), nullable=True)
-    services: Mapped[list["Service"]] = relationship(
-        back_populates="service_type"
-    )
+    services: Mapped[list["Service"]] = relationship(back_populates="service_type")
 
 
 class Service(Base):
@@ -119,9 +116,7 @@ class StoredObject(Base):
 
 class Permission(Base):
     __tablename__ = "permissions"
-    __table_args__ = (
-        UniqueConstraint("code", name="uq_permissions_code"),
-    )
+    __table_args__ = (UniqueConstraint("code", name="uq_permissions_code"),)
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     code: Mapped[str] = mapped_column(String(100), nullable=False)
@@ -134,9 +129,7 @@ class Permission(Base):
 
 class Role(Base):
     __tablename__ = "roles"
-    __table_args__ = (
-        UniqueConstraint("name", name="uq_roles_name"),
-    )
+    __table_args__ = (UniqueConstraint("name", name="uq_roles_name"),)
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(50), nullable=False)
@@ -150,9 +143,7 @@ class Role(Base):
 
 class User(Base):
     __tablename__ = "users"
-    __table_args__ = (
-        UniqueConstraint("username", name="uq_users_username"),
-    )
+    __table_args__ = (UniqueConstraint("username", name="uq_users_username"),)
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     username: Mapped[str] = mapped_column(String(50), nullable=False)
@@ -175,9 +166,7 @@ class User(Base):
 
 class AuthSession(Base):
     __tablename__ = "auth_sessions"
-    __table_args__ = (
-        UniqueConstraint("token", name="uq_auth_sessions_token"),
-    )
+    __table_args__ = (UniqueConstraint("token", name="uq_auth_sessions_token"),)
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     token: Mapped[str] = mapped_column(String(64), nullable=False)
