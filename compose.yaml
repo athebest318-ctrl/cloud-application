@@ -31,7 +31,7 @@ services:
 
 
   migrate:
-    image: cloud-application:0.6
+    image: cloud-application:0.7
 
     env_file:
       - .env
@@ -72,7 +72,7 @@ services:
 
 
   app:
-    image: cloud-application:0.6
+    image: cloud-application:0.7
 
     env_file:
       - .env
@@ -115,7 +115,7 @@ services:
 
 
   notification:
-    image: cloud-application:0.6
+    image: cloud-application:0.7
     command: ["python", "-m", "uvicorn", "app.notification_service.main:app", "--host", "0.0.0.0", "--port", "9000"]
     networks:
       - cloud-network

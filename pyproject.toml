@@ -19,6 +19,8 @@ select = [
 "scripts/init_access.py" = ["E402"]
 "scripts/verify_access.py" = ["E402"]
 "scripts/verify_project.py" = ["E402"]
+"scripts/profile_service_report.py" = ["E402"]
+"scripts/compare_service_report.py" = ["E402"]
 
 [tool.ruff.format]
 quote-style = "double"
