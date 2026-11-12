@@ -81,7 +81,9 @@ def profile(function, dataset, path):
     stream = io.StringIO()
     stats = pstats.Stats(profiler, stream=stream).strip_dirs().sort_stats("cumulative")
     stats.print_stats(20)
-    path.with_suffix(".txt").write_text(stream.getvalue().rstrip() + "\n", encoding="utf-8")
+    path.with_suffix(".txt").write_text(
+        stream.getvalue().rstrip() + "\n", encoding="utf-8"
+    )
     return {"total_calls": stats.total_calls, "total_seconds": stats.total_tt}
 
 
