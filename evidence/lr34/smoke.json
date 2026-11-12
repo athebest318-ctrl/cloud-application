@@ -1,0 +1,191 @@
+{
+  "checks": [
+    {
+      "check": "/",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "/status",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "/docs",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "/about",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "/course",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "/connection",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "/service-count",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "anonymous denied",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "check": "login viewer",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "identity viewer",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "login operator",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "identity operator",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "login administrator",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "identity administrator",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "login content_manager",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "identity content_manager",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "bad password",
+      "expected": 401,
+      "actual": 401
+    },
+    {
+      "check": "viewer cannot write",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "check": "operator cannot administer",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "check": "admin roles",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "admin summary",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "create service",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "check": "read service",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "update service",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "filter services",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "invalid status",
+      "expected": 422,
+      "actual": 422
+    },
+    {
+      "check": "delete service",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "deleted service absent",
+      "expected": 404,
+      "actual": 404
+    },
+    {
+      "check": "upload",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "check": "download",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "delete object",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "deleted object absent",
+      "expected": 404,
+      "actual": 404
+    },
+    {
+      "check": "upload limit",
+      "expected": 413,
+      "actual": 413
+    },
+    {
+      "check": "viewer notification denied",
+      "expected": 403,
+      "actual": 403
+    },
+    {
+      "check": "notification accepted",
+      "expected": 201,
+      "actual": 201
+    },
+    {
+      "check": "logout",
+      "expected": 200,
+      "actual": 200
+    },
+    {
+      "check": "revoked session",
+      "expected": 401,
+      "actual": 401
+    }
+  ],
+  "migration": "008_password_hash",
+  "passwords": "argon2 hashes only"
+}

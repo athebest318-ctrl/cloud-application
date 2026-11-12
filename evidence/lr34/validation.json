@@ -1,0 +1,16 @@
+{
+  "pytest": {"passed": 35, "failed": 0, "warnings": 2},
+  "warnings": ["Starlette TestClient httpx integration deprecation", "anyio BlockingPortal alias deprecation"],
+  "ruff_quality_gate": "passed",
+  "compileall_app_scripts": "passed",
+  "git_diff_check": "passed",
+  "docker_image": "cloud-application:0.7",
+  "compose": {"db": "healthy", "migrate_exit_code": 0, "app": "running", "notification": "running"},
+  "http_checks_passed": 37,
+  "secret_configuration": "both required secrets configured and masked",
+  "limitations": [
+    "Runtime checks are not a full audit of all historical laboratory documents.",
+    "Legacy verify_project.py and verify_access.py assume pre-authorization API behavior; use verify_current_project.py for the current version.",
+    "A local benchmark is not a concurrent load test."
+  ]
+}

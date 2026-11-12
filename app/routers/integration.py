@@ -16,6 +16,7 @@ router = APIRouter(prefix="/integration", tags=["Integration"])
 @router.post(
     "/notifications",
     response_model=NotificationSendResponse,
+    status_code=201,
     summary="Передать уведомление внутреннему сервису",
 )
 async def forward_notification(
