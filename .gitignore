@@ -16,3 +16,4 @@ reports/_assets/
 *.sqlite3
 
 .vscode/
+*.prof
