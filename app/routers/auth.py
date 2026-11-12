@@ -10,6 +10,7 @@ from app.schemas.auth import (
     UserRegister,
     UserResponse,
 )
+from app.security.authorization import get_current_user
 from app.services.auth import (
     authenticate_user,
     get_auth_session,
@@ -17,8 +18,6 @@ from app.services.auth import (
     logout_user,
     register_user,
 )
-from app.security.authorization import get_current_user
-
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 

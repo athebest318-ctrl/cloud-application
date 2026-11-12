@@ -7,8 +7,8 @@ from sqlalchemy.orm import Session
 
 from app.data.database import get_db
 from app.data.models import User
-from app.security.authorization import require_permission
 from app.schemas.objects import StoredObjectResponse
+from app.security.authorization import require_permission
 from app.services.objects import (
     FileTooLargeError,
     delete_object,
@@ -17,7 +17,6 @@ from app.services.objects import (
     object_to_dict,
     save_object,
 )
-
 
 router = APIRouter(prefix="/objects", tags=["Objects"])
 
@@ -43,7 +42,9 @@ async def upload_object(
     return object_to_dict(obj)
 
 
-@router.get("", response_model=list[StoredObjectResponse], summary="Получить список объектов")
+@router.get(
+    "", response_model=list[StoredObjectResponse], summary="Получить список объектов"
+)
 def read_objects(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_permission("objects.read")),

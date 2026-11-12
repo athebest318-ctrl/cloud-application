@@ -42,7 +42,8 @@ def test_integration_checks_permission_and_forwards_json(monkeypatch):
             assert client.post('/integration/notifications', json=payload).status_code == 403
             assert notifications == []
             user.role.permissions = [SimpleNamespace(code='services.write')]
-            result = client.post('/integration/notifications', json=payload)
+            result = client.post('/integration/notifications', json=payload, headers={"X-Request-ID": "lr31-correlation"})
+            assert result.headers["X-Request-ID"] == "lr31-correlation"
             assert result.status_code == 200
             assert result.json() == {'id': 1, **payload, 'status': 'accepted'}
             assert notifications[0].message == 'hello'
@@ -64,7 +65,7 @@ def test_connect_errors_retry_with_backoff(monkeypatch):
         async def __aexit__(self, *args):
             pass
 
-        async def post(self, url, json):
+        async def post(self, url, json, headers=None):
             nonlocal attempts
             attempts += 1
             if attempts < 3:
@@ -113,3 +114,30 @@ def test_integration_maps_service_errors(monkeypatch, error, expected_status):
             assert response.status_code == expected_status
     finally:
         app.dependency_overrides.clear()
+
+
+@pytest.mark.parametrize("failure", ["timeout", "bad_response"])
+def test_non_connect_failures_are_not_retried(monkeypatch, failure):
+    attempts = []
+
+    class FakeClient:
+        def __init__(self, **kwargs):
+            pass
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *args):
+            pass
+
+        async def post(self, url, json, headers=None):
+            attempts.append(headers)
+            if failure == "timeout":
+                raise httpx.ReadTimeout("test")
+            return httpx.Response(503, request=httpx.Request("POST", url))
+
+    monkeypatch.setattr(httpx, "AsyncClient", FakeClient)
+    expected = NotificationServiceTimeout if failure == "timeout" else NotificationServiceBadResponse
+    with pytest.raises(expected):
+        asyncio.run(notification_client.send_notification("a@b", "message"))
+    assert len(attempts) == 1
