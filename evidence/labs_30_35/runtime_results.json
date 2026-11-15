@@ -1,0 +1,373 @@
+{
+  "checks": [
+    {
+      "scenario": "lr31-forbidden",
+      "status": 403,
+      "seconds": 0.019,
+      "outcome": "Insufficient permissions: services.write",
+      "request_id": "lr31-forbidden"
+    },
+    {
+      "scenario": "lr31-success",
+      "status": 201,
+      "seconds": 0.099,
+      "outcome": "accepted",
+      "request_id": "lr31-success"
+    },
+    {
+      "scenario": "lr30-unavailable",
+      "status": 503,
+      "seconds": 7.536,
+      "outcome": "Notification service is unavailable",
+      "request_id": "lr30-unavailable"
+    },
+    {
+      "scenario": "lr30-recovery",
+      "status": 201,
+      "seconds": 0.034,
+      "outcome": "accepted",
+      "request_id": "lr30-recovery"
+    },
+    {
+      "scenario": "lr30-timeout",
+      "status": 504,
+      "seconds": 2.028,
+      "outcome": "Notification service response timeout",
+      "request_id": "lr30-timeout"
+    },
+    {
+      "scenario": "lr30-final",
+      "status": 201,
+      "seconds": 0.018,
+      "outcome": "accepted",
+      "request_id": "lr30-final"
+    }
+  ],
+  "sensitive_values_absent": true,
+  "status": 200,
+  "docs": 200,
+  "events": [
+    {
+      "timestamp": "2026-11-15T15:16:17.976953+00:00",
+      "level": "INFO",
+      "logger": "app.notification_service.main",
+      "message": "Notification accepted",
+      "request_id": "lr31-success",
+      "service": "notification-service",
+      "event": "notification_created",
+      "status_code": 201,
+      "notification_id": 1
+    },
+    {
+      "timestamp": "2026-11-15T15:16:17.977313+00:00",
+      "level": "INFO",
+      "logger": "app.middleware.request_logging",
+      "message": "HTTP request completed",
+      "request_id": "lr31-success",
+      "service": "notification-service",
+      "event": "http_request_completed",
+      "method": "POST",
+      "path": "/notifications",
+      "status_code": 201,
+      "duration_ms": 1.64
+    },
+    {
+      "timestamp": "2026-11-15T15:16:17.441941+00:00",
+      "level": "WARNING",
+      "logger": "app.security.authorization",
+      "message": "Permission denied",
+      "request_id": "lr31-forbidden",
+      "service": "cloud-application",
+      "event": "permission_denied",
+      "user_id": 6,
+      "permission": "services.write"
+    },
+    {
+      "timestamp": "2026-11-15T15:16:17.442918+00:00",
+      "level": "INFO",
+      "logger": "app.middleware.request_logging",
+      "message": "HTTP request completed",
+      "request_id": "lr31-forbidden",
+      "service": "cloud-application",
+      "event": "http_request_completed",
+      "method": "POST",
+      "path": "/integration/notifications",
+      "status_code": 403,
+      "duration_ms": 16.43
+    },
+    {
+      "timestamp": "2026-11-15T15:16:17.909069+00:00",
+      "level": "INFO",
+      "logger": "app.integrations.notification_client",
+      "message": "Notification request started",
+      "request_id": "lr31-success",
+      "service": "cloud-application",
+      "event": "notification_request_started",
+      "target_service": "notification"
+    },
+    {
+      "timestamp": "2026-11-15T15:16:17.979084+00:00",
+      "level": "INFO",
+      "logger": "app.integrations.notification_client",
+      "message": "Notification request completed",
+      "request_id": "lr31-success",
+      "service": "cloud-application",
+      "event": "notification_request_completed",
+      "status_code": 201,
+      "duration_ms": 69.86,
+      "target_service": "notification",
+      "attempt": 1
+    },
+    {
+      "timestamp": "2026-11-15T15:16:17.979704+00:00",
+      "level": "INFO",
+      "logger": "app.middleware.request_logging",
+      "message": "HTTP request completed",
+      "request_id": "lr31-success",
+      "service": "cloud-application",
+      "event": "http_request_completed",
+      "method": "POST",
+      "path": "/integration/notifications",
+      "status_code": 201,
+      "duration_ms": 77.15
+    },
+    {
+      "timestamp": "2026-11-15T15:16:27.978345+00:00",
+      "level": "INFO",
+      "logger": "app.notification_service.main",
+      "message": "Notification accepted",
+      "request_id": "lr30-recovery",
+      "service": "notification-service",
+      "event": "notification_created",
+      "status_code": 201,
+      "notification_id": 1
+    },
+    {
+      "timestamp": "2026-11-15T15:16:27.978639+00:00",
+      "level": "INFO",
+      "logger": "app.middleware.request_logging",
+      "message": "HTTP request completed",
+      "request_id": "lr30-recovery",
+      "service": "notification-service",
+      "event": "http_request_completed",
+      "method": "POST",
+      "path": "/notifications",
+      "status_code": 201,
+      "duration_ms": 1.09
+    },
+    {
+      "timestamp": "2026-11-15T15:16:30.709891+00:00",
+      "level": "INFO",
+      "logger": "app.notification_service.main",
+      "message": "Notification accepted",
+      "request_id": "lr30-timeout",
+      "service": "notification-service",
+      "event": "notification_created",
+      "status_code": 201,
+      "notification_id": 2
+    },
+    {
+      "timestamp": "2026-11-15T15:16:18.914705+00:00",
+      "level": "INFO",
+      "logger": "app.integrations.notification_client",
+      "message": "Notification request started",
+      "request_id": "lr30-unavailable",
+      "service": "cloud-application",
+      "event": "notification_request_started",
+      "target_service": "notification"
+    },
+    {
+      "timestamp": "2026-11-15T15:16:20.921937+00:00",
+      "level": "WARNING",
+      "logger": "app.integrations.notification_client",
+      "message": "Notification request retry",
+      "request_id": "lr30-unavailable",
+      "service": "cloud-application",
+      "event": "notification_request_retry",
+      "target_service": "notification",
+      "attempt": 1,
+      "error_type": "ConnectTimeout"
+    },
+    {
+      "timestamp": "2026-11-15T15:16:30.710184+00:00",
+      "level": "INFO",
+      "logger": "app.middleware.request_logging",
+      "message": "HTTP request completed",
+      "request_id": "lr30-timeout",
+      "service": "notification-service",
+      "event": "http_request_completed",
+      "method": "POST",
+      "path": "/notifications",
+      "status_code": 201,
+      "duration_ms": 1.23
+    },
+    {
+      "timestamp": "2026-11-15T15:16:23.431530+00:00",
+      "level": "WARNING",
+      "logger": "app.integrations.notification_client",
+      "message": "Notification request retry",
+      "request_id": "lr30-unavailable",
+      "service": "cloud-application",
+      "event": "notification_request_retry",
+      "target_service": "notification",
+      "attempt": 2,
+      "error_type": "ConnectTimeout"
+    },
+    {
+      "timestamp": "2026-11-15T15:16:31.094161+00:00",
+      "level": "INFO",
+      "logger": "app.notification_service.main",
+      "message": "Notification accepted",
+      "request_id": "lr30-final",
+      "service": "notification-service",
+      "event": "notification_created",
+      "status_code": 201,
+      "notification_id": 3
+    },
+    {
+      "timestamp": "2026-11-15T15:16:31.094338+00:00",
+      "level": "INFO",
+      "logger": "app.middleware.request_logging",
+      "message": "HTTP request completed",
+      "request_id": "lr30-final",
+      "service": "notification-service",
+      "event": "http_request_completed",
+      "method": "POST",
+      "path": "/notifications",
+      "status_code": 201,
+      "duration_ms": 0.57
+    },
+    {
+      "timestamp": "2026-11-15T15:16:26.439452+00:00",
+      "level": "ERROR",
+      "logger": "app.integrations.notification_client",
+      "message": "Notification service unavailable",
+      "request_id": "lr30-unavailable",
+      "service": "cloud-application",
+      "event": "notification_service_unavailable",
+      "target_service": "notification",
+      "attempt": 3,
+      "error_type": "ConnectTimeout"
+    },
+    {
+      "timestamp": "2026-11-15T15:16:26.440311+00:00",
+      "level": "INFO",
+      "logger": "app.middleware.request_logging",
+      "message": "HTTP request completed",
+      "request_id": "lr30-unavailable",
+      "service": "cloud-application",
+      "event": "http_request_completed",
+      "method": "POST",
+      "path": "/integration/notifications",
+      "status_code": 503,
+      "duration_ms": 7533.85
+    },
+    {
+      "timestamp": "2026-11-15T15:16:27.956677+00:00",
+      "level": "INFO",
+      "logger": "app.integrations.notification_client",
+      "message": "Notification request started",
+      "request_id": "lr30-recovery",
+      "service": "cloud-application",
+      "event": "notification_request_started",
+      "target_service": "notification"
+    },
+    {
+      "timestamp": "2026-11-15T15:16:27.979986+00:00",
+      "level": "INFO",
+      "logger": "app.integrations.notification_client",
+      "message": "Notification request completed",
+      "request_id": "lr30-recovery",
+      "service": "cloud-application",
+      "event": "notification_request_completed",
+      "status_code": 201,
+      "duration_ms": 23.2,
+      "target_service": "notification",
+      "attempt": 1
+    },
+    {
+      "timestamp": "2026-11-15T15:16:27.980386+00:00",
+      "level": "INFO",
+      "logger": "app.middleware.request_logging",
+      "message": "HTTP request completed",
+      "request_id": "lr30-recovery",
+      "service": "cloud-application",
+      "event": "http_request_completed",
+      "method": "POST",
+      "path": "/integration/notifications",
+      "status_code": 201,
+      "duration_ms": 30.69
+    },
+    {
+      "timestamp": "2026-11-15T15:16:28.354368+00:00",
+      "level": "INFO",
+      "logger": "app.integrations.notification_client",
+      "message": "Notification request started",
+      "request_id": "lr30-timeout",
+      "service": "cloud-application",
+      "event": "notification_request_started",
+      "target_service": "notification"
+    },
+    {
+      "timestamp": "2026-11-15T15:16:30.367753+00:00",
+      "level": "ERROR",
+      "logger": "app.integrations.notification_client",
+      "message": "Notification service timeout",
+      "request_id": "lr30-timeout",
+      "service": "cloud-application",
+      "event": "notification_service_timeout",
+      "target_service": "notification",
+      "attempt": 1,
+      "error_type": "ReadTimeout"
+    },
+    {
+      "timestamp": "2026-11-15T15:16:30.368766+00:00",
+      "level": "INFO",
+      "logger": "app.middleware.request_logging",
+      "message": "HTTP request completed",
+      "request_id": "lr30-timeout",
+      "service": "cloud-application",
+      "event": "http_request_completed",
+      "method": "POST",
+      "path": "/integration/notifications",
+      "status_code": 504,
+      "duration_ms": 2025.05
+    },
+    {
+      "timestamp": "2026-11-15T15:16:31.086379+00:00",
+      "level": "INFO",
+      "logger": "app.integrations.notification_client",
+      "message": "Notification request started",
+      "request_id": "lr30-final",
+      "service": "cloud-application",
+      "event": "notification_request_started",
+      "target_service": "notification"
+    },
+    {
+      "timestamp": "2026-11-15T15:16:31.095287+00:00",
+      "level": "INFO",
+      "logger": "app.integrations.notification_client",
+      "message": "Notification request completed",
+      "request_id": "lr30-final",
+      "service": "cloud-application",
+      "event": "notification_request_completed",
+      "status_code": 201,
+      "duration_ms": 8.78,
+      "target_service": "notification",
+      "attempt": 1
+    },
+    {
+      "timestamp": "2026-11-15T15:16:31.095722+00:00",
+      "level": "INFO",
+      "logger": "app.middleware.request_logging",
+      "message": "HTTP request completed",
+      "request_id": "lr30-final",
+      "service": "cloud-application",
+      "event": "http_request_completed",
+      "method": "POST",
+      "path": "/integration/notifications",
+      "status_code": 201,
+      "duration_ms": 15.03
+    }
+  ]
+}

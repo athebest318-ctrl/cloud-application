@@ -1,0 +1,6 @@
+Configured max attempts: 1
+{"timestamp": "2026-11-15T15:24:42.292037+00:00", "level": "DEBUG", "logger": "asyncio", "message": "Using proactor: IocpProactor", "request_id": "-"}
+{"timestamp": "2026-11-15T15:24:42.293141+00:00", "level": "INFO", "logger": "app.integrations.notification_client", "message": "Notification request started", "request_id": "-", "service": "cloud-application", "event": "notification_request_started", "target_service": "notification"}
+{"timestamp": "2026-11-15T15:24:42.293141+00:00", "level": "DEBUG", "logger": "app.integrations.notification_client", "message": "Notification request attempt", "request_id": "-", "service": "cloud-application", "event": "notification_request_attempt", "target_service": "notification", "attempt": 1}
+{"timestamp": "2026-11-15T15:24:43.127557+00:00", "level": "ERROR", "logger": "app.integrations.notification_client", "message": "Notification service unavailable", "request_id": "-", "service": "cloud-application", "event": "notification_service_unavailable", "target_service": "notification", "attempt": 1, "error_type": "ConnectTimeout"}
+EXPECTED_RESULT: service unavailable

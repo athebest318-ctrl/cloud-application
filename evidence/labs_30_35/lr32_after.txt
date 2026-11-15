@@ -1,0 +1,46 @@
+> c:\users\артист\documents\codex\2026-10-31\ds\work\cloud-application\scripts\debug_notification_client.py(1)<module>()
+-> """Reproduce retry exhaustion against a local, unavailable endpoint."""
+(Pdb) Breakpoint 1 at c:\users\артист\documents\codex\2026-10-31\ds\work\cloud-application\app\integrations\notification_client.py:70
+(Pdb) Configured max attempts: 3
+{"timestamp": "2026-11-15T15:24:38.809031+00:00", "level": "DEBUG", "logger": "asyncio", "message": "Using proactor: IocpProactor", "request_id": "-"}
+{"timestamp": "2026-11-15T15:24:38.809954+00:00", "level": "INFO", "logger": "app.integrations.notification_client", "message": "Notification request started", "request_id": "-", "service": "cloud-application", "event": "notification_request_started", "target_service": "notification"}
+{"timestamp": "2026-11-15T15:24:38.809954+00:00", "level": "DEBUG", "logger": "app.integrations.notification_client", "message": "Notification request attempt", "request_id": "-", "service": "cloud-application", "event": "notification_request_attempt", "target_service": "notification", "attempt": 1}
+{"timestamp": "2026-11-15T15:24:39.615558+00:00", "level": "WARNING", "logger": "app.integrations.notification_client", "message": "Notification request retry", "request_id": "-", "service": "cloud-application", "event": "notification_request_retry", "target_service": "notification", "attempt": 1, "error_type": "ConnectTimeout"}
+{"timestamp": "2026-11-15T15:24:39.723421+00:00", "level": "DEBUG", "logger": "app.integrations.notification_client", "message": "Notification request attempt", "request_id": "-", "service": "cloud-application", "event": "notification_request_attempt", "target_service": "notification", "attempt": 2}
+{"timestamp": "2026-11-15T15:24:40.483913+00:00", "level": "WARNING", "logger": "app.integrations.notification_client", "message": "Notification request retry", "request_id": "-", "service": "cloud-application", "event": "notification_request_retry", "target_service": "notification", "attempt": 2, "error_type": "ConnectTimeout"}
+{"timestamp": "2026-11-15T15:24:40.686697+00:00", "level": "DEBUG", "logger": "app.integrations.notification_client", "message": "Notification request attempt", "request_id": "-", "service": "cloud-application", "event": "notification_request_attempt", "target_service": "notification", "attempt": 3}
+> c:\users\артист\documents\codex\2026-10-31\ds\work\cloud-application\app\integrations\notification_client.py(70)send_notification()
+-> if attempt == max_attempts:
+(Pdb) 3
+(Pdb) 3
+(Pdb) [1, 2, 3]
+(Pdb) 0.1
+(Pdb)   c:\users\артист\appdata\local\programs\python\python312\lib\bdb.py(600)run()
+-> exec(cmd, globals, locals)
+  <string>(1)<module>()
+  c:\users\артист\documents\codex\2026-10-31\ds\work\cloud-application\scripts\debug_notification_client.py(50)<module>()
+-> main()
+  c:\users\артист\documents\codex\2026-10-31\ds\work\cloud-application\scripts\debug_notification_client.py(42)main()
+-> asyncio.run(send_notification("debug@cloud.local", "LR32 debug"))
+  c:\users\артист\appdata\local\programs\python\python312\lib\asyncio\runners.py(194)run()
+-> return runner.run(main)
+  c:\users\артист\appdata\local\programs\python\python312\lib\asyncio\runners.py(118)run()
+-> return self._loop.run_until_complete(task)
+  c:\users\артист\appdata\local\programs\python\python312\lib\asyncio\base_events.py(672)run_until_complete()
+-> self.run_forever()
+  c:\users\артист\appdata\local\programs\python\python312\lib\asyncio\windows_events.py(321)run_forever()
+-> super().run_forever()
+  c:\users\артист\appdata\local\programs\python\python312\lib\asyncio\base_events.py(639)run_forever()
+-> self._run_once()
+  c:\users\артист\appdata\local\programs\python\python312\lib\asyncio\base_events.py(1985)_run_once()
+-> handle._run()
+  c:\users\артист\appdata\local\programs\python\python312\lib\asyncio\events.py(88)_run()
+-> self._context.run(self._callback, *self._args)
+> c:\users\артист\documents\codex\2026-10-31\ds\work\cloud-application\app\integrations\notification_client.py(70)send_notification()
+-> if attempt == max_attempts:
+(Pdb) {"timestamp": "2026-11-15T15:24:41.424464+00:00", "level": "ERROR", "logger": "app.integrations.notification_client", "message": "Notification service unavailable", "request_id": "-", "service": "cloud-application", "event": "notification_service_unavailable", "target_service": "notification", "attempt": 3, "error_type": "ConnectTimeout"}
+EXPECTED_RESULT: service unavailable
+The program finished and will be restarted
+> c:\users\артист\documents\codex\2026-10-31\ds\work\cloud-application\scripts\debug_notification_client.py(1)<module>()
+-> """Reproduce retry exhaustion against a local, unavailable endpoint."""
+(Pdb)
