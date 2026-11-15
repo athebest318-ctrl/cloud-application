@@ -1,0 +1,150 @@
+
+ENVIRONMENT
+root
+PRETTY_NAME="Ubuntu 24.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.5 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+ Static hostname: 69a7c51803d5
+       Icon name: computer-container
+         Chassis: container ☐
+      Machine ID: 53d9dc44f2a04b9ba83a1fcb2a0a1555
+         Boot ID: 1fdc8deefe494b5ab1624546cae56185
+  Virtualization: wsl
+Operating System: Ubuntu 24.04.5 LTS
+          Kernel: Linux 6.18.33.2-microsoft-standard-WSL2
+    Architecture: x86-64
+systemd 255 (255.4-1ubuntu8.18)
+  UNIT LOAD ACTIVE SUB DESCRIPTION
+
+0 loaded units listed.
+  UNIT                      LOAD   ACTIVE SUB     DESCRIPTION
+  dbus.service              loaded active running D-Bus System Message Bus
+  getty@tty1.service        loaded active running Getty on tty1
+  systemd-hostnamed.service loaded active running Hostname Service
+  systemd-journald.service  loaded active running Journal Service
+  systemd-logind.service    loaded active running User Login Management
+
+Legend: LOAD   → Reflects whether the unit definition was properly loaded.
+        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.
+        SUB    → The low-level unit activation state, values depend on unit type.
+
+5 loaded units listed.
+/etc/systemd/system/cloud-lab-worker.service:7: Special user nobody configured, this is not safe!
+
+BEFORE_START
+ActiveState=inactive
+SubState=dead
+UnitFileState=disabled
+
+AFTER_START
+MainPID=182
+ExecMainStatus=0
+ActiveState=active
+SubState=running
+UnitFileState=disabled
+UID          PID    PPID  C STIME TTY          TIME CMD
+nobody       182       1  1 15:23 ?        00:00:00 /usr/bin/python3 /opt/cloud-lab/service_worker.py
+
+AFTER_STOP
+MainPID=0
+ActiveState=inactive
+Created symlink /etc/systemd/system/multi-user.target.wants/cloud-lab-worker.service → /etc/systemd/system/cloud-lab-worker.service.
+
+ENABLE_WITHOUT_START
+ActiveState=inactive
+UnitFileState=enabled
+RESTART_PID_BEFORE=209 AFTER=213
+Removed "/etc/systemd/system/multi-user.target.wants/cloud-lab-worker.service".
+
+DISABLE_WITHOUT_STOP
+ActiveState=active
+UnitFileState=disabled
+
+JOURNAL_CURRENT_BOOT
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: Stopping cloud-lab-worker.service - Cloud Lab Worker for PM3 LR35...
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: cloud-lab-worker.service: Deactivated successfully.
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: Stopped cloud-lab-worker.service - Cloud Lab Worker for PM3 LR35.
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: /etc/systemd/system/cloud-lab-worker.service:7: Special user nobody configured, this is not safe!
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: /etc/systemd/system/cloud-lab-worker.service:7: Special user nobody configured, this is not safe!
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: /etc/systemd/system/cloud-lab-worker.service:7: Special user nobody configured, this is not safe!
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: /etc/systemd/system/cloud-lab-worker.service:7: Special user nobody configured, this is not safe!
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: Started cloud-lab-worker.service - Cloud Lab Worker for PM3 LR35.
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: Stopping cloud-lab-worker.service - Cloud Lab Worker for PM3 LR35...
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: cloud-lab-worker.service: Deactivated successfully.
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: Stopped cloud-lab-worker.service - Cloud Lab Worker for PM3 LR35.
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: Started cloud-lab-worker.service - Cloud Lab Worker for PM3 LR35.
+Nov 15 15:23:49 69a7c51803d5 python3[213]: cloud-lab-worker started
+Nov 15 15:23:49 69a7c51803d5 python3[213]: heartbeat 2026-11-15T15:23:49.961063+00:00
+Nov 15 15:23:50 69a7c51803d5 systemd[1]: /etc/systemd/system/cloud-lab-worker.service:7: Special user nobody configured, this is not safe!
+
+JOURNAL_TIME_FILTER
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: /etc/systemd/system/cloud-lab-worker.service:7: Special user nobody configured, this is not safe!
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: /etc/systemd/system/cloud-lab-worker.service:7: Special user nobody configured, this is not safe!
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: Started cloud-lab-worker.service - Cloud Lab Worker for PM3 LR35.
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: Stopping cloud-lab-worker.service - Cloud Lab Worker for PM3 LR35...
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: cloud-lab-worker.service: Deactivated successfully.
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: Stopped cloud-lab-worker.service - Cloud Lab Worker for PM3 LR35.
+Nov 15 15:23:49 69a7c51803d5 systemd[1]: Started cloud-lab-worker.service - Cloud Lab Worker for PM3 LR35.
+Nov 15 15:23:49 69a7c51803d5 python3[213]: cloud-lab-worker started
+Nov 15 15:23:49 69a7c51803d5 python3[213]: heartbeat 2026-11-15T15:23:49.961063+00:00
+Nov 15 15:23:50 69a7c51803d5 systemd[1]: /etc/systemd/system/cloud-lab-worker.service:7: Special user nobody configured, this is not safe!
+
+JOURNAL_FOLLOW
+Nov 15 15:23:54 69a7c51803d5 python3[213]: heartbeat 2026-11-15T15:23:54.961279+00:00
+
+CONTROLLED_FAILURE
+Result=exit-code
+ExecMainStatus=42
+ActiveState=failed
+SubState=failed
+  UNIT                     LOAD   ACTIVE SUB    DESCRIPTION
+● cloud-lab-worker.service loaded failed failed Cloud Lab Worker for PM3 LR35
+
+Legend: LOAD   → Reflects whether the unit definition was properly loaded.
+        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.
+        SUB    → The low-level unit activation state, values depend on unit type.
+
+1 loaded units listed.
+Nov 15 15:23:56 69a7c51803d5 systemd[1]: Stopped cloud-lab-worker.service - Cloud Lab Worker for PM3 LR35.
+Nov 15 15:23:56 69a7c51803d5 systemd[1]: /etc/systemd/system/cloud-lab-worker.service:7: Special user nobody configured, this is not safe!
+Nov 15 15:23:56 69a7c51803d5 systemd[1]: /etc/systemd/system/cloud-lab-worker.service:7: Special user nobody configured, this is not safe!
+Nov 15 15:23:56 69a7c51803d5 systemd[1]: /etc/systemd/system/cloud-lab-worker.service:7: Special user nobody configured, this is not safe!
+Nov 15 15:23:56 69a7c51803d5 systemd[1]: Started cloud-lab-worker.service - Cloud Lab Worker for PM3 LR35.
+Nov 15 15:23:56 69a7c51803d5 python3[242]: STARTUP ERROR: fail.flag detected
+Nov 15 15:23:56 69a7c51803d5 systemd[1]: cloud-lab-worker.service: Main process exited, code=exited, status=42/n/a
+Nov 15 15:23:56 69a7c51803d5 systemd[1]: cloud-lab-worker.service: Failed with result 'exit-code'.
+
+RECOVERED_PROPERTIES
+MainPID=252
+ExecMainStatus=0
+ExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /opt/cloud-lab/service_worker.py ; ignore_errors=no ; start_time=[Sun 2026-11-15 15:23:57 UTC] ; stop_time=[n/a] ; pid=252 ; code=(null) ; status=0/0 }
+WorkingDirectory=/opt/cloud-lab
+User=nobody
+Description=Cloud Lab Worker for PM3 LR35
+LoadState=loaded
+ActiveState=active
+SubState=running
+UnitFileState=disabled
+
+AUTOMATIC_RESTART
+NRestarts=1
+ActiveState=activating
+SubState=auto-restart
+active
+active
+
+CLEANUP
+LoadState=not-found
+  UNIT LOAD ACTIVE SUB DESCRIPTION
+
+0 loaded units listed.

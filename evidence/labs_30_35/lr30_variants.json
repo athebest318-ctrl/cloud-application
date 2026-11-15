@@ -1,0 +1,16 @@
+[
+  {
+    "scenario": "timeout_1_second",
+    "status": 504,
+    "seconds": 1.103,
+    "outcome": "Notification service response timeout",
+    "request_id": "timeout_1_second"
+  },
+  {
+    "scenario": "attempts_2_delay_025",
+    "status": 503,
+    "seconds": 2.284,
+    "outcome": "Notification service is unavailable",
+    "request_id": "attempts_2_delay_025"
+  }
+]

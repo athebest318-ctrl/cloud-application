@@ -1,0 +1,100 @@
+$ ruff check C:\Users\Артист\Documents\Codex\2026-10-31\ds\work\static_analysis_sample.py --config C:\Users\Артист\Documents\Codex\2026-10-31\ds\work\cloud-application\pyproject.toml --statistics
+3	F401	[*] unused-import
+1	E401	[*] multiple-imports-on-one-line
+1	E711	[ ] none-comparison
+1	I001	[*] unsorted-imports
+1	F841	[ ] unused-variable
+Found 7 errors.
+[*] 5 fixable with `--fix` (2 unsafe fixes available with `--fix --unsafe-fixes`).
+
+$ ruff check C:\Users\Артист\Documents\Codex\2026-10-31\ds\work\static_analysis_sample.py --config C:\Users\Артист\Documents\Codex\2026-10-31\ds\work\cloud-application\pyproject.toml --fix
+F841 Local variable `unused_value` is assigned to but never used
+ --> work\static_analysis_sample.py:3:5
+  |
+2 | def build_message( name ):
+3 |     unused_value = 10
+  |     ^^^^^^^^^^^^
+4 |     if name == None:
+5 |         return "Unknown"
+  |
+help: Remove assignment to unused variable `unused_value`
+  |
+2 | def build_message( name ):
+
+  -     unused_value = 10
+
+3 |     if name == None:
+
+  |
+note: This is an unsafe fix and may change runtime behavior
+
+E711 Comparison to `None` should be `cond is None`
+ --> work\static_analysis_sample.py:4:16
+  |
+2 | def build_message( name ):
+3 |     unused_value = 10
+4 |     if name == None:
+  |                ^^^^
+5 |         return "Unknown"
+6 |     return "Service: " + name
+  |
+help: Replace with `cond is None`
+  |
+3 |     unused_value = 10
+
+  -     if name == None:
+
+4 +     if name is None:
+
+5 |         return "Unknown"
+
+  |
+note: This is an unsafe fix and may change runtime behavior
+
+Found 6 errors (4 fixed, 2 remaining).
+2 unsafe fixes available with `--fix --unsafe-fixes`.
+
+$ ruff format --diff C:\Users\Артист\Documents\Codex\2026-10-31\ds\work\static_analysis_sample.py
+--- work\static_analysis_sample.py
++++ work\static_analysis_sample.py
+@@ -1,7 +1,7 @@
+-
+
+-def build_message( name ):
+
++def build_message(name):
+
+     if name is None:
+
+         return "Unknown"
+
+     return "Service: " + name
+
+
+
++
+
+ print(build_message("notification"))
+
+
+1 file would be reformatted
+
+$ ruff format C:\Users\Артист\Documents\Codex\2026-10-31\ds\work\static_analysis_sample.py
+1 file reformatted
+
+$ ruff check C:\Users\Артист\Documents\Codex\2026-10-31\ds\work\static_analysis_sample.py
+All checks passed!
+
+$ ruff check C:\Users\Артист\Documents\Codex\2026-10-31\ds\work\static_analysis_sample.py --select F821
+F821 Undefined name `undefined_status`
+ --> work\static_analysis_sample.py:9:7
+  |
+7 | print(build_message("notification"))
+8 |
+9 | print(undefined_status)
+  |       ^^^^^^^^^^^^^^^^
+
+Found 1 error.
+
+$ ruff check C:\Users\Артист\Documents\Codex\2026-10-31\ds\work\static_analysis_sample.py
+All checks passed!
