@@ -98,3 +98,11 @@ New-Item -ItemType Directory -Force secrets
 ## Ошибки запуска
 
 Если PowerShell запрещает `Activate.ps1`, используйте команды выше без активации. При `WinError 10013` или занятом порте измените `APP_PORT` либо `HTTPS_PORT` в `.env` или запустите `run_windows.cmd 8020`. При ошибке подключения к PostgreSQL проверьте сервер, имя БД и файл `secrets/lab_db_password`. При отсутствии сертификата создайте его или временно переключите `HTTPS_ENABLED=false`.
+
+## Эксплуатационные работы 36 37 и 39
+
+Сценарии установки и проверки: [deploy](deploy/README.md). Отдельные отчёты Word на имя Дьяченко Артема находятся в [reports/labs_36_39](reports/labs_36_39); тексты для просмотра на GitHub: [ЛР 36](docs/reports/lr36.md), [ЛР 37](docs/reports/lr37.md), [ЛР 39](docs/reports/lr39.md). Протоколы реальных проверок находятся в [evidence/labs_36_39](evidence/labs_36_39).
+
+На этом компьютере подготовлен дистрибутив WSL 2 `CloudLabs`. В нём сохранены systemd-приложение на `127.0.0.1:8000`, одиночный контейнер на `127.0.0.1:8081` и Compose-проект `cloudapp-lr38` на сетевом IP Linux, порт `8080`. Для входа используйте `wsl -d CloudLabs -u root`. После полного перезапуска WSL проверьте `ip -br addr`: при изменении адреса выполните `sh /mnt/c/Users/Артист/Documents/Codex/2026-10-31/ds/work/cloud-application/deploy/lr39-bind.sh network`. Эта команда пересоздаёт только app и не удаляет данные.
+
+Топология ЛР 39 адаптирована к WSL 2 NAT и vEthernet; отдельные NAT и Host-only адаптеры VirtualBox на этом компьютере не создавались. На обычной VM передайте реальный интерфейс вторым аргументом `lr39-bind.sh`, например `network enp0s8`. По умолчанию Compose публикует app только на loopback, db и notification не публикуются.

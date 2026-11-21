@@ -8,7 +8,7 @@ __pycache__/
 .env
 *.log
 storage/
-secrets/
+/secrets
 certs/*.pem
 certs/*.key
 reports/_rendered/

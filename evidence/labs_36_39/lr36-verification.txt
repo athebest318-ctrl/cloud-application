@@ -1,0 +1,155 @@
+wsl: Failed to start the systemd user session for 'root'. See journalctl for more details.
+
+=== Environment ===
+cloudlabs
+PRETTY_NAME="Ubuntu 24.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.5 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+systemd
+Python 3.12.3
+git version 2.43.0
+uid=997(cloudapp) gid=997(cloudapp) groups=997(cloudapp)
+673e97690b557a5b2e8131d7677407e24108cdf8 Add reproducible server and container deployments and configurable network bind
+?? secrets
+No broken requirements found.
+drwxr-x---  3 root     cloudapp 4096 Nov 21 15:19 /etc/cloud-application
+drwxr-x---  2 root     cloudapp 4096 Nov 21 15:18 /etc/cloud-application/secrets
+drwxrwxr-x 13 cloudapp cloudapp 4096 Nov 21 15:18 /opt/cloud-application/app
+drwxrwxr-x  5 cloudapp cloudapp 4096 Nov 21 15:18 /opt/cloud-application/venv
+-rw-r----- 1 root cloudapp 360 Nov 21 15:18 /etc/cloud-application/cloud-application.env
+-rw-r----- 1 root cloudapp  43 Nov 21 15:18 /etc/cloud-application/secrets/auth_secret
+-rw-r----- 1 root cloudapp  43 Nov 21 15:18 /etc/cloud-application/secrets/lab_db_password
+lrwxrwxrwx 1 root root      30 Nov 21 15:18 /opt/cloud-application/app/secrets -> /etc/cloud-application/secrets
+AUTH_SECRET_READABLE
+DB_SECRET_READABLE
+
+=== Configuration without secrets ===
+APP_NAME=CloudApplication
+APP_VERSION=0.8
+APP_ENV=production
+APP_HOST=127.0.0.1
+APP_PORT=8000
+DEBUG=false
+HTTPS_ENABLED=false
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_NAME=cloud_application
+DB_USER=postgres
+NOTIFICATION_SERVICE_URL=http://127.0.0.1:9000
+NOTIFICATION_TIMEOUT_SECONDS=2.0
+NOTIFICATION_MAX_ATTEMPTS=3
+NOTIFICATION_RETRY_DELAY_SECONDS=0.5
+LOG_LEVEL=INFO
+# /etc/systemd/system/cloud-application.service
+[Unit]
+Description=Cloud Application FastAPI Service
+After=network.target
+
+[Service]
+Type=simple
+User=cloudapp
+Group=cloudapp
+WorkingDirectory=/opt/cloud-application/app
+EnvironmentFile=/etc/cloud-application/cloud-application.env
+ExecStart=/opt/cloud-application/venv/bin/python /opt/cloud-application/app/run.py
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=15
+UMask=0027
+NoNewPrivileges=true
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+
+=== Successful deployment ===
+enabled
+active
+Restart=on-failure
+MainPID=85
+ExecMainStatus=0
+User=cloudapp
+Group=cloudapp
+ActiveState=active
+SubState=running
+    PID USER     GROUP    COMMAND
+     85 cloudapp cloudapp /opt/cloud-application/venv/bin/python /opt/cloud-application/app/run.py
+State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess
+LISTEN 0      2048       127.0.0.1:8000      0.0.0.0:*    users:(("python",pid=85,fd=6))
+{"status":"ok","service":"CloudApplication","environment":"production","host":"127.0.0.1","port":8000,"api_prefix":"/api"}
+docs HTTP 200
+Nov 21 15:19:03 cloudlabs python[572]: INFO:     Waiting for application shutdown.
+Nov 21 15:19:03 cloudlabs python[572]: INFO:     Application shutdown complete.
+Nov 21 15:19:03 cloudlabs python[572]: INFO:     Finished server process [572]
+Nov 21 15:19:03 cloudlabs systemd[1]: cloud-application.service: Deactivated successfully.
+Nov 21 15:19:03 cloudlabs systemd[1]: Stopped cloud-application.service - Cloud Application FastAPI Service.
+Nov 21 15:19:21 cloudlabs systemd[1]: Started cloud-application.service - Cloud Application FastAPI Service.
+Nov 21 15:19:22 cloudlabs python[85]: INFO:     Started server process [85]
+Nov 21 15:19:22 cloudlabs python[85]: INFO:     Waiting for application startup.
+Nov 21 15:19:22 cloudlabs python[85]: INFO:     Application startup complete.
+Nov 21 15:19:22 cloudlabs python[85]: INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+Nov 21 15:19:33 cloudlabs python[85]: {"timestamp": "2026-11-21T10:19:33.809386+00:00", "level": "INFO", "logger": "app.middleware.request_logging", "message": "HTTP request completed", "request_id": "8ce91208f7974b51bc6f19ace80a3e16", "service": "cloud-application", "event": "http_request_completed", "method": "GET", "path": "/status", "status_code": 200, "duration_ms": 24.01}
+Nov 21 15:19:33 cloudlabs python[85]: {"timestamp": "2026-11-21T10:19:33.817957+00:00", "level": "INFO", "logger": "app.middleware.request_logging", "message": "HTTP request completed", "request_id": "a27c845f57b44c21bb2ab731a5e02754", "service": "cloud-application", "event": "http_request_completed", "method": "GET", "path": "<unmatched>", "status_code": 200, "duration_ms": 0.3}
+
+=== Controlled APP_PORT failure ===
+Result=exit-code
+ExecMainStatus=1
+ActiveState=activating
+SubState=auto-restart
+Nov 21 15:19:33 cloudlabs python[85]: {"timestamp": "2026-11-21T10:19:33.809386+00:00", "level": "INFO", "logger": "app.middleware.request_logging", "message": "HTTP request completed", "request_id": "8ce91208f7974b51bc6f19ace80a3e16", "service": "cloud-application", "event": "http_request_completed", "method": "GET", "path": "/status", "status_code": 200, "duration_ms": 24.01}
+Nov 21 15:19:33 cloudlabs python[85]: {"timestamp": "2026-11-21T10:19:33.817957+00:00", "level": "INFO", "logger": "app.middleware.request_logging", "message": "HTTP request completed", "request_id": "a27c845f57b44c21bb2ab731a5e02754", "service": "cloud-application", "event": "http_request_completed", "method": "GET", "path": "<unmatched>", "status_code": 200, "duration_ms": 0.3}
+Nov 21 15:19:33 cloudlabs systemd[1]: Stopping cloud-application.service - Cloud Application FastAPI Service...
+Nov 21 15:19:33 cloudlabs python[85]: INFO:     Shutting down
+Nov 21 15:19:34 cloudlabs python[85]: INFO:     Waiting for application shutdown.
+Nov 21 15:19:34 cloudlabs python[85]: INFO:     Application shutdown complete.
+Nov 21 15:19:34 cloudlabs python[85]: INFO:     Finished server process [85]
+Nov 21 15:19:34 cloudlabs systemd[1]: cloud-application.service: Deactivated successfully.
+Nov 21 15:19:34 cloudlabs systemd[1]: Stopped cloud-application.service - Cloud Application FastAPI Service.
+Nov 21 15:19:34 cloudlabs systemd[1]: cloud-application.service: Consumed 1.023s CPU time, 120.5M memory peak, 0B memory swap peak.
+Nov 21 15:19:34 cloudlabs systemd[1]: Started cloud-application.service - Cloud Application FastAPI Service.
+Nov 21 15:19:34 cloudlabs python[481]: Traceback (most recent call last):
+Nov 21 15:19:34 cloudlabs python[481]:   File "/opt/cloud-application/app/run.py", line 5, in <module>
+Nov 21 15:19:34 cloudlabs python[481]:     from app.config import settings
+Nov 21 15:19:34 cloudlabs python[481]:   File "/opt/cloud-application/app/app/config.py", line 66, in <module>
+Nov 21 15:19:34 cloudlabs python[481]:     settings = get_settings()
+Nov 21 15:19:34 cloudlabs python[481]:                ^^^^^^^^^^^^^^
+Nov 21 15:19:34 cloudlabs python[481]:   File "/opt/cloud-application/app/app/config.py", line 63, in get_settings
+Nov 21 15:19:34 cloudlabs python[481]:     return Settings()
+Nov 21 15:19:34 cloudlabs python[481]:            ^^^^^^^^^^
+Nov 21 15:19:34 cloudlabs python[481]:   File "/opt/cloud-application/venv/lib/python3.12/site-packages/pydantic_settings/main.py", line 292, in __init__
+Nov 21 15:19:34 cloudlabs python[481]:     super().__init__(**__pydantic_self__.__class__._settings_build_values(sources, init_kwargs))
+Nov 21 15:19:34 cloudlabs python[481]:   File "/opt/cloud-application/venv/lib/python3.12/site-packages/pydantic/main.py", line 263, in __init__
+Nov 21 15:19:34 cloudlabs python[481]:     validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+Nov 21 15:19:34 cloudlabs python[481]:                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Nov 21 15:19:34 cloudlabs python[481]: pydantic_core._pydantic_core.ValidationError: 1 validation error for Settings
+Nov 21 15:19:34 cloudlabs python[481]: app_port
+Nov 21 15:19:34 cloudlabs python[481]:   Input should be a valid integer, unable to parse string as an integer [type=int_parsing, input_value='broken', input_type=str]
+Nov 21 15:19:34 cloudlabs python[481]:     For further information visit https://errors.pydantic.dev/2.13/v/int_parsing
+Nov 21 15:19:34 cloudlabs systemd[1]: cloud-application.service: Main process exited, code=exited, status=1/FAILURE
+Nov 21 15:19:34 cloudlabs systemd[1]: cloud-application.service: Failed with result 'exit-code'.
+
+=== Configuration rollback ===
+ENV_BACKUP_RESTORED
+curl: (7) Failed to connect to 127.0.0.1 port 8000 after 0 ms: Couldn't connect to server
+{"status":"ok","service":"CloudApplication","environment":"production","host":"127.0.0.1","port":8000,"api_prefix":"/api"}
+active
+curl: (7) Failed to connect to 127.0.0.1 port 8000 after 0 ms: Couldn't connect to server
+{"status":"ok","service":"CloudApplication","environment":"production","host":"127.0.0.1","port":8000,"api_prefix":"/api"}
+PID_BEFORE=491
+PID_AFTER=501
+MainPID=501
+User=cloudapp
+ActiveState=active
+SubState=running
+UnitFileState=enabled

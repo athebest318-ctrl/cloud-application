@@ -1,0 +1,74 @@
+{
+  "revision": "673e97690b557a5b2e8131d7677407e24108cdf8",
+  "image_id": "sha256:0bbe96f0f5cb48e2e63a787d58e7014cc18da7e065fdd3e0c570dd707dd7a0dd",
+  "image_tag": "cloud-application:lr37-stable",
+  "hostname": "cloudlabs",
+  "os": "Ubuntu 24.04.5 LTS",
+  "kernel": "6.18.33.2-microsoft-standard-WSL2",
+  "python": "Python 3.12.3",
+  "git": "git version 2.43.0",
+  "docker": "29.1.3",
+  "compose_version": "2.40.3+ds1-0ubuntu1~24.04.1",
+  "addresses": "lo               UNKNOWN        127.0.0.1/8 10.255.255.254/32 ::1/128 \neth0             UP             172.30.86.85/20 fe80::215:5dff:fe84:aa8a/64 \ndocker0          UP             172.17.0.1/16 fe80::84d2:eaff:fee6:4cf/64 \nbr-504e02953436  UP             172.18.0.1/16 fe80::583f:66ff:fe44:6473/64 \nveth52cd5dc@if2  UP             fe80::b4be:f9ff:fe19:ccde/64 \nveth1e8ccd2@if2  UP             fe80::7811:d0ff:fe1f:44b0/64 \nveth3fcd3b3@if2  UP             fe80::84d2:ddff:fe2b:8374/64 \nveth5f3a271@if2  UP             fe80::30e9:6ff:fe92:fab6/64",
+  "routes": "default via 172.30.80.1 dev eth0 proto kernel \n172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 \n172.18.0.0/16 dev br-504e02953436 proto kernel scope link src 172.18.0.1 \n172.30.80.0/20 dev eth0 proto kernel scope link src 172.30.86.85",
+  "ip": "172.30.86.85",
+  "env": "APP_NAME=CloudApplication\nAPP_VERSION=0.8\nAPP_ENV=production\nAPP_HOST=127.0.0.1\nAPP_PORT=8000\nDEBUG=false\nHTTPS_ENABLED=false\nDB_HOST=127.0.0.1\nDB_PORT=5432\nDB_NAME=cloud_application\nDB_USER=postgres\nNOTIFICATION_SERVICE_URL=http://127.0.0.1:9000\nNOTIFICATION_TIMEOUT_SECONDS=2.0\nNOTIFICATION_MAX_ATTEMPTS=3\nNOTIFICATION_RETRY_DELAY_SECONDS=0.5\nLOG_LEVEL=INFO",
+  "compose_env": "COMPOSE_PROJECT_NAME=cloudapp-lr38\nCLOUD_APP_IMAGE=cloud-application:lr37-stable\nCLOUD_ENV_FILE=/etc/cloud-application/cloud-application.env\nCLOUD_SECRETS_DIR=/etc/cloud-application-container/secrets\nAPP_PUBLISH_IP=172.30.86.85\nAPP_PUBLISH_PORT=8080",
+  "service_properties": "MainPID=85\nExecMainStatus=0\nUser=cloudapp\nGroup=cloudapp\nActiveState=active\nSubState=running\nUnitFileState=enabled",
+  "service_pid": "85",
+  "service_process": "PID USER     GROUP    COMMAND\n     85 cloudapp cloudapp /opt/cloud-application/venv/bin/python /opt/cloud-application/app/run.py",
+  "service_journal": "Nov 21 15:31:12 cloudlabs python[85]: INFO:     Finished server process [85]\nNov 21 15:31:12 cloudlabs systemd[1]: cloud-application.service: Deactivated successfully.\nNov 21 15:31:12 cloudlabs systemd[1]: Stopped cloud-application.service - Cloud Application FastAPI Service.\nNov 21 15:31:12 cloudlabs systemd[1]: cloud-application.service: Consumed 1.384s CPU time.\nNov 21 15:31:33 cloudlabs systemd[1]: Started cloud-application.service - Cloud Application FastAPI Service.\nNov 21 15:31:34 cloudlabs python[85]: INFO:     Started server process [85]\nNov 21 15:31:34 cloudlabs python[85]: INFO:     Waiting for application startup.\nNov 21 15:31:34 cloudlabs python[85]: INFO:     Application startup complete.\nNov 21 15:31:34 cloudlabs python[85]: INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)",
+  "git_log": "673e976 Add reproducible server and container deployments and configurable network bind",
+  "git_status": "",
+  "service_socket": "State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess\nLISTEN 0      2048       127.0.0.1:8000      0.0.0.0:*    users:((\"python\",pid=85,fd=6))",
+  "app_socket": "State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess\nLISTEN 0      4096    172.30.86.85:8080      0.0.0.0:*    users:((\"docker-proxy\",pid=575,fd=7))",
+  "app_mapping": "172.30.86.85:8080",
+  "compose_ps": "NAME                           IMAGE                           COMMAND                  SERVICE        CREATED         STATUS                     PORTS\ncloudapp-lr38-app-1            cloud-application:lr37-stable   \"python run.py\"          app            3 minutes ago   Up 42 seconds (healthy)    172.30.86.85:8080->8000/tcp\ncloudapp-lr38-db-1             postgres:18                     \"docker-entrypoint.s…\"   db             9 minutes ago   Up 42 seconds (healthy)    5432/tcp\ncloudapp-lr38-migrate-1        cloud-application:lr37-stable   \"sh -c 'alembic upgr…\"   migrate        9 minutes ago   Exited (0) 7 minutes ago   \ncloudapp-lr38-notification-1   cloud-application:lr37-stable   \"python -m uvicorn a…\"   notification   9 minutes ago   Up 42 seconds (healthy)    8000/tcp",
+  "migration": "008_password_hash",
+  "dns": {
+    "db": "172.18.0.4",
+    "notification": "172.18.0.2",
+    "notification_status": {
+      "service": "notification",
+      "status": "running"
+    }
+  },
+  "standalone": {
+    "pid": 480,
+    "status": "running",
+    "image": "sha256:0bbe96f0f5cb48e2e63a787d58e7014cc18da7e065fdd3e0c570dd707dd7a0dd",
+    "restart": "unless-stopped",
+    "mounts": [
+      {
+        "Type": "bind",
+        "Source": "/etc/cloud-application-container/secrets",
+        "Destination": "/app/secrets",
+        "Mode": "",
+        "RW": false,
+        "Propagation": "rprivate"
+      }
+    ],
+    "ports": {
+      "8000/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "8081"
+        }
+      ]
+    }
+  },
+  "app": {
+    "pid": 496,
+    "status": "running",
+    "health": "healthy",
+    "ports": {
+      "8000/tcp": [
+        {
+          "HostIp": "172.30.86.85",
+          "HostPort": "8080"
+        }
+      ]
+    }
+  },
+  "failed_units": "UNIT                      LOAD   ACTIVE SUB    DESCRIPTION\n● kmod-static-nodes.service loaded failed failed Create List of Static Device Nodes\n\nLegend: LOAD   → Reflects whether the unit definition was properly loaded.\n        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.\n        SUB    → The low-level unit activation state, values depend on unit type.\n\n1 loaded units listed."
+}

@@ -1,0 +1,26 @@
+CREATE TABLE
+CREATE TABLE
+INSERT 0 3
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+ Container cloudapp-lr38-notification-1  Running
+ Container cloudapp-lr38-db-1  Running
+ Container cloudapp-lr38-db-1  Waiting
+ Container cloudapp-lr38-db-1  Healthy
+ Container cloudapp-lr38-migrate-1  Starting
+ Container cloudapp-lr38-migrate-1  Started
+ Container cloudapp-lr38-notification-1  Waiting
+ Container cloudapp-lr38-migrate-1  Waiting
+ Container cloudapp-lr38-notification-1  Healthy
+ Container cloudapp-lr38-migrate-1  Exited
+ Container cloudapp-lr38-app-1  Starting
+ Container cloudapp-lr38-app-1  Started
+ Container cloudapp-lr38-db-1  Waiting
+ Container cloudapp-lr38-migrate-1  Waiting
+ Container cloudapp-lr38-app-1  Waiting
+ Container cloudapp-lr38-notification-1  Waiting
+ Container cloudapp-lr38-migrate-1  Exited
+ Container cloudapp-lr38-notification-1  Healthy
+ Container cloudapp-lr38-db-1  Healthy
+ Container cloudapp-lr38-app-1  Healthy

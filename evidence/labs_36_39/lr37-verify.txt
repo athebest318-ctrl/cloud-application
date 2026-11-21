@@ -1,0 +1,87 @@
+
+=== Image and daemon ===
+active
+Client=29.1.3 Server=29.1.3
+ID=sha256:0bbe96f0f5cb48e2e63a787d58e7014cc18da7e065fdd3e0c570dd707dd7a0dd Revision=673e97690b557a5b2e8131d7677407e24108cdf8 User=appuser
+APP_UID=1000 APP_GID=1000
+drwxr-x--- 2 1000 1000 4096 Nov 21 15:21 /etc/cloud-application-container/secrets
+-rw-r----- 1 1000 1000 43 Nov 21 15:21 /etc/cloud-application-container/secrets/auth_secret
+-rw-r----- 1 1000 1000 43 Nov 21 15:21 /etc/cloud-application-container/secrets/lab_db_password
+0702f31326f09630380cd6bb4e29c010ed5b41bfc3a0df8094aa9d289ddf0856
+curl: (56) Recv failure: Connection reset by peer
+curl: (56) Recv failure: Connection reset by peer
+{"status":"ok","service":"CloudApplication","environment":"production","host":"0.0.0.0","port":8000,"api_prefix":"/api"}
+docs HTTP 200
+CONTAINER ID   IMAGE                           COMMAND           CREATED         STATUS         PORTS                      NAMES
+0702f31326f0   cloud-application:lr37-stable   "python run.py"   3 seconds ago   Up 2 seconds   127.0.0.1:8080->8000/tcp   cloud-application-lr37
+8000/tcp -> 127.0.0.1:8080
+Image=sha256:0bbe96f0f5cb48e2e63a787d58e7014cc18da7e065fdd3e0c570dd707dd7a0dd Tag=cloud-application:lr37-stable Restart=unless-stopped State=running PID=997 Mounts=[{"Type":"bind","Source":"/etc/cloud-application-container/secrets","Destination":"/app/secrets","Mode":"","RW":false,"Propagation":"rprivate"}]
+appuser
+/app
+Python 3.14.10
+AUTH_SECRET_READABLE
+DB_SECRET_READABLE
+{"timestamp": "2026-11-21T10:21:10.862147+00:00", "level": "INFO", "logger": "app.middleware.request_logging", "message": "HTTP request completed", "request_id": "dd09f580e6f6400f887d42005d52b29b", "service": "cloud-application", "event": "http_request_completed", "method": "GET", "path": "/status", "status_code": 200, "duration_ms": 19.13}
+{"timestamp": "2026-11-21T10:21:10.870024+00:00", "level": "INFO", "logger": "app.middleware.request_logging", "message": "HTTP request completed", "request_id": "2861d9361ce74a09a5952cf1325f2084", "service": "cloud-application", "event": "http_request_completed", "method": "GET", "path": "<unmatched>", "status_code": 200, "duration_ms": 0.27}
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+
+=== Lifecycle ===
+cloud-application-lr37
+CONTAINER ID   IMAGE                           COMMAND           CREATED         STATUS                              PORTS     NAMES
+0702f31326f0   cloud-application:lr37-stable   "python run.py"   7 seconds ago   Exited (0) Less than a second ago             cloud-application-lr37
+cloud-application-lr37
+curl: (56) Recv failure: Connection reset by peer
+curl: (56) Recv failure: Connection reset by peer
+{"status":"ok","service":"CloudApplication","environment":"production","host":"0.0.0.0","port":8000,"api_prefix":"/api"}
+cloud-application-lr37
+curl: (56) Recv failure: Connection reset by peer
+curl: (56) Recv failure: Connection reset by peer
+{"status":"ok","service":"CloudApplication","environment":"production","host":"0.0.0.0","port":8000,"api_prefix":"/api"}
+PID_BEFORE=1298
+PID_AFTER=1425
+
+=== Failed release ===
+FROM cloud-application:lr37-stable
+CMD ["python", "/app/missing-release.py"]
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  2.048kB
+
+Step 1/2 : FROM cloud-application:lr37-stable
+ ---> 0bbe96f0f5cb
+Step 2/2 : CMD ["python", "/app/missing-release.py"]
+ ---> Running in fd52bc853860
+ ---> Removed intermediate container fd52bc853860
+ ---> dd8c115cb5ef
+Successfully built dd8c115cb5ef
+Successfully tagged cloud-application:lr37-bad
+cloud-application-lr37
+cloud-application-lr37
+21b3d1927990c221b17f54366f3dad27f542279b360956b0555fef3d578c338f
+CONTAINER ID   IMAGE                        COMMAND                  CREATED         STATUS                     PORTS     NAMES
+21b3d1927990   cloud-application:lr37-bad   "python /app/missing…"   2 seconds ago   Exited (2) 2 seconds ago             cloud-application-lr37
+Tag=cloud-application:lr37-bad State=exited ExitCode=2
+python: can't open file '/app/missing-release.py': [Errno 2] No such file or directory
+
+=== Image rollback ===
+cloud-application-lr37
+2f363f2a35a92c1322d3b14533f3a31448f5f65cb66cf6fc1d730edf874b6528
+curl: (56) Recv failure: Connection reset by peer
+curl: (56) Recv failure: Connection reset by peer
+{"status":"ok","service":"CloudApplication","environment":"production","host":"0.0.0.0","port":8000,"api_prefix":"/api"}
+Image=sha256:0bbe96f0f5cb48e2e63a787d58e7014cc18da7e065fdd3e0c570dd707dd7a0dd Tag=cloud-application:lr37-stable Restart=unless-stopped State=running PID=1718 Mounts=[{"Type":"bind","Source":"/etc/cloud-application-container/secrets","Destination":"/app/secrets","Mode":"","RW":false,"Propagation":"rprivate"}]
+docs HTTP 200
+
+=== Docker daemon restart ===
+curl: (56) Recv failure: Connection reset by peer
+curl: (56) Recv failure: Connection reset by peer
+{"status":"ok","service":"CloudApplication","environment":"production","host":"0.0.0.0","port":8000,"api_prefix":"/api"}
+CONTAINER ID   IMAGE                           COMMAND           CREATED         STATUS         PORTS                      NAMES
+2f363f2a35a9   cloud-application:lr37-stable   "python run.py"   6 seconds ago   Up 2 seconds   127.0.0.1:8080->8000/tcp   cloud-application-lr37
+Untagged: cloud-application:lr37-bad
+Deleted: sha256:dd8c115cb5ef38266049b677a32f2b9877dbd3d942d7aedc96a48890a053e316

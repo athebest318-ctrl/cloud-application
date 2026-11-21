@@ -2,6 +2,7 @@ services:
 
   db:
     image: postgres:18
+    restart: unless-stopped
 
     environment:
       POSTGRES_DB: cloud_application
@@ -31,10 +32,10 @@ services:
 
 
   migrate:
-    image: cloud-application:0.8
+    image: ${CLOUD_APP_IMAGE:-cloud-application:0.8}
 
     env_file:
-      - .env
+      - ${CLOUD_ENV_FILE:-.env}
 
     environment:
       DB_HOST: db
@@ -72,10 +73,11 @@ services:
 
 
   app:
-    image: cloud-application:0.8
+    image: ${CLOUD_APP_IMAGE:-cloud-application:0.8}
+    restart: unless-stopped
 
     env_file:
-      - .env
+      - ${CLOUD_ENV_FILE:-.env}
 
     environment:
       APP_HOST: 0.0.0.0
@@ -92,7 +94,14 @@ services:
       NOTIFICATION_RETRY_DELAY_SECONDS: 0.5
 
     ports:
-      - "127.0.0.1:8080:8000"
+      - "${APP_PUBLISH_IP:-127.0.0.1}:${APP_PUBLISH_PORT:-8080}:8000"
+
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/status', timeout=2).read()"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
 
     volumes:
       - object_data:/app/storage
@@ -108,17 +117,24 @@ services:
       migrate:
         condition: service_completed_successfully
       notification:
-        condition: service_started
+        condition: service_healthy
 
     networks:
       - cloud-network
 
 
   notification:
-    image: cloud-application:0.8
+    image: ${CLOUD_APP_IMAGE:-cloud-application:0.8}
+    restart: unless-stopped
     environment:
       LOG_LEVEL: INFO
     command: ["python", "-m", "uvicorn", "app.notification_service.main:app", "--host", "0.0.0.0", "--port", "9000", "--no-access-log"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:9000/status', timeout=2).read()"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
     networks:
       - cloud-network
 
@@ -132,7 +148,7 @@ networks:
 
 secrets:
   lab_db_password:
-    file: ./secrets/lab_db_password
+    file: ${CLOUD_SECRETS_DIR:-./secrets}/lab_db_password
 
   auth_secret:
-    file: ./secrets/auth_secret
+    file: ${CLOUD_SECRETS_DIR:-./secrets}/auth_secret

@@ -1,0 +1,7 @@
+{
+  "ComputerName": "172.30.86.85",
+  "RemotePort": 8080,
+  "InterfaceAlias": "vEthernet (WSL (Hyper-V firewall))",
+  "SourceAddress": "172.30.80.1",
+  "TcpTestSucceeded": false
+}

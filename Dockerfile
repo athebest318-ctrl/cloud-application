@@ -22,7 +22,9 @@ COPY --chown=appuser:appuser run.py ./
 USER appuser
 EXPOSE 8000
 
-LABEL org.opencontainers.image.title="Cloud Application" \
+ARG GIT_REVISION=unknown
+LABEL org.opencontainers.image.revision="${GIT_REVISION}" \
+      org.opencontainers.image.title="Cloud Application" \
       org.opencontainers.image.version="0.8"
 
 CMD ["python", "run.py"]
