@@ -8,5 +8,5 @@ curl: (56) Recv failure: Connection reset by peer
 {"status":"ok","service":"CloudApplication","environment":"production","host":"0.0.0.0","port":8000,"api_prefix":"/api"}
 127.0.0.1:8080
 State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess
-LISTEN 0      4096       127.0.0.1:8080      0.0.0.0:*          
+LISTEN 0      4096       127.0.0.1:8080      0.0.0.0:*
 {"status":"ok","service":"CloudApplication","environment":"production","host":"0.0.0.0","port":8000,"api_prefix":"/api"}

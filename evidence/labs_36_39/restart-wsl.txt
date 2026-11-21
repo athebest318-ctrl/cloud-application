@@ -10,12 +10,12 @@ cloudapp-lr38-app-1 Up 43 seconds (healthy) 172.30.86.85:8080->8000/tcp
 cloudapp-lr38-db-1 Up 43 seconds (healthy) 5432/tcp
 cloudapp-lr38-notification-1 Up 43 seconds (healthy) 8000/tcp
 cloud-application-lr37 Up 43 seconds 127.0.0.1:8081->8000/tcp
-lo               UNKNOWN        127.0.0.1/8 10.255.255.254/32 ::1/128 
-eth0             UP             172.30.86.85/20 fe80::215:5dff:fe84:aa8a/64 
-docker0          UP             172.17.0.1/16 fe80::84d2:eaff:fee6:4cf/64 
-br-504e02953436  UP             172.18.0.1/16 fe80::583f:66ff:fe44:6473/64 
-veth52cd5dc@if2  UP             fe80::b4be:f9ff:fe19:ccde/64 
-veth1e8ccd2@if2  UP             fe80::7811:d0ff:fe1f:44b0/64 
-veth3fcd3b3@if2  UP             fe80::84d2:ddff:fe2b:8374/64 
-veth5f3a271@if2  UP             fe80::30e9:6ff:fe92:fab6/64 
+lo               UNKNOWN        127.0.0.1/8 10.255.255.254/32 ::1/128
+eth0             UP             172.30.86.85/20 fe80::215:5dff:fe84:aa8a/64
+docker0          UP             172.17.0.1/16 fe80::84d2:eaff:fee6:4cf/64
+br-504e02953436  UP             172.18.0.1/16 fe80::583f:66ff:fe44:6473/64
+veth52cd5dc@if2  UP             fe80::b4be:f9ff:fe19:ccde/64
+veth1e8ccd2@if2  UP             fe80::7811:d0ff:fe1f:44b0/64
+veth3fcd3b3@if2  UP             fe80::84d2:ddff:fe2b:8374/64
+veth5f3a271@if2  UP             fe80::30e9:6ff:fe92:fab6/64
 {"status":"ok","service":"CloudApplication","environment":"production","host":"0.0.0.0","port":8000,"api_prefix":"/api"}

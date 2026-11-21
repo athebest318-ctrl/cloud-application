@@ -1,34 +1,34 @@
 cloud-application-lr37
 cloud-application-lr37
 8314415e0aa53064afbc23dd2163da63a5855d27ec329139fea1a6e14c68e2f7
- db Pulling 
- 37fb86c2a767 Pulling fs layer 
- 1837bb99b431 Pulling fs layer 
- 8c4393616907 Pulling fs layer 
- 09b93095874b Pulling fs layer 
- 62f716619e2e Pulling fs layer 
- 00f4238ff416 Pulling fs layer 
- 0fbd9729f0d0 Pulling fs layer 
- 9f5cf0b65151 Pulling fs layer 
- dad2840f1c78 Pulling fs layer 
- 3e6fbba58ab6 Pulling fs layer 
- 7b5527ff7489 Pulling fs layer 
- 335cde62193e Pulling fs layer 
- 26d06a935726 Download complete 
- 0fbd9729f0d0 Download complete 
- 00f4238ff416 Download complete 
+ db Pulling
+ 37fb86c2a767 Pulling fs layer
+ 1837bb99b431 Pulling fs layer
+ 8c4393616907 Pulling fs layer
+ 09b93095874b Pulling fs layer
+ 62f716619e2e Pulling fs layer
+ 00f4238ff416 Pulling fs layer
+ 0fbd9729f0d0 Pulling fs layer
+ 9f5cf0b65151 Pulling fs layer
+ dad2840f1c78 Pulling fs layer
+ 3e6fbba58ab6 Pulling fs layer
+ 7b5527ff7489 Pulling fs layer
+ 335cde62193e Pulling fs layer
+ 26d06a935726 Download complete
+ 0fbd9729f0d0 Download complete
+ 00f4238ff416 Download complete
  ed4e4f8e1aa3 Downloading [========>                                          ]  1.049MB/6.319MB
- 1837bb99b431 Download complete 
+ 1837bb99b431 Download complete
  ed4e4f8e1aa3 Downloading [========>                                          ]  1.049MB/6.319MB
- 62f716619e2e Download complete 
+ 62f716619e2e Download complete
  ed4e4f8e1aa3 Downloading [================>                                  ]  2.097MB/6.319MB
  ed4e4f8e1aa3 Downloading [========================>                          ]  3.146MB/6.319MB
  ed4e4f8e1aa3 Downloading [=========================================>         ]  5.243MB/6.319MB
  9f5cf0b65151 Downloading [==================================================>]     116B/116B
  3e6fbba58ab6 Downloading [==================================================>]  3.145kB/3.145kB
- ed4e4f8e1aa3 Download complete 
- 9f5cf0b65151 Download complete 
- 3e6fbba58ab6 Download complete 
+ ed4e4f8e1aa3 Download complete
+ 9f5cf0b65151 Download complete
+ 3e6fbba58ab6 Download complete
  37fb86c2a767 Downloading [=>                                                 ]  1.049MB/29.86MB
  37fb86c2a767 Downloading [=>                                                 ]  1.049MB/29.86MB
  37fb86c2a767 Downloading [=>                                                 ]  1.049MB/29.86MB
@@ -113,8 +113,8 @@ cloud-application-lr37
  335cde62193e Downloading [=======================================>           ]  1.049MB/1.312MB
  7b5527ff7489 Downloading [======>                                            ]  1.049MB/8.204MB
  dad2840f1c78 Downloading [==>                                                ]  6.291MB/121.4MB
- 8c4393616907 Download complete 
- 335cde62193e Download complete 
+ 8c4393616907 Download complete
+ 335cde62193e Download complete
  7b5527ff7489 Downloading [======>                                            ]  1.049MB/8.204MB
  37fb86c2a767 Downloading [===============================================>   ]  28.31MB/29.86MB
  dad2840f1c78 Downloading [===>                                               ]   7.34MB/121.4MB
@@ -125,7 +125,7 @@ cloud-application-lr37
  dad2840f1c78 Downloading [===>                                               ]   7.34MB/121.4MB
  09b93095874b Downloading [========>                                          ]  1.049MB/6.443MB
  7b5527ff7489 Downloading [======>                                            ]  1.049MB/8.204MB
- 37fb86c2a767 Download complete 
+ 37fb86c2a767 Download complete
  dad2840f1c78 Downloading [===>                                               ]   7.34MB/121.4MB
  09b93095874b Downloading [========>                                          ]  1.049MB/6.443MB
  37fb86c2a767 Extracting 1 s
@@ -160,11 +160,11 @@ cloud-application-lr37
  7b5527ff7489 Downloading [======>                                            ]  1.049MB/8.204MB
  dad2840f1c78 Downloading [===>                                               ]  9.437MB/121.4MB
  09b93095874b Downloading [========>                                          ]  1.049MB/6.443MB
- 37fb86c2a767 Pull complete 
+ 37fb86c2a767 Pull complete
  7b5527ff7489 Downloading [============>                                      ]  2.097MB/8.204MB
  dad2840f1c78 Downloading [====>                                              ]  10.49MB/121.4MB
  09b93095874b Downloading [========>                                          ]  1.049MB/6.443MB
- 0fbd9729f0d0 Pull complete 
+ 0fbd9729f0d0 Pull complete
  7b5527ff7489 Downloading [============>                                      ]  2.097MB/8.204MB
  dad2840f1c78 Downloading [====>                                              ]  10.49MB/121.4MB
  09b93095874b Downloading [========>                                          ]  1.049MB/6.443MB
@@ -273,16 +273,16 @@ cloud-application-lr37
  7b5527ff7489 Downloading [======================================>            ]  6.291MB/8.204MB
  dad2840f1c78 Downloading [=========>                                         ]  23.07MB/121.4MB
  dad2840f1c78 Downloading [=========>                                         ]  23.07MB/121.4MB
- 09b93095874b Download complete 
+ 09b93095874b Download complete
  7b5527ff7489 Downloading [======================================>            ]  6.291MB/8.204MB
  09b93095874b Extracting 1 s
  dad2840f1c78 Downloading [=========>                                         ]  24.12MB/121.4MB
  7b5527ff7489 Downloading [======================================>            ]  6.291MB/8.204MB
  8c4393616907 Extracting 1 s
- 09b93095874b Pull complete 
+ 09b93095874b Pull complete
  7b5527ff7489 Downloading [======================================>            ]  6.291MB/8.204MB
  dad2840f1c78 Downloading [=========>                                         ]  24.12MB/121.4MB
- 8c4393616907 Pull complete 
+ 8c4393616907 Pull complete
  7b5527ff7489 Downloading [======================================>            ]  6.291MB/8.204MB
  dad2840f1c78 Downloading [=========>                                         ]  24.12MB/121.4MB
  dad2840f1c78 Downloading [==========>                                        ]  25.17MB/121.4MB
@@ -296,18 +296,18 @@ cloud-application-lr37
  7b5527ff7489 Downloading [============================================>      ]   7.34MB/8.204MB
  dad2840f1c78 Downloading [==========>                                        ]  26.21MB/121.4MB
  dad2840f1c78 Downloading [===========>                                       ]  27.26MB/121.4MB
- 7b5527ff7489 Download complete 
+ 7b5527ff7489 Download complete
  dad2840f1c78 Downloading [===========>                                       ]  27.26MB/121.4MB
  7b5527ff7489 Extracting 1 s
  dad2840f1c78 Downloading [===========>                                       ]  27.26MB/121.4MB
  7b5527ff7489 Extracting 1 s
  dad2840f1c78 Downloading [===========>                                       ]  28.31MB/121.4MB
  335cde62193e Extracting 1 s
- 7b5527ff7489 Pull complete 
+ 7b5527ff7489 Pull complete
  dad2840f1c78 Downloading [===========>                                       ]  28.31MB/121.4MB
- 9f5cf0b65151 Pull complete 
- 3e6fbba58ab6 Pull complete 
- 335cde62193e Pull complete 
+ 9f5cf0b65151 Pull complete
+ 3e6fbba58ab6 Pull complete
+ 335cde62193e Pull complete
  dad2840f1c78 Downloading [============>                                      ]  29.36MB/121.4MB
  dad2840f1c78 Downloading [============>                                      ]  29.36MB/121.4MB
  dad2840f1c78 Downloading [============>                                      ]  30.41MB/121.4MB
@@ -412,7 +412,7 @@ cloud-application-lr37
  dad2840f1c78 Downloading [================================================>  ]  118.5MB/121.4MB
  dad2840f1c78 Downloading [=================================================> ]  119.5MB/121.4MB
  dad2840f1c78 Downloading [==================================================>]  121.4MB/121.4MB
- dad2840f1c78 Download complete 
+ dad2840f1c78 Download complete
  dad2840f1c78 Extracting 1 s
  dad2840f1c78 Extracting 1 s
  dad2840f1c78 Extracting 1 s
@@ -442,12 +442,12 @@ cloud-application-lr37
  dad2840f1c78 Extracting 3 s
  dad2840f1c78 Extracting 3 s
  dad2840f1c78 Extracting 3 s
- 00f4238ff416 Pull complete 
- 1837bb99b431 Pull complete 
+ 00f4238ff416 Pull complete
+ 1837bb99b431 Pull complete
  62f716619e2e Extracting 1 s
- dad2840f1c78 Pull complete 
- 62f716619e2e Pull complete 
- db Pulled 
+ dad2840f1c78 Pull complete
+ 62f716619e2e Pull complete
+ db Pulled
  Network cloudapp-lr38_cloud-network  Creating
  Network cloudapp-lr38_cloud-network  Created
  Volume cloudapp-lr38_object_data  Creating
