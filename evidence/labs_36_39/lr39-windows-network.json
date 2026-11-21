@@ -1,0 +1,27 @@
+{
+  "ComputerName": "172.30.86.85",
+  "RemotePort": 8080,
+  "InterfaceAlias": "vEthernet (WSL (Hyper-V firewall))",
+  "SourceAddress": "172.30.80.1",
+  "TcpTestSucceeded": true,
+  "StatusHttp": 200,
+  "StatusBody": {
+    "status": "ok",
+    "service": "CloudApplication",
+    "environment": "production",
+    "host": "0.0.0.0",
+    "port": 8000,
+    "api_prefix": "/api"
+  },
+  "DocsHttp": 200,
+  "InternalPorts": [
+    {
+      "Port": 5432,
+      "TcpTestSucceeded": false
+    },
+    {
+      "Port": 9000,
+      "TcpTestSucceeded": false
+    }
+  ]
+}

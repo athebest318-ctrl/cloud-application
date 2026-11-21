@@ -1,0 +1,29 @@
+{
+  "shell_syntax": "passed",
+  "systemd": "active and enabled",
+  "four_http_checks": "200",
+  "secret_scan": "passed",
+  "reports": [
+    {
+      "lab": 36,
+      "author": "Дьяченко Артем",
+      "questions": 47,
+      "rendered_pages": 7,
+      "images_reviewed": true
+    },
+    {
+      "lab": 37,
+      "author": "Дьяченко Артем",
+      "questions": 45,
+      "rendered_pages": 8,
+      "images_reviewed": true
+    },
+    {
+      "lab": 39,
+      "author": "Дьяченко Артем",
+      "questions": 42,
+      "rendered_pages": 8,
+      "images_reviewed": true
+    }
+  ]
+}

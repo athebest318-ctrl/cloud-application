@@ -1,0 +1,12 @@
+ Container cloudapp-lr38-app-1  Recreate
+ Container cloudapp-lr38-app-1  Recreated
+ Container cloudapp-lr38-app-1  Starting
+ Container cloudapp-lr38-app-1  Started
+curl: (56) Recv failure: Connection reset by peer
+curl: (56) Recv failure: Connection reset by peer
+{"status":"ok","service":"CloudApplication","environment":"production","host":"0.0.0.0","port":8000,"api_prefix":"/api"}
+{"status":"ok","service":"CloudApplication","environment":"production","host":"0.0.0.0","port":8000,"api_prefix":"/api"}
+127.0.0.1:8080
+State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess
+LISTEN 0      4096       127.0.0.1:8080      0.0.0.0:*          
+{"status":"ok","service":"CloudApplication","environment":"production","host":"0.0.0.0","port":8000,"api_prefix":"/api"}

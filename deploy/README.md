@@ -6,7 +6,7 @@
 
 ЛР 37: соберите `docker build --build-arg GIT_REVISION=$(git rev-parse HEAD) -t cloud-application:lr37-stable .`. В `/etc/cloud-application-container/secrets` скопируйте секреты из ЛР 36, установите владельца по фактическим UID/GID appuser в образе, права каталогов 0750 и файлов 0640. Запуск: `sudo sh deploy/lr37-run.sh`. Mount доступен только для чтения; порт опубликован на loopback. Для rollback сохраните стабильный Image ID, исследуйте logs и ExitCode неудачного контейнера, удалите только этот контейнер и повторите стабильный запуск.
 
-ЛР 39: в отдельном каталоге `/opt/cloud-application/deploy` разместите `compose.yaml`. Подготовьте Compose `.env` по образцу ниже; `CLOUD_ENV_FILE` содержит обычные настройки runtime, а `CLOUD_SECRETS_DIR` указывает на внешний каталог секретов. Задайте фактический IP Linux-интерфейса. По умолчанию публикация остаётся локальной.
+ЛР 39: `sudo sh deploy/lr39-install.sh` создаёт отдельный каталог `/opt/cloud-application/deploy`, копирует `compose.yaml` вместе с `docker/postgres/*.sql`, создаёт Compose `.env` и поднимает систему. Копирование SQL обязательно: первая миграция предполагает наличие исходных таблиц ЛР 14. Для существующего deployment сценарий останавливается до изменений. `CLOUD_ENV_FILE` содержит обычные настройки runtime, а `CLOUD_SECRETS_DIR` указывает на внешний каталог секретов. Задайте фактический IP Linux-интерфейса. По умолчанию публикация остаётся локальной.
 
 ```dotenv
 COMPOSE_PROJECT_NAME=cloudapp-lr38

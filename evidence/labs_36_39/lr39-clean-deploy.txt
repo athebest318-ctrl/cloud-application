@@ -1,0 +1,60 @@
+ Network cloudapp-lr38-check_cloud-network  Creating
+ Network cloudapp-lr38-check_cloud-network  Created
+ Volume cloudapp-lr38-check_object_data  Creating
+ Volume cloudapp-lr38-check_object_data  Created
+ Volume cloudapp-lr38-check_postgres_data  Creating
+ Volume cloudapp-lr38-check_postgres_data  Created
+ Container cloudapp-lr38-check-notification-1  Creating
+ Container cloudapp-lr38-check-db-1  Creating
+ Container cloudapp-lr38-check-notification-1  Created
+ Container cloudapp-lr38-check-db-1  Created
+ Container cloudapp-lr38-check-migrate-1  Creating
+ Container cloudapp-lr38-check-migrate-1  Created
+ Container cloudapp-lr38-check-app-1  Creating
+ Container cloudapp-lr38-check-app-1  Created
+ Container cloudapp-lr38-check-db-1  Starting
+ Container cloudapp-lr38-check-notification-1  Starting
+ Container cloudapp-lr38-check-notification-1  Started
+ Container cloudapp-lr38-check-db-1  Started
+ Container cloudapp-lr38-check-db-1  Waiting
+ Container cloudapp-lr38-check-db-1  Healthy
+ Container cloudapp-lr38-check-migrate-1  Starting
+ Container cloudapp-lr38-check-migrate-1  Started
+ Container cloudapp-lr38-check-notification-1  Waiting
+ Container cloudapp-lr38-check-migrate-1  Waiting
+ Container cloudapp-lr38-check-notification-1  Healthy
+ Container cloudapp-lr38-check-migrate-1  Exited
+ Container cloudapp-lr38-check-app-1  Starting
+ Container cloudapp-lr38-check-app-1  Started
+ Container cloudapp-lr38-check-migrate-1  Waiting
+ Container cloudapp-lr38-check-app-1  Waiting
+ Container cloudapp-lr38-check-notification-1  Waiting
+ Container cloudapp-lr38-check-db-1  Waiting
+ Container cloudapp-lr38-check-migrate-1  Exited
+ Container cloudapp-lr38-check-notification-1  Healthy
+ Container cloudapp-lr38-check-db-1  Healthy
+ Container cloudapp-lr38-check-app-1  Healthy
+{"status":"ok","service":"CloudApplication","environment":"production","host":"0.0.0.0","port":8000,"api_prefix":"/api"}NAME                                 IMAGE                           COMMAND                  SERVICE        CREATED          STATUS                     PORTS
+cloudapp-lr38-check-app-1            cloud-application:lr37-stable   "python run.py"          app            15 seconds ago   Up 6 seconds (healthy)     127.0.0.1:8082->8000/tcp
+cloudapp-lr38-check-db-1             postgres:18                     "docker-entrypoint.s…"   db             16 seconds ago   Up 15 seconds (healthy)    5432/tcp
+cloudapp-lr38-check-migrate-1        cloud-application:lr37-stable   "sh -c 'alembic upgr…"   migrate        16 seconds ago   Exited (0) 6 seconds ago   
+cloudapp-lr38-check-notification-1   cloud-application:lr37-stable   "python -m uvicorn a…"   notification   16 seconds ago   Up 15 seconds (healthy)    8000/tcp
+008_password_hash
+ Container cloudapp-lr38-check-app-1  Stopping
+ Container cloudapp-lr38-check-app-1  Stopped
+ Container cloudapp-lr38-check-app-1  Removing
+ Container cloudapp-lr38-check-app-1  Removed
+ Container cloudapp-lr38-check-notification-1  Stopping
+ Container cloudapp-lr38-check-migrate-1  Stopping
+ Container cloudapp-lr38-check-migrate-1  Stopped
+ Container cloudapp-lr38-check-migrate-1  Removing
+ Container cloudapp-lr38-check-migrate-1  Removed
+ Container cloudapp-lr38-check-db-1  Stopping
+ Container cloudapp-lr38-check-db-1  Stopped
+ Container cloudapp-lr38-check-db-1  Removing
+ Container cloudapp-lr38-check-db-1  Removed
+ Container cloudapp-lr38-check-notification-1  Stopped
+ Container cloudapp-lr38-check-notification-1  Removing
+ Container cloudapp-lr38-check-notification-1  Removed
+ Network cloudapp-lr38-check_cloud-network  Removing
+ Network cloudapp-lr38-check_cloud-network  Removed

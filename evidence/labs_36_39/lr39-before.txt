@@ -1,0 +1,9 @@
+NAME                           IMAGE                           COMMAND                  SERVICE        CREATED         STATUS                      PORTS
+cloudapp-lr38-app-1            cloud-application:lr37-stable   "python run.py"          app            2 minutes ago   Up 25 seconds (healthy)     127.0.0.1:8080->8000/tcp
+cloudapp-lr38-db-1             postgres:18                     "docker-entrypoint.s…"   db             2 minutes ago   Up 2 minutes (healthy)      5432/tcp
+cloudapp-lr38-migrate-1        cloud-application:lr37-stable   "sh -c 'alembic upgr…"   migrate        2 minutes ago   Exited (0) 25 seconds ago   
+cloudapp-lr38-notification-1   cloud-application:lr37-stable   "python -m uvicorn a…"   notification   2 minutes ago   Up 2 minutes (healthy)      8000/tcp
+127.0.0.1:8080
+State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess
+LISTEN 0      4096       127.0.0.1:8080      0.0.0.0:*          
+{"status":"ok","service":"CloudApplication","environment":"production","host":"0.0.0.0","port":8000,"api_prefix":"/api"}

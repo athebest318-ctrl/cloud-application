@@ -1,0 +1,84 @@
+{
+  "base_url": "http://172.30.86.85:8080",
+  "checks": [
+    {
+      "check": "status",
+      "http": 200
+    },
+    {
+      "check": "docs",
+      "http": 200
+    },
+    {
+      "check": "unauthenticated access rejected",
+      "http": 401
+    },
+    {
+      "check": "registration",
+      "http": 201
+    },
+    {
+      "check": "login",
+      "http": 200
+    },
+    {
+      "check": "viewer role",
+      "http": 200
+    },
+    {
+      "check": "viewer write rejected",
+      "http": 403
+    },
+    {
+      "check": "database service list",
+      "http": 200
+    },
+    {
+      "check": "service create",
+      "http": 201
+    },
+    {
+      "check": "service update",
+      "http": 200
+    },
+    {
+      "check": "object upload",
+      "http": 201
+    },
+    {
+      "check": "notification service integration",
+      "http": 201
+    },
+    {
+      "check": "database data after app restart",
+      "http": 200
+    },
+    {
+      "check": "object data after app restart",
+      "http": 200
+    },
+    {
+      "check": "remove test object",
+      "http": 200
+    },
+    {
+      "check": "remove test service",
+      "http": 200
+    },
+    {
+      "check": "logout",
+      "http": 200
+    },
+    {
+      "check": "closed session rejected",
+      "http": 401
+    }
+  ],
+  "seed_services": 3,
+  "persistence": {
+    "database": true,
+    "object_volume": true,
+    "session": true
+  },
+  "log_secret_check": "passed"
+}

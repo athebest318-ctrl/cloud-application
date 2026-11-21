@@ -11,6 +11,8 @@ install -d -o cloudapp -g cloudapp -m 0755 /opt/cloud-application
 install -d -o root -g cloudapp -m 0750 /etc/cloud-application /etc/cloud-application/secrets
 sudo -u cloudapp git clone "$REPOSITORY" /opt/cloud-application/app
 sudo -u cloudapp git -C /opt/cloud-application/app checkout --detach "$REVISION"
+# Older revisions ignore secrets/ directories but not a symlink named secrets.
+printf '\n/secrets\n' >> /opt/cloud-application/app/.git/info/exclude
 sudo -u cloudapp python3 -m venv /opt/cloud-application/venv
 sudo -u cloudapp /opt/cloud-application/venv/bin/python -m pip install -r /opt/cloud-application/app/requirements.txt
 sudo -u cloudapp /opt/cloud-application/venv/bin/python -m pip check
